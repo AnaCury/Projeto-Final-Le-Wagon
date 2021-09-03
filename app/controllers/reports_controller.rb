@@ -39,7 +39,7 @@ class ReportsController < ApplicationController
     @report.user = current_user
     if @report.save
       ActionCable.server.broadcast('reports', { action: 'create', json: @report, partial: render_to_string(partial: 'report', locals: { report: @report })})
-      redirect_to reports_path(@report)
+      redirect_to show_map_path
     else
       render :new
     end
