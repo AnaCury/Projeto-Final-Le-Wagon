@@ -1,4 +1,4 @@
-<div class="navbar navbar-expand-sm navbar-light navbar-lewagon">
+<div id="top-nav" class="navbar fixed-top navbar-expand-lg navbar-dark">
   <%= link_to root_path, class: "navbar-brand" do %>
     <%= image_tag "safetybar.png" %>
     <% end %>
@@ -8,22 +8,25 @@
   </button>
 
 
-  <div class="collapse navbar-collapse" id="navbarSupportedContent">
-    <ul class="navbar-nav mr-auto">
+  <div class="collapse navbar-collapse" id="topnavbar">
+    <ul class="navbar-nav ml-auto">
       <% if user_signed_in? %>
-        <li class="nav-item active">
+        <li class="nav-item active pr-2">
           <%= link_to "Home", root_path, class: "nav-link" %>
         </li>
-        <li class="nav-item">
+        <li class="nav-item pr-2">
           <%= link_to "Denunciar", new_report_path, class: "nav-link" %>
         </li>
-        <%# <li class="nav-item">
+
+<!--         <%# <li class="nav-item">
           <%= link_to "Denuncias", reports_path, class: "nav-link" %>
-        <%# </li> %>
+        <%# </li> %> -->
+      
         <li class="nav-item">
+
           <%= link_to "Ver Mapa", show_map_path, class: "nav-link" %>
         </li>
-        <li class="nav-item dropdown">
+        <li class="nav-item dropdown pr-2">
           <% if current_user.photo.attached? %>
             <%= cl_image_tag current_user.photo.key, class: "avatar dropdown-toggle", id: "navbarDropdown", data: { toggle: "dropdown" }, 'aria-haspopup': true, 'aria-expanded': false %>
           <% else %>
@@ -36,7 +39,7 @@
           </div>
         </li>
       <% else %>
-        <li class="nav-item">
+        <li class="nav-item pr-2">
           <%= link_to "Login", new_user_session_path, class: "nav-link" %>
         </li>
       <% end %>

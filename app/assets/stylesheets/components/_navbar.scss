@@ -1,17 +1,60 @@
-.navbar-lewagon {
-  justify-content: space-between;
-  background-image: linear-gradient(to top, #09203f 0%, #537895 100%);
-  color: #fff;
+#top-nav.navbar {
+  padding-top: 23px;
+  padding-bottom: 23px;
+  transition: all 0.2s linear 0.2s;
 }
 
-.navbar-lewagon .navbar-collapse {
-  flex-grow: 0;
+#top-nav.navbar a.navbar-brand {
+  font-size: 32px;
+  font-weight: bold;
 }
 
-.navbar-lewagon .navbar-brand img {
-  width: 40px;
+#top-nav.navbar #btn-download {
+  font-weight: bold;
+  margin-left: 20px;
+  border-width: 2px;
+  border-radius: 6px;
+  padding-left: 1.4rem;
+  padding-right: 1.4rem;
 }
 
-.nav-link {
-  color: #fff !important;
+#top-nav.navbar .navbar-nav .nav-item a {
+  padding: 0;
+  margin: 0px 20px;
+  color: #FFF !important;
+  position: relative;
+}
+
+#top-nav.navbar .navbar-nav .nav-item a:before {
+  content: '';
+  position: absolute;
+  display: inline-block;
+  width: 4px;
+  height: 4px;
+  border-radius: 100%;
+  background-color: transparent;
+  top: 10px;
+  left: -8px;
+  transition: all 0.1s linear 0s;
+}
+
+#top-nav.navbar .navbar-nav .nav-item a:hover:before,
+#top-nav.navbar .navbar-nav .nav-item a.active:before {
+  background-color: #fafafa;
+}
+
+#top-nav.navbar.navbar-is-scrolling {
+  padding-top: 0px;
+  padding-bottom: 0px;
+  background-image: linear-gradient(45deg, #5F72BD 0%, #9B23EA 100%);
+  box-shadow: 0px 5px 23px 0px rgba(0, 0, 0, 0.1);
+}
+
+#top-nav .navbar-toggler {
+  border: none;
+  outline: none !important;
+}
+
+#top-nav:not(.collapsed) .navbar-toggler span {
+  background-image: url("data:image/svg+xml;charset=utf8,<svg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'><path stroke='rgba(255, 255, 255, 1)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/></svg>");
 }
