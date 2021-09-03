@@ -1,4 +1,6 @@
 // Specific CSS for your home-page
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@1,900&display=swap');
+
 #fundo {
   background-image: asset-url('seg.jpg');
   height: calc(100vh - 60px);
@@ -11,6 +13,7 @@
 }
 
 #home {
-  color: rgb(255, 0, 191);
-  font-size: 600px;
+  color: #fff;
+  font-size: 900px;
+  font-weight: bolder;
 }
