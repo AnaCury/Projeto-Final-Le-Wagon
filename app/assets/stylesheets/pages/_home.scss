@@ -1,5 +1,5 @@
 div#header {
-  background-image: linear-gradient(45deg, #5F72BD 0%, #9B23EA 100%);
+  background-image: linear-gradient(to top, #0846a3, #1f57b8, #3069ce, #3e7ce5, #4c8ffb);;
   padding-top: 130px;
   padding-bottom: 500px;
   position: relative;
@@ -35,11 +35,4 @@ div#header:before {
   line-height: 27px;
   word-spacing: 1px;
   white-space: pre-line;
-}
-
-#header img#iphonex {
-  position: absolute;
-  margin-left: -35px;
-  margin-top: -15px;
-  width: 320px;
 }
