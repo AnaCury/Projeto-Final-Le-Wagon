@@ -1,0 +1,10 @@
+<% if report.photo.attached? %>
+  <%= cl_image_tag report.photo.key, class: 'card-product-img', height: 300, width: 350, crop: :fill %>
+<% else %>
+  <%= image_tag("noimage.jpg", class: 'card-product-img', height: 300, width: 350, crop: :fill) %>
+<% end %>
+
+<p><%= report.address %></p>
+<p><%= report.description %></p>
+<p><%= report.category %></p>
+<p><%= report.danger_level %></p>

@@ -1,0 +1,12 @@
+<h1 class='container text-center'>Create your Auction</h1>
+
+<div class='container text-center'>
+  <%= simple_form_for @report do |f| %>
+    <%= f.input :description, label: 'Description' %>
+    <%= f.input :category, label: 'Category', collection: ['Acidente de Trânsito','Briga no Trânsito','Briga na rua', 'Briga Doméstica na rua', 'Tráfico de Drogas', 'Utilização de Drogas em via Publica', 'Furto', 'Assalto com arma de fogo']%>
+    <%= f.input :danger_level, label: 'Danger Level', collection: ['1','2','3','4','5'] %>
+    <%= f.input :address, label: 'Address' %>
+    <%= f.input :photo, as: :file %>
+    <%= f.submit class: "btn btn-primary btn-lg" %>
+  <% end %>
+</div>

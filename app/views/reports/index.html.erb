@@ -1,0 +1,21 @@
+
+  <div class="d-flex">
+
+    <div class=" text-center" id="reports-container">
+      <% @reports.each do |report| %>
+      <%= render 'report', report: report %>
+      <% end %>
+    <div id="reports">
+    </div>
+    </div>
+
+    <div class="flex-grow-1">
+      <div id="map"
+        <%# style=" height: 786px;" %>
+        data-markers="<%= @markers.to_json %>"
+        data-report=''
+        data-mapbox-api-key="<%= ENV['MAPBOX_API_KEY'] %>">
+      </div>
+    </div>
+
+  </div>

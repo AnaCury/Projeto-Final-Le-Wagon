@@ -1,0 +1,10 @@
+<div class="container">
+  <h1>Insira seu review</h1>
+
+    <div class='container text-center'>
+      <%= simple_form_for [@report, @review] do |f| %>
+        <%= f.input :content %>
+        <%= f.submit class: "btn btn-primary btn-lg" %>
+      <% end %>
+    </div>
+</div>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Safety For All</title>
+    <!-- <link rel="stylesheet" href="../assets/css/main.css"> -->
+    <!-- <link rel="stylesheet" href="../assets/css/inputs.css"> -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,300,700">
+    <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.2.3/animate.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fylgja@1/fylgja.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+     <%#trocar o application por default se a limpeza de cache nap funcionar 'rm -rf tmp/cache/assets/' %>
+    <%= stylesheet_pack_tag 'application' %>
+    <%= javascript_include_tag 'https://maps.googleapis.com/maps/api/js?key=AIzaSyACxDkarbg-ij9QPqzU_p93pnLLOWlYnRo' %>
+    <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload', defer: true %>
+    <%= javascript_include_tag 'main.js', 'data-turbolinks-track' => true %>
+
+  </head>
+  <body>
+    <%= render 'shared/navbar' %>
+    <%= render 'shared/flashes' %>
+
+    <%= yield %>
+
+    <script>
+      if(!window.location.hash) {
+          window.location = window.location + '#loaded';
+          window.location.reload();
+      }
+    </script>
+  </body>
+</html>

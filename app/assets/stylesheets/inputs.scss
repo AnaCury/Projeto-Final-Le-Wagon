@@ -1,0 +1,126 @@
+@import url("https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700;900&display=swap");
+
+
+.color1{--accent-color:#f50b86}
+.color2{--accent-color:#ff6f00}
+.color3{--accent-color:#a3f307}
+
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+.inputsBody {
+  font-size: 24px;
+  background: var(--dark-color);
+  color: var(--light-color);
+  font-family: "Lato", sans-serif;
+  padding: 2em;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  gap: 2em;
+  user-select: none;
+}
+h1 {
+  text-align: center;
+  font-size: 1.5em;
+}
+.container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  justify-content: center;
+  flex-wrap: wrap;
+  padding: 2em;
+  gap: 4em 2em;
+}
+section{
+  display:grid;
+  place-items: center;
+}
+
+/* radio  */
+.radio-group {
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+  position: relative;
+}
+.radio-group .bullet {
+  position: absolute;
+  width: 1.5em;
+  height: 1.5em;
+  background: radial-gradient(var(--accent-color) 0.4em, rgba(0, 0, 0, 0) 0);
+  border-radius: 50%;
+  top: 0;
+  left: 0;
+  transition: 0.5s top ease;
+}
+.radio-group input {
+  display: none;
+}
+.radio-group label {
+  display: flex;
+  gap: 0.5em;
+  align-items: center;
+  transition: 0.5s color ease;
+  white-space: nowrap;
+  cursor: pointer;
+}
+.radio-group label::before {
+  content: "";
+  width: 1.5em;
+  height: 1.5em;
+  border: 0.125em solid var(--accent-color);
+  border-radius: 50%;
+}
+.radio-group input:checked + label {
+  color: var(--accent-color);
+}
+
+/* checkbox */
+.checkbox-group {
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+}
+.checkbox-group input {
+  display: none;
+}
+.checkbox-group label {
+  display: flex;
+  gap: 0.5em;
+  align-items: center;
+  transition: 0.5s color ease;
+  white-space: nowrap;
+  cursor: pointer;
+  position: relative;
+}
+.checkbox-group label::before {
+  content: "";
+  width: 1.5em;
+  height: 1.5em;
+  border: 0.125em solid var(--accent-color);
+  border-radius: 0.25em;
+}
+.checkbox-group input:checked + label {
+  color: var(--accent-color);
+}
+
+.checkbox-group label::after {
+  content: "";
+  width: 0.75em;
+  height: 0.75em;
+  top: 0.375em;
+  left: 0.375em;
+  border-radius: 0.05em;
+  background-color: var(--accent-color);
+  position: absolute;
+  transform: scale(0);
+  transition: 0.5s transform ease;
+}
+.checkbox-group input:checked + label::after {
+  transform: scale(1);
+}

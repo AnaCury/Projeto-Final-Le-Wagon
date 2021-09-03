@@ -1,0 +1,40 @@
+<div class="container">
+
+  <% if @report.photo.attached? %>
+    <%= cl_image_tag @report.photo.key, class: 'card-product-img', height: 300, width: 350, crop: :fill %>
+  <% else %>
+    <%= image_tag("noimage.jpg", class: 'card-product-img', height: 300, width: 350, crop: :fill) %>
+  <% end %>
+
+  <%= @report.address %>
+  <%= @report.description %>
+  <%= @report.category %>
+  <%= @report.danger_level %>
+  <%= @report.user.first_name.capitalize %>
+
+    <% if @report.reviews.empty? %>
+      <div id="reviews-container" data-report-id='<%= @report.id %>'>
+        <p id='no-reviews-container'>NO reviews yet!</p>
+      </div>
+    <%else%>
+      <div id="reviews-container" data-report-id='<%= @report.id %>'>
+        <% @report.reviews.each do |review|%>
+        <%= render 'reviews/review', review: review %>
+        <% end %>
+      </div>
+      <strong>Total reviews: <span id="review-count"> <%= @report.reviews.length %></span></strong>
+    <% end %>
+
+    <% if @report.status && @report.user != current_user %>
+      <%= link_to "Criar uma review", new_report_review_path(@report), class: "btn px-5" %>
+    <% elsif @report.status && @report.user == current_user %>
+      <p>Caso em andamento!</p>
+    <% else %>
+      <p>Report Solved!</p>
+    <% end %>
+
+    <%= link_to "voltar", reports_path, class: "btn px-5" %>
+    <%= link_to "Delete", report_path, method: :delete, data: { confirm: "Are you sure?" }, class: "btn" %>
+    <%= link_to "Marcar como Concluido", report_close_path(@report), method: :patch, class: "btn" %>
+
+</div>

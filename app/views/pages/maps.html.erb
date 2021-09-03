@@ -1,0 +1,1827 @@
+<style>
+  /* body {
+    background: linear-gradient(180deg,#3ba4ff,#66a5ff);
+    font: 300 18px/18px Roboto
+  } */
+  .gm-style-iw-d>div{
+    color:black;
+  }
+
+  * { padding: 0; margin: 0; }
+  html, body {
+      min-height: 100% !important;
+      height: 100%;
+  }
+
+  html, body, #allMap {
+      width: 100%;
+      height: 100%;
+      margin: 0;
+      padding: 0;
+  }
+
+  #allMap{
+    position:relative;
+  }
+
+  *,
+  :after,
+  :before {
+    box-sizing: border-box
+  }
+
+  .clearfix:after,
+  .clearfix:before {
+    content: '';
+    display: table
+  }
+
+  .clearfix:after {
+    clear: both;
+    display: block
+  }
+
+  .mobile-wrap {
+    margin: auto;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    position: relative;
+    /* background: url(https://raw.githubusercontent.com/khadkamhn/secret-project/master/img/background.jpg) center no-repeat; */
+    box-shadow: 0 12px 15px 0 rgba(0, 0, 0, .24), 0 17px 50px 0 rgba(0, 0, 0, .19)
+  }
+
+  .mobile-wrap:before {
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    content: '';
+    position: absolute;
+    /* background: rgba(90, 93, 165, .8); */
+    background: #030008;
+    /* background: linear-gradient(to bottom, rgba(90, 93, 165, 1), rgba(0, 0, 0, .7)) */
+    background: linear-gradient(to bottom, #030008, rgba(0, 0, 0, .7))
+  }
+
+  .mobile {
+    z-index: 99;
+    color: #fff;
+    height: 100%;
+    padding: 15px;
+    position: relative;
+    width:102%;
+    margin-left: -1%;
+  }
+
+  .mobile .header {
+    clear: both;
+    overflow: hidden;
+    padding-top: 5px;
+  	position:relative;
+  }
+
+  .mobile .header>span {
+    font-size: 24px;
+    min-width: 24px;
+    margin-left: 2.5%;
+    padding-bottom: 2%;
+    padding-right: 3%;
+  }
+  .header>span:hover{
+    cursor: pointer;
+  }
+
+  .mobile .header>.title {
+    font-size: 16px;
+    line-height: 24px;
+    margin-left: 15px
+  }
+
+  .mobile .header .pull-left {
+    float: left
+  }
+
+  .mobile .header .pull-right {
+    float: right
+  }
+  .mobile .header .ion-ios-search{
+  	z-index:999;
+  	position:relative;
+  }
+
+  .mobile .header .ion-ios-arrow-back {
+    min-width: 25px
+  }
+
+  .mobile .header .ion-ios-navicon>i {
+    height: 1px;
+    width: 20px;
+    margin-top: 5px;
+    background: #fff;
+    position: relative;
+    display: inline-block
+  }
+
+  .mobile .header .ion-ios-navicon>i:after,
+  .mobile .header .ion-ios-navicon>i:before {
+    content: '';
+    width: inherit;
+    height: inherit;
+    position: absolute;
+    background: inherit
+  }
+
+  .mobile .header .ion-ios-navicon>i:before {
+    bottom: 12px
+  }
+
+  .mobile .header .ion-ios-navicon>i:after {
+    bottom: 6px
+  }
+  .mobile .header .search{
+  	right:0;
+  	bottom:0;
+  	position:absolute;
+  }
+  .mobile .header .search input{
+  	width:0;
+  	color:#fff;
+  	height:24px;
+  	border:none;
+  	font-size:16px;
+  	max-width:150px;
+  	font-weight:300;
+  	padding-right:30px;
+  	font-family:inherit;
+  	background:transparent;
+  	transition:all .3s ease-in-out 0s;
+  	border-bottom:1px solid transparent;
+  	-webkit-appearance:textfield;
+  }
+  .mobile .header .search input:focus{
+  	outline:none;
+  }
+  .mobile .header .search input::-webkit-search-decoration,
+  .mobile .header .search input::-webkit-search-cancel-button {
+  	-webkit-appearance:none;
+  }
+  .mobile .header .search .search-visible{
+  	width:100%;
+  	border-bottom-color:#aaa;
+  }
+  .nav {
+    right: 35px;
+    z-index: 20;
+    width: 45px;
+    bottom: 15px;
+    height: 45px;
+    display: block;
+    position: absolute;
+    line-height: 45px;
+    border-radius: 50%;
+    box-shadow: 0 0 5px 0 rgba(0, 0, 0, .75)
+  }
+
+  .mask {
+    z-index: 21;
+    color: #fff;
+    width: inherit;
+    height: inherit;
+    cursor: pointer;
+    font-size: 28px;
+    text-align: center;
+    border-radius: 50%;
+    position: absolute;
+    background: #f23363;
+    transition: all .1s ease-in-out 0s
+  }
+
+  .nav.active .mask {
+    background: #cf0e3f;
+    transform: rotate(-135deg)
+  }
+
+  .nav:after {
+    top: 0;
+    left: 0;
+    content: '';
+    width: inherit;
+    height: inherit;
+    border-radius: 50%;
+    position: absolute;
+    background: #f23363;
+    transition: all .1s ease-in-out 0s
+  }
+
+  .nav.active:after {
+    top: -125px;
+    left: -125px;
+    width: 350px;
+    height: 350px
+  }
+
+  .nav-item-map {
+    top: 0;
+    left: 0;
+    z-index: 19;
+    // width: 45px;
+    // height: 45px;
+    width: 1px;
+    height: 1px;
+    color: #fff;
+    font-size: 24px;
+    transform: none;
+    line-height: 45px;
+    border-radius: 50%;
+    position: absolute;
+    text-align: center;
+    transition: all .3s cubic-bezier(.68, 1.55, .265, 1);
+  }
+
+  .nav.active .nav-count-1 {
+    transform: translate(10px, -100px);
+    width: 45px;
+    height: 45px;
+  }
+
+  .nav.active .nav-count-2 {
+    transform: translate(-35px, -80px);
+    width: 45px;
+    height: 45px;
+  }
+
+  .nav.active .nav-count-3 {
+    transform: translate(-80px, -45px);
+    width: 45px;
+    height: 45px;
+  }
+
+  .nav.active .nav-count-4 {
+    transform: translate(-100px, 0);
+    width: 45px;
+    height: 45px;
+  }
+
+  .pull-left {
+    float: left
+  }
+
+  .pull-right {
+    float: right
+  }
+
+  .html,
+  .invisible {
+    display: none
+  }
+
+  .html.visible,
+  .visible {
+    display: block
+  }
+
+  .sidebar .sidebar-content,
+  .sidebar .sidebar-overlay {
+    top: 0;
+    left: 0;
+    bottom: 0;
+    position: absolute;
+    transition: all .3s ease-in-out 0s
+  }
+
+  .sidebar .sidebar-overlay {
+    right: 0;
+    opacity: 0;
+    width: 100%;
+    z-index: 999;
+    transform: scale(0);
+    background: rgba(0, 0, 0, .4)
+  }
+
+  .sidebar .sidebar-content {
+    width: 20%;
+    color: #333;
+    padding: 15px;
+    z-index: 9999;
+    background: #fff;
+    transform: translateX(-100%);
+    padding-left:3%;
+  }
+
+  .sidebar.active .sidebar-content {
+    transform: translateX(0)
+  }
+
+  .sidebar.active .sidebar-overlay {
+    opacity: 1;
+    transform: scale(1)
+  }
+
+  .sidebar .sidebar-content .top-head .name {
+    font-size: 28px;
+    font-weight: 400;
+    margin-bottom: 5px
+  }
+
+  .sidebar .sidebar-content .top-head .email {
+    font-size: 13px;
+    margin-bottom: 50px
+  }
+
+  .sidebar .sidebar-content .nav-left>a {
+    color: #333;
+    display: block;
+    font-size: 16px;
+    padding: 10px 0;
+    line-height: 24px;
+    vertical-align: top;
+    text-decoration: none
+  }
+
+  .sidebar .sidebar-content .nav-left>a>span {
+    color: #aaa;
+    font-size: 24px;
+    min-width: 40px;
+    display: inline-block
+  }
+
+  .html.chats,
+  .html.search,
+  .html.compose,
+  .html.credits,
+  .html.settings,
+  .html.welcome {
+    margin-top: 50px
+  }
+
+  .on-off {
+    display: none
+  }
+
+  .on-off+label {
+    width: 30px;
+    height: 10px;
+    position: relative;
+    border-radius: 5px;
+    background: #dedee0;
+    display: inline-block;
+    transition: all .3s ease-in-out 0s
+  }
+
+  .on-off+label:after {
+    left: 0;
+    top: -2px;
+    width: 15px;
+    content: '';
+    height: 15px;
+    position: absolute;
+    border-radius: 50%;
+    background: #bebdc2;
+    transition: all .3s ease-in-out 0s
+  }
+
+  .on-off:checked+label {
+    background: #fd99b3
+  }
+
+  .on-off:checked+label:after {
+    left: 15px;
+    background: #fb3666
+  }
+
+  .btn {
+    color: #eee;
+    width: 100%;
+    border: none;
+    font-size: 16px;
+    padding: 12px 24px;
+    background: #cf0e3f;
+    border-radius: 30px
+  }
+  .search .title{
+  	font-size:24px;
+  }
+  .search .title p{
+  	margin:0;
+  	font-size:16px;
+  	line-height:18px;
+  }
+  .welcome .datetime .date,
+  .welcome .datetime .day {
+    margin-bottom: 15px
+  }
+
+  .welcome .datetime .day {
+    font-size: 28px;
+    -webkit-animation-duration: .2s;
+    animation-duration: .2s
+  }
+
+  .welcome .datetime .date {
+    -webkit-animation-duration: .35s;
+    animation-duration: .35s
+  }
+
+  .forecast {
+    margin-top: 30px
+  }
+
+  .forecast .temperature {
+    text-align: right
+  }
+
+  .forecast .datetime .day,
+  .forecast .temperature .unit {
+    font-size: 28px;
+    min-height: 33px
+  }
+
+  .forecast .datetime .date,
+  .forecast .temperature .location {
+    color: #ccc;
+    font-size: 12px
+  }
+
+  .forecast .temperature .unit>i {
+    top: -2px;
+    font-style: normal;
+    position: relative
+  }
+
+  .forecast .animated {
+    -webkit-animation-duration: .2s;
+    animation-duration: .2s
+  }
+
+  .alarm-list {
+    margin-top: 50px
+  }
+
+  .alarm-list .note {
+    padding: 10px 0
+  }
+
+  .alarm-list .note:nth-child(1) {
+    -webkit-animation-duration: .2s;
+    animation-duration: .2s
+  }
+
+  .alarm-list .note:nth-child(2) {
+    -webkit-animation-duration: .3s;
+    animation-duration: .3s
+  }
+
+  .alarm-list .note:nth-child(3) {
+    -webkit-animation-duration: .4s;
+    animation-duration: .4s
+  }
+
+  .alarm-list .note .time {
+    min-width: 35px;
+    margin-right: 30px
+  }
+
+  .alarm-list .note .time>.shift,
+  .alarm-list .note .to-do>.subject {
+    color: #ccc;
+    font-size: 11px
+  }
+
+  .alarm-list .note .time {
+    text-align: center
+  }
+
+  .alarm-list .note .to-do>.title {
+    font-size: 14px
+  }
+
+  .alarm-list .note:not(:last-child) {
+    position: relative
+  }
+
+  .alarm-list .note:not(:last-child):before {
+    bottom: 0;
+    width: 82%;
+    content: '';
+    right: -15px;
+    position: absolute;
+    border-bottom: 1px solid rgba(170, 170, 170, .5)
+  }
+
+  .user-list .user {
+    width: 30px;
+    height: 30px;
+    margin: 4px;
+    overflow: hidden;
+    border-radius: 50%;
+    display: inline-block;
+    border: 1px solid #bbb
+  }
+
+  .user-list .user>img {
+    width: 100%
+  }
+
+  .compose .forms .group {
+    margin-bottom: 15px
+  }
+
+  .compose .forms .group>label {
+    padding: 6px 0;
+    min-width: 40px;
+    display: inline-block
+  }
+
+  .compose .forms .group>label>span {
+    min-width: 20px;
+    display: inline-block
+  }
+
+  .compose .forms .group input,
+  .compose .forms .group textarea {
+    color: #fff;
+    border: none;
+    resize: none;
+    min-width: 185px;
+    background: 0 0;
+    padding: 5px 10px 1px;
+    border-bottom: 1px solid rgba(170, 170, 170, .6)
+  }
+
+  .compose .forms .visible {
+    width: 100%;
+    display: block!important
+  }
+
+  .compose .forms .action {
+    margin-top: 50px
+  }
+
+  .compose .forms .group:nth-child(1) {
+    -webkit-animation-duration: .1s;
+    animation-duration: .1s
+  }
+
+  .compose .forms .group:nth-child(2) {
+    -webkit-animation-duration: .2s;
+    animation-duration: .2s
+  }
+
+  .compose .forms .group:nth-child(3) {
+    -webkit-animation-duration: .3s;
+    animation-duration: .3s
+  }
+
+  .compose .forms .group:nth-child(4) {
+    -webkit-animation-duration: .4s;
+    animation-duration: .4s
+  }
+
+  .chats .tabs-list {
+    margin-bottom: 15px
+  }
+
+  .chats .tabs-list .tab {
+    float: left;
+    color: #aaa;
+    font-size: 12px;
+    font-weight: 400;
+    margin-right: 15px;
+    padding-bottom: 2px;
+    text-decoration: none;
+    text-transform: uppercase;
+    border-bottom: 2px solid transparent
+  }
+
+  .chats .tabs-list .tab.active,
+  .chats .tabs-list .tab:hover {
+    color: #fff;
+    border-bottom: 2px solid
+  }
+
+  .chats .active-users .user {
+    padding: 5px 0;
+    cursor: default
+  }
+
+  .chats .active-users .photo {
+    width: 40px;
+    height: 40px;
+    overflow: hidden;
+    border-radius: 50%;
+    border: 2px solid #fff;
+    box-shadow: 0 3px 2px rgba(0, 0, 0, .4)
+  }
+
+  .chats .active-users .photo img {
+    width: 100%
+  }
+
+  .chats .active-users .desc {
+    margin-left: 15px
+  }
+
+  .chats .active-users .desc p {
+    margin: 0;
+    font-size: 14px
+  }
+
+  .chats .active-users .desc .name {
+    font-weight: 400
+  }
+
+  .chats .active-users .desc .position {
+    color: #aaa;
+    font-size: 12px
+  }
+
+  .chats .active-users .user .idle {
+    height: 40px;
+    position: relative
+  }
+
+  .chats .active-users .user .idle>span {
+    top: 50%;
+    right: 0;
+    width: 15px;
+    height: 15px;
+    margin-top: -7.5px;
+    position: absolute;
+    border-radius: 50%;
+    display: inline-block;
+    border: 1px solid #fff
+  }
+
+  .chats .active-users .user .idle>.online {
+    background: #2ecc71
+  }
+
+  .chats .active-users .user .idle>.offline {
+    background: #95a5a6
+  }
+
+  .chats .active-users .user .idle>.away {
+    background: #f2ca27
+  }
+
+  .chats .active-users .user:nth-child(1) {
+    -webkit-animation-duration: .18s;
+    animation-duration: .18s
+  }
+
+  .chats .active-users .user:nth-child(2) {
+    -webkit-animation-duration: .25s;
+    animation-duration: .25s
+  }
+
+  .chats .active-users .user:nth-child(3) {
+    -webkit-animation-duration: .35s;
+    animation-duration: .35s
+  }
+
+  .chats .active-users .user:nth-child(4) {
+    -webkit-animation-duration: .4s;
+    animation-duration: .4s
+  }
+
+  .chats .active-users .user:nth-child(5) {
+    -webkit-animation-duration: .5s;
+    animation-duration: .5s
+  }
+
+  .chats .active-users .user:nth-child(6) {
+    -webkit-animation-duration: .6s;
+    animation-duration: .6s
+  }
+
+  .chats .active-users .user .idle>span:before {
+    right: 20px;
+    bottom: -2px;
+    display: none;
+    padding: 0 5px;
+    font-size: 12px;
+    position: absolute;
+    border-radius: 2px;
+    content: attr(class);
+    background: rgba(0, 0, 0, .4);
+    text-transform: capitalize
+  }
+
+  .chats .active-users .user:hover .idle>span:before {
+    display: block;
+    -webkit-animation: fadeInRight .4s;
+    animation: fadeInRight .4s
+  }
+
+  .profile {
+    margin-top: 40px
+  }
+
+  .profile .photo {
+    margin: auto;
+    width: 150px;
+    height: 150px;
+    overflow: hidden;
+    position: relative;
+    border-radius: 50%;
+    border: 6px solid #ccc
+  }
+
+  .profile .photo img {
+    width: 100%;
+    border-radius: 50%;
+    transition: all .2s ease-in-out 0s
+  }
+
+  .profile .photo .social {
+    top: 50%;
+    left: 50%;
+    width: 30px;
+    z-index: 99;
+    height: 30px;
+    margin-top: -15px;
+    margin-left: -15px;
+    position: absolute;
+    transform: scale(0);
+    transition: all .4s ease-in-out 0s
+  }
+
+  .profile .photo .social .soc-item {
+    top: 0;
+    left: 0;
+    z-index: 19;
+    width: 35px;
+    height: 35px;
+    color: #eee;
+    font-size: 24px;
+    transform: none;
+    line-height: 35px;
+    border-radius: 50%;
+    position: absolute;
+    text-align: center;
+    transition: all .3s cubic-bezier(.68, 1.55, .265, 1)
+  }
+
+  .profile .photo .social .soc-item:hover {
+    color: #fff
+  }
+
+  .profile .photo:after {
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 0;
+    content: '';
+    position: absolute;
+    border-radius: 50%;
+    transform: scale(0);
+    background: rgba(0, 0, 0, .2);
+    transition: all .3s ease-in-out 0s
+  }
+
+  .profile .photo:hover img {
+    transform: scale(.5) rotate(10deg)
+  }
+
+  .profile .photo:hover .social,
+  .profile .photo:hover:after {
+    transform: scale(1)
+  }
+
+  .profile .photo:hover .social .soc-count-1 {
+    transform: translate(0, -50px)
+  }
+
+  .profile .photo:hover .social .soc-count-2 {
+    transform: translate(-35px, -35px)
+  }
+
+  .profile .photo:hover .social .soc-count-3 {
+    transform: translate(-50px, 0)
+  }
+
+  .profile .photo:hover .social .soc-count-4 {
+    transform: translate(-35px, 35px)
+  }
+
+  .profile .photo:hover .social .soc-count-5 {
+    transform: translate(0, 50px)
+  }
+
+  .profile .photo:hover .social .soc-count-6 {
+    transform: translate(35px, 35px)
+  }
+
+  .profile .photo:hover .social .soc-count-7 {
+    transform: translate(50px, 0)
+  }
+
+  .profile .photo:hover .social .soc-count-8 {
+    transform: translate(35px, -35px)
+  }
+
+  .profile .details .heading {
+    padding: 5px;
+    margin: 10px 0;
+    text-align: center;
+    border-radius: 15px;
+    background: rgba(0, 0, 0, .4)
+  }
+
+  .profile .details .heading>.name {
+    font-size: 18px;
+    font-weight: 400;
+    padding-right: 5px
+  }
+
+  .profile .details .heading>.position {
+    font-size: 12px;
+    padding-left: 5px;
+    vertical-align: 1px;
+    border-left: 1px solid
+  }
+
+  .profile .details .text {
+    margin: 0;
+    color: #ccc;
+    line-height: 24px;
+    text-align: center;
+    -webkit-animation-duration: .4s;
+    animation-duration: .4s
+  }
+
+  .setting-list {
+    margin-left: -15px;
+    margin-right: -15px
+  }
+
+  .setting-list .gear {
+    padding: 10px 15px;
+    font-size: 14px;
+    font-weight: 400
+  }
+
+  .setting-list .gear:not(:last-child) {
+    border-bottom: 1px solid rgba(170, 170, 170, .4)
+  }
+
+  .setting-list .gear>.action {
+    color: #aaa
+  }
+
+  .setting-list .gear:nth-child(1) {
+    -webkit-animation-duration: .1s;
+    animation-duration: .1s
+  }
+
+  .setting-list .gear:nth-child(2) {
+    -webkit-animation-duration: .2s;
+    animation-duration: .2s
+  }
+
+  .setting-list .gear:nth-child(3) {
+    -webkit-animation-duration: .3s;
+    animation-duration: .3s
+  }
+
+  .setting-list .gear:nth-child(4) {
+    -webkit-animation-duration: .4s;
+    animation-duration: .4s
+  }
+
+  .setting-list .gear:nth-child(5) {
+    -webkit-animation-duration: .5s;
+    animation-duration: .5s
+  }
+
+  .setting-list .gear:nth-child(6) {
+    -webkit-animation-duration: .6s;
+    animation-duration: .6s
+  }
+
+  .credits .title {
+    line-height: 24px;
+    text-align: center
+  }
+
+  .credits .credit-ol {
+    margin: 20px 0;
+    counter-reset: credits
+  }
+
+  .credits .credit-li {
+    line-height: 30px;
+    position: relative;
+    padding-left: 20px
+  }
+
+  .credits .credit-li:before {
+    top: 0;
+    left: 0;
+    position: absolute;
+    content: counter(credits);
+    counter-increment: credits
+  }
+
+  .credits .credit-li:nth-child(1) {
+    -webkit-animation-duration: .3s;
+    animation-duration: .3s
+  }
+
+  .credits .credit-li:nth-child(2) {
+    -webkit-animation-duration: .4s;
+    animation-duration: .4s
+  }
+
+  .credits .credit-li:nth-child(3) {
+    -webkit-animation-duration: .5s;
+    animation-duration: .5s
+  }
+
+  .credits .credit-li:nth-child(4) {
+    -webkit-animation-duration: .6s;
+    animation-duration: .6s
+  }
+
+  .credits .credit-li:nth-child(5) {
+    -webkit-animation-duration: .7s;
+    animation-duration: .7s
+  }
+
+  .credits .credit-li:nth-child(6) {
+    -webkit-animation-duration: .8s;
+    animation-duration: .8s
+  }
+
+  .credits .credit-li a {
+    color: inherit;
+    text-decoration: none;
+    padding: 1px 5px;
+    border-radius: 13px;
+    transition: all .6s ease-in-out 0s
+  }
+
+  .credits .credit-li:hover a {
+    box-shadow: 150px 0 0 0 rgba(0, 0, 0, .4) inset
+  }
+
+  .credits .credit-li span {
+    font-size: 13px
+  }
+
+  .credits .text {
+    margin-top: 10px;
+    line-height: 22px;
+    text-align: center
+  }
+
+
+  @media only screen and (max-width: 700px) {
+    .mobile {
+      width:106%;
+      margin-left: -3%;
+    }
+    .sidebar .sidebar-content {
+      padding-left:8%;
+      width:50%;
+    }
+  }
+
+
+  #mainPageSettings:hover{
+    cursor:pointer;
+  }
+
+  dialog{
+    z-index:1000 !important;
+  }
+
+
+  /* SWITCH */
+
+  .switchContainer{
+      display: flex;
+      justify-content: center;
+      align-items: center;
+  }
+
+  .switch{
+      position: relative;
+      width: 80px;
+      height: 38px;
+  }
+
+  .switch input{
+      opacity: 0;
+      height: 0;
+      width: 0;
+  }
+
+  .slider{
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      transition: 0.4s;
+      background-color:white;
+      border-radius: 34px;
+      position: absolute;
+      cursor: pointer;
+      box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
+  }
+
+  .slider::before{
+      content: '';
+      position: absolute;
+      background-color: #343434;
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      left: 8px;
+      bottom: 2px;
+      transition: 0.4s;
+      box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
+  }
+
+  .switch input:checked + .slider::before{
+      transform: translateX(30px);
+        background-color: white;
+  }
+
+  .switch input:checked + .slider{
+      background-color: #343434;
+  }
+
+</style>
+<div class="mobile-wrap">
+  <!-- <div id="modalReport" class="modal" style='z-index:1000 !important'>
+
+
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <h1>Registrar Ocorrência - <span id="newRecordTitle"></span></h1><br />
+
+      <p>Deseja Adicionar alguma descrição ou comentário da ocorrência?</p>
+
+      <textarea name="name" rows="8" cols="80"></textarea><br />
+
+      <button type="button" name="button">Registrar</button>
+    </div>
+
+  </div> -->
+  <dialog id="dialogLogInWarning" class="snackbar">
+    <div class="absolute right-0 top-0">
+        <button type="button" class="btn -icon close">
+            <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="#000000"><path d="M0 0h24v24H0z" fill="none"/><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+    </div>
+    <h1>Você precisa estar logado para registrar ocorrências!</h1>
+  </dialog>
+  <dialog id="modalReviews" class="lg-w-50">
+      <div class="absolute right-0 top-0">
+          <button type="button" class="btn -icon close">
+              <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="#000000"><path d="M0 0h24v24H0z" fill="none"/><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+          </button>
+      </div>
+      <div class="dialog-inner">
+          <h1>Ocorrência - <span id="recordName"></span></h1>
+          Descrição: <p id='description'></p>
+          Categoria: <p id='category'></p>
+          Nível: <p id='danger_level'></p>
+          Endereço: <p id='address'></p>
+          Latitude: <p id='recordLat'></p>
+          Longitude: <p id='recordLong'></p>
+          User: <p id='userName'></p>
+      </div>
+  </dialog>
+  <dialog id="modalReport" class="lg-w-50">
+      <div class="absolute right-0 top-0">
+          <button type="button" class="btn -icon close">
+              <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="#000000"><path d="M0 0h24v24H0z" fill="none"/><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+          </button>
+      </div>
+      <div class="dialog-inner">
+          <h1>Registrar Ocorrência - <span id="newRecordTitle"></span></h1>
+          <p>
+              Lorem ipsum dolor sit amet consectetur adipisicing elit.
+              Quibusdam, in incidunt, id quos facere hic corrupti, quia
+              perferendis atque consectetur ipsum eaque quo quod explicabo.
+              Aspernatur repudiandae voluptas dolore impedit? Lorem ipsum
+              dolor sit amet consectetur adipisicing elit. Quibusdam, in
+              incidunt, id quos facere hic corrupti, quia perferendis atque
+              consectetur ipsum eaque quo quod explicabo. Aspernatur
+              repudiandae voluptas dolore impedit?
+          </p>
+          <p>
+              Lorem ipsum dolor sit amet consectetur adipisicing elit.
+              Quibusdam, in incidunt, id quos facere hic corrupti, quia
+              perferendis atque consectetur ipsum eaque quo quod explicabo.
+              Aspernatur repudiandae voluptas dolore impedit? Lorem ipsum
+              dolor sit amet consectetur adipisicing elit. Quibusdam, in
+              incidunt, id quos facere hic corrupti, quia perferendis atque
+              consectetur ipsum eaque quo quod explicabo. Aspernatur
+              repudiandae voluptas dolore impedit?
+          </p>
+      </div>
+  </dialog>
+  <dialog id="modalCredits" class="lg-w-50">
+      <div class="absolute right-0 top-0">
+          <button type="button" class="btn -icon close">
+              <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="#000000"><path d="M0 0h24v24H0z" fill="none"/><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+          </button>
+      </div>
+      <div class="dialog-inner">
+          <h1>Creditos</h1>
+          <p>
+              Lorem ipsum dolor sit amet consectetur adipisicing elit.
+              Quibusdam, in incidunt, id quos facere hic corrupti, quia
+              perferendis atque consectetur ipsum eaque quo quod explicabo.
+              Aspernatur repudiandae voluptas dolore impedit? Lorem ipsum
+              dolor sit amet consectetur adipisicing elit. Quibusdam, in
+              incidunt, id quos facere hic corrupti, quia perferendis atque
+              consectetur ipsum eaque quo quod explicabo. Aspernatur
+              repudiandae voluptas dolore impedit?
+          </p>
+          <p>
+              Lorem ipsum dolor sit amet consectetur adipisicing elit.
+              Quibusdam, in incidunt, id quos facere hic corrupti, quia
+              perferendis atque consectetur ipsum eaque quo quod explicabo.
+              Aspernatur repudiandae voluptas dolore impedit? Lorem ipsum
+              dolor sit amet consectetur adipisicing elit. Quibusdam, in
+              incidunt, id quos facere hic corrupti, quia perferendis atque
+              consectetur ipsum eaque quo quod explicabo. Aspernatur
+              repudiandae voluptas dolore impedit?
+          </p>
+      </div>
+  </dialog>
+  <dialog id="modalSettings" class="lg-w-50">
+      <div class="absolute right-0 top-0">
+          <button type="button" class="btn -icon close">
+              <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="#000000"><path d="M0 0h24v24H0z" fill="none"/><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+          </button>
+      </div>
+      <div class="dialog-inner">
+          <h1>Settings</h1>
+          <div class='switchContainer'>
+            <label>Toggle Dark Mode &ensp;</label>
+            <label class="switch">
+                <input onclick="toggleDarkMode()" type="checkbox" id="checkBox">
+                <span class=" slider"></span>
+            </label>
+          </div><br />
+
+      </div>
+  </dialog>
+  <!-- <div id="modalSettings" class="modal" style='z-index:1000 !important'>
+
+
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <h1>Configurações</h1><br />
+
+      <p>Deseja Adicionar alguma descrição ou comentário da ocorrência?</p>
+
+      <textarea name="name" rows="8" cols="80"></textarea><br />
+
+      <button type="button" name="button">Registrar</button>
+    </div>
+
+  </div> -->
+  <div class="mobile clearfix">
+    <div class="header">
+      <span class="ion-ios-navicon pull-left"><i></i></span>
+      <!-- <span class="title">Home</span> -->
+      <span class="ion-ios-gear-outline pull-right" id='mainPageSettings' onclick='openModalSettings()'></span>
+      <div class="search">
+      <form method="post">
+        <input type="search" placeholder="Search Here">
+      </form>
+      </div>
+    </div>
+    <div class="sidebar">
+      <div class="sidebar-overlay"></div>
+      <div class="sidebar-content">
+        <div class="top-head">
+          <div class=""><h1 style="margin-bottom: -2%;">SAFETY</h1><p style='text-align:center'>for all.</p></div>
+          <!-- <div class="email">for all.</div> -->
+        </div>
+        <div class="nav-left">
+          <a href="#home"><span class="ion-ios-home-outline"></span> Home</a>
+          <a href="#alarm"><span class="ion-ios-list-outline"></span> My Reports</a>
+          <a href="#chats"><span class="ion-ios-chatboxes-outline"></span> Chats</a>
+          <a href="#profile"><span class="ion-ios-person-outline"></span> Profile | Login</a>
+          <a href="#settings" onclick='openModalSettings()'><span class="ion-ios-gear-outline"></span> Settings</a>
+          <a href="#credits" onclick='openModalCredits()' id='modalCredits'><span class="ion-ios-information-outline"></span> Credits</a>
+        </div>
+      </div>
+    </div>
+    <div id="allMap"></div>
+    <div class="content">
+
+      <!-- <div class="html search">
+        <div class="title bounceInDown animated">Search Result</div>
+        <p class="flipInX animated">Sorry,<br>no matches found for <b class="key"></b></p>
+      </div>
+      <div class="html welcome visible">
+        <div class="datetime">
+          <div class="day lightSpeedIn animated">Thursday</div>
+          <div class="date lightSpeedIn animated">05 January, 2017</div>
+          <div class="time lightSpeedIn animated">02:00 AM</div>
+        </div>
+      </div>
+      <div class="html alarm">
+        <div class="forecast clearfix">
+          <div class="datetime pull-left bounceInLeft animated">
+            <div class="day">Thursday</div>
+            <div class="date">05 January, 2017</div>
+          </div>
+          <div class="temperature pull-right bounceInRight animated">
+            <div class="unit"><span class="ion-ios-sunny-outline"></span> 34<i>&deg;</i></div>
+            <div class="location">Fort Lauderdale, FL</div>
+          </div>
+        </div>
+        <div class="alarm-list">
+          <div class="note clearfix slideInRight animated">
+            <div class="time pull-left">
+              <div class="hour">9</div>
+              <div class="shift">AM</div>
+            </div>
+            <div class="to-do pull-left">
+              <div class="title">Finish HTML Coding</div>
+              <div class="subject">App UI</div>
+            </div>
+          </div>
+          <div class="note clearfix slideInRight animated">
+            <div class="time pull-left">
+              <div class="hour">1</div>
+              <div class="shift">PM</div>
+            </div>
+            <div class="to-do pull-left">
+              <div class="title">Lunch Break</div>
+              <div class="subject"></div>
+            </div>
+          </div>
+          <div class="note clearfix slideInRight animated" data-revert="slideOutRight">
+            <div class="time pull-left">
+              <div class="hour">3</div>
+              <div class="shift">PM</div>
+            </div>
+            <div class="to-do pull-left">
+              <div class="title">Developer Stand Up</div>
+              <div class="subject">Hangouts</div>
+              <div class="user-list clearfix">
+                <div class="user pull-left"><img src="https://raw.githubusercontent.com/khadkamhn/secret-project/master/img/usr-i.png"></div>
+                <div class="user pull-left"><img src="https://raw.githubusercontent.com/khadkamhn/secret-project/master/img/usr-ii.png"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="html compose">
+        <div class="forms">
+          <div class="group clearfix slideInRight animated">
+            <label class="pull-left" for="compose-time"><span class="ion-ios-time-outline"></span> Time</label>
+            <input class="pull-right" id="compose-time" type="time">
+          </div>
+          <div class="group clearfix slideInLeft animated">
+            <label class="pull-left" for="compose-date"><span class="ion-ios-calendar-outline"></span> Date</label>
+            <input class="pull-right" id="compose-date" type="date">
+          </div>
+          <div class="group clearfix slideInRight animated">
+            <label class="pull-left" for="compose-title"><span class="ion-ios-paper-outline"></span> Title</label>
+            <input class="pull-right" id="compose-title" type="text">
+          </div>
+          <div class="group clearfix slideInLeft animated">
+            <label class="visible" for="compose-detail"><span class="ion-ios-list-outline"></span> Task</label>
+            <textarea class="visible" id="compose-detail" rows="3"></textarea>
+          </div>
+          <div class="action flipInY animated">
+            <button class="btn">Compose</button>
+          </div>
+        </div>
+      </div>
+      <div class="html chats">
+        <div class="tabs-list clearfix">
+          <a href="#" class="tab active">Users</a>
+          <a href="#" class="tab">Messages</a>
+          <a href="#" class="tab">Groups</a>
+        </div>
+        <div class="active-users">
+          <div class="user clearfix rotateInDownLeft animated">
+            <div class="photo pull-left">
+              <img src="https://s3.amazonaws.com/uifaces/faces/twitter/adhamdannaway/128.jpg">
+            </div>
+            <div class="desc pull-left">
+              <p class="name">Connor Hartigan</p>
+              <p class="position">Web &amp; UI Designer</p>
+            </div>
+            <div class="idle pull-right"><span class="away"></span></div>
+          </div>
+          <div class="user clearfix rotateInDownRight animated">
+            <div class="photo pull-left">
+              <img src="https://s3.amazonaws.com/uifaces/faces/twitter/markmushiva/128.jpg">
+            </div>
+            <div class="desc pull-left">
+              <p class="name">Jacob Lennon</p>
+              <p class="position">Front-End Developer</p>
+            </div>
+            <div class="idle pull-right"><span class="offline"></span></div>
+          </div>
+          <div class="user clearfix rotateInDownLeft animated">
+            <div class="photo pull-left">
+              <img src="https://s3.amazonaws.com/uifaces/faces/twitter/scottohara/128.jpg">
+            </div>
+            <div class="desc pull-left">
+              <p class="name">Didier Mailly</p>
+              <p class="position">Co-Founder</p>
+            </div>
+            <div class="idle pull-right"><span class="away"></span></div>
+          </div>
+          <div class="user clearfix rotateInDownRight animated">
+            <div class="photo pull-left">
+              <img src="https://s3.amazonaws.com/uifaces/faces/twitter/shalt0ni/128.jpg">
+            </div>
+            <div class="desc pull-left">
+              <p class="name">Miguel Cunha Ferreira</p>
+              <p class="position">Sales Manager</p>
+            </div>
+            <div class="idle pull-right"><span class="online"></span></div>
+          </div>
+          <div class="user clearfix rotateInDownLeft animated">
+            <div class="photo pull-left">
+              <img src="https://s3.amazonaws.com/uifaces/faces/twitter/sircookieface/128.jpg">
+            </div>
+            <div class="desc pull-left">
+              <p class="name">Eric Yuriev</p>
+              <p class="position">App Developer</p>
+            </div>
+            <div class="idle pull-right"><span class="online"></span></div>
+          </div>
+          <div class="user clearfix rotateInDownRight animated">
+            <div class="photo pull-left">
+              <img src="https://s3.amazonaws.com/uifaces/faces/twitter/ryanmclaughlin/128.jpg">
+            </div>
+            <div class="desc pull-left">
+              <p class="name">Theodore Clark</p>
+              <p class="position">Project Manager</p>
+            </div>
+            <div class="idle pull-right"><span class="online"></span></div>
+          </div>
+        </div>
+      </div>
+      <div class="html settings">
+        <div class="setting-list">
+          <div class="gear clearfix slideInRight animated">
+            <div class="title pull-left">General</div>
+            <div class="action pull-right"><span class="ion-ios-arrow-right"></span></div>
+          </div>
+          <div class="gear clearfix slideInLeft animated">
+            <div class="title pull-left"><label for="gear-notice">Notification</label></div>
+            <div class="action pull-right"><input id="gear-notice" class="on-off" type="checkbox"><label for="gear-notice"></label></div>
+          </div>
+          <div class="gear clearfix slideInRight animated">
+            <div class="title pull-left"><label for="gear-sound">Sound</label></div>
+            <div class="action pull-right"><input id="gear-sound" class="on-off" type="checkbox" checked><label for="gear-sound"></label></div>
+          </div>
+          <div class="gear clearfix slideInLeft animated">
+            <div class="title pull-left">Theme</div>
+            <div class="action pull-right">Standard <span class="ion-ios-arrow-right"></span></div>
+          </div>
+          <div class="gear clearfix slideInRight animated">
+            <div class="title pull-left">Support</div>
+            <div class="action pull-right"><span class="ion-ios-arrow-right"></span></div>
+          </div>
+          <div class="gear clearfix slideInLeft animated">
+            <div class="title pull-left">Privacy</div>
+            <div class="action pull-right"><span class="ion-ios-arrow-right"></span></div>
+          </div>
+        </div>
+      </div>
+      <div class="html profile">
+        <div class="photo flipInX animated">
+          <img src="https://raw.githubusercontent.com/khadkamhn/secret-project/master/img/mohan.png">
+          <div class="social">
+            <a href="https://facebook.com/khadkamhn" class="soc-item soc-count-1"><span class="ion-social-facebook"></span></a>
+            <a href="https://twitter.com/khadkamhn" class="soc-item soc-count-2"><span class="ion-social-twitter"></span></a>
+            <a href="https://github.com/khadkamhn" class="soc-item soc-count-3"><span class="ion-social-github"></span></a>
+            <a href="https://pinterest.com/khadkamhn" class="soc-item soc-count-4"><span class="ion-social-pinterest"></span></a>
+            <a href="https://np.linkedin.com/in/khadkamhn" class="soc-item soc-count-5"><span class="ion-social-linkedin"></span></a>
+            <a href="https://codepen.io/khadkamhn" class="soc-item soc-count-6"><span class="ion-social-codepen"></span></a>
+            <a href="skype:khadkamhn?userinfo" class="soc-item soc-count-7"><span class="ion-social-skype"></span></a>
+            <a href="http://dribbble.com/khadkamhn" class="soc-item soc-count-8"><span class="ion-social-dribbble"></span></a>
+          </div>
+        </div>
+        <div class="details">
+          <p class="heading flipInY animated">
+            <span class="name">Mohan Khadka</span><span class="position">Web/Graphic Desiger</span>
+          </p>
+          <p class="text fadeInUp animated">Hi, It's me Mohan from Nepal. I'm a web and graphics designer. Designing is my passion and I am still learning and developing my skills on graphics designing and coding. I have been working on various designing projects.</p>
+        </div>
+      </div>
+      <div class="html credits">
+        <div class="title flipInY animated">I have been using the following assets to build this design</div>
+        <div class="credit-ol">
+          <div class="credit-li lightSpeedIn animated"><a href="https://www.google.com/fonts/specimen/Roboto" target="_blank">roboto</a> <span>for typography</span></div>
+          <div class="credit-li lightSpeedIn animated"><a href="https://jquery.com" target="_blank">jquery</a> <span>for design/ui</span></div>
+          <div class="credit-li lightSpeedIn animated"><a href="http://ionicons.com/" target="_blank">ionicons</a> <span>for icons</span></div>
+          <div class="credit-li lightSpeedIn animated"><a href="http://uifaces.com/authorized" target="_blank">ui faces</a> <span>for avatar</span></div>
+          <div class="credit-li lightSpeedIn animated"><a href="https://daneden.github.io/animate.css/" target="_blank">animate.css</a> <span>for animation</span></div>
+          <div class="credit-li lightSpeedIn animated"><a href="https://dribbble.com/shots/1928064-Secret-Project" target="_blank">concept of design</a> <span>for layout</span></div>
+          <div class="credit-li lightSpeedIn animated"><a href="https://unsplash.com/photos/6asyCyR0K1Q/download" target="_blank">unsplash.com</a> <span>for background</span></div>
+        </div>
+        <div class="text zoomInUp animated">I'm glad for using these resources and expecting same as time ahead</div>
+      </div> -->
+    </div>
+    <div class="nav">
+      <a href="#profile" class="nav-item-map nav-count-1"><%= image_tag("carcrash.png", width: 85, id:"logoImage",title:"Acidente",onclick:'openModalReport("Acidente")') %></a>
+      <a href="#compose" class="nav-item-map nav-count-2"><%= image_tag("assault.jpg", width: 80, id:"logoImage",title:"Assalto",onclick:'openModalReport("Assalto")') %></a>
+      <a href="#chats" class="nav-item-map nav-count-3"><%= image_tag("kidnap.jpg", width: 80, id:"logoImage",title:"Sequestro",onclick:'openModalReport("Sequestro")') %></a>
+      <a href="#alarm" class="nav-item-map nav-count-4"><%= image_tag("theif.jpg", width: 80, id:"logoImage",title:"Furto",onclick:'openModalReport("Furto")') %></a>
+      <!-- <a href="#profile" class="nav-item nav-count-1"><img src='../assets/imgs/carcrash.png' style='width:85%' title="Acidente" onclick='openModalReport("Acidente")'/></a>
+      <a href="#compose" class="nav-item nav-count-2"><img src='../assets/imgs/assault.jpg' style='width:80%' title="Assalto" onclick='openModalReport("Assalto")'/></a>
+      <a href="#chats" class="nav-item nav-count-3"><img src='../assets/imgs/kidnap.jpg' style='width:80%' title="Sequestro" onclick='openModalReport("Sequestro")'/></a>
+      <a href="#alarm" class="nav-item nav-count-4"><img src='../assets/imgs/theif.jpg' style='width:80%' title="Furto" onclick='openModalReport("Furto")'/></a> -->
+      <!-- <a href="#profile" class="nav-item nav-count-1"><i class="ion-ios-person-outline"></i><span class="invisible">Profile</span></a>
+      <a href="#compose" class="nav-item nav-count-2"><i class="ion-ios-compose-outline"></i><span class="invisible">Compose</span></a>
+      <a href="#chats" class="nav-item nav-count-3"><i class="ion-ios-chatboxes-outline"></i><span class="invisible">Chats</span></a>
+      <a href="#alarm" class="nav-item nav-count-4"><i class="ion-ios-alarm-outline"></i><span class="invisible">Alarm</span></a> -->
+      <a href="#toggle" class="mask" style="color: #fff;"><i class="ion-ios-plus-empty"></i></a>
+    </div>
+  </div>
+</div>
+
+
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script> -->
+<!-- <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyACxDkarbg-ij9QPqzU_p93pnLLOWlYnRo&libraries=visualization"></script> -->
+<!-- <script async
+  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyACxDkarbg-ij9QPqzU_p93pnLLOWlYnRo&libraries=visualization">
+</script> -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/dialog-polyfill/0.5.6/dialog-polyfill.min.js" integrity="sha512-qUIG93zKzcLBVD5RGRbx2PBmbVRu+tJIl+EPLTus0z8I1AMru9sQYdlf6cBacSzYmZVncB9rcc8rYBnazqgrxA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+<!-- <script src='../assets/js/main.js'></script> -->
+<!-- <script src='../assets/js/inputs.js'></script> -->
+
+<script>
+
+  function capitalize(word) {
+    return word
+      .toLowerCase()
+      .replace(/\w/, firstLetter => firstLetter.toUpperCase());
+  }
+
+  var locations = [
+    ['Motoqueiro atropelado',  'Acidente de Trânsito', '3', 'R. Mal. Barbacena, 1229 - Vila Reg. Feijó', '-23.551436', '-46.689363',  "user1"],
+    ['Dois homens se estranhando no carro',  'Briga no Trânsito', '1', 'R. Serra de Juréa, 725 - Tatuapé', '-23.55054149131275', '--46.57043718725978',  "user2"],
+    ['Briga generalizada',  'Briga na rua', '4', 'R. Brg. Machado, 62 - Brás', '-23.541559803081412', '-46.61357266048529',  "user3"],
+    ['Marido pegou a mulher traindo',  'Briga Doméstica na rua', '2', 'Rua Dr. Jorge Miranda, 34', '-23.530936104693843', '-46.63169754699272',  "user4"],
+    ['Dois estranhos trocando drogas',  'Tráfico de Drogas', '5', 'R. Tagipuru, 1060 - Barra Funda,', '-23.52596489429082', '-46.669802833500036',  "user5"],
+    ['Um grupo de adolescentes fumando maconha',  'Utilização de Drogas em via Pública', '2', 'Rua Virgilio Wey, 150 - Água Branca', '-23.51120274505672', '-46.69636025834542',  "user6"],
+    ['Minha bicicleta sumiu',  'Furto', '1', 'R. Nerópolis, 133 - Jardim Nordeste', '-23.53316820054743', '-46.48425499697211',  "user7"],
+    ['Dois individuos mascarados roubaram meu carro',  'Assalto com arma de fogo', '5', 'R. Prof. Pinheiro Domingues, 513 - Vila Frugoli,', '-23.517943938564', '-46.49639114312057',  "user8"],
+    ['Colisão entre duas bicicletas',  'Acidente de Trânsito', '2', 'Av. Rubens Fraga de Toledo Arruda, 142 - Eng. Goulart', '-23.501722511848257', '-46.5147478406616',  "user9"],
+    ['O cara saiu do carro com um taco de beisebol',  'Briga no Trânsito', '2', 'R. Jovelina, 121 - Vila Domitila ', '-23.51275388613911', '-46.509749589357476',  "user10"],
+    ['Molecada ta saindo no pau',  'Briga na rua', '1', 'Rua Coronel Melo de Oliveira, 226 - Pompeia ', '-23.53348519986129', '-46.68419865867574',  "user11"],
+    ['Mulher pegou o marido com o vizinho',  'Briga Doméstica na rua', '1', 'R. Espártaco, 780 - Vila Romana,', '-23.529234579002114', '-46.69697171220739',  "user12"],
+    ['Vi dois caras com um pacote estranho',  'Tráfico de Drogas', '5', 'R. Albion - Lapa', '-23.523493751858226', '-46.710821958675844',  "user13"],
+    ['Tem uma mulher debaixo da ponte usando drogas',  'Utilização de Drogas em via Pública', '2', 'Tv. Misterioso Coração, 2 - Bela Aliança', '-23.522230847427846', '-46.72268825692604',  "user14"],
+    ['Apontaram uma pistola e levaram minha mochila',  'Assalto com arma de fogo', '5', 'R. Santa Leonor, 44 - Jaguaré', '-23.5430203481882', '-46.75108097586215',  "user15"],
+    ['O fusca furou o farol vermelho',  'Acidente de Trânsito', '2', 'R. André Thomas, 2-148 - Vila Campesina', '-23.54330839835314', '-46.76891567586218',  "user16"],
+    ['Dois caras sairam na porrada',  'Briga na rua', '1', 'R. André Thomas, 2-148 - Vila Campesina', '-23.572029546385433', '-46.71771224702639',  "user17"],
+    ['Duas velhas brigando de bengala',  'Briga na rua', '1', 'Av. Vasco da Rocha Leão, 442 - City Bussocaba', '-23.57217584515051', '-46.7812259316857',  "user18"],
+    ['Duas irmãs brigando',  'Briga Doméstica na rua', '2', 'R. Paulo Antônio Camargo, 147 - Bussocaba', '-23.56515553430823', '-46.78864808935624',  "user19"],
+    ['Deixaram um pacote na praça',  'Tráfico de Drogas', '5', 'R. Batataes, 543 - Jardim Paulista', '-23.569407689868413', '-46.658348368477064',  "user20"],
+    ['Uma pessoa em situação de rua usando drogas',  'Utilização de Drogas em via Pública', '2', 'Alameda Casa Branca, 1060 - Cerqueira César', '-23.568810639665458', '-46.6630171979083',  "user21"],
+    ['Atiraram pra cima e levaram o caixa eletronico',  'Assalto com arma de fogo', '5', 'R. Viradouro, 139 - Itaim Bibi', '-23.585508797603037', '-46.68116050674694',  "user22"],
+    ['Um corsel fechou um corsa',  'Acidente de Trânsito', '2', 'R. Jacurici, 60 - Itaim Bibi', '-23.58466922420353', '-46.68595286242358',  "user23"],
+    ['O padeiro ta batendo no boleiro',  'Briga na rua', '1', 'Rua Pintassilgo, 3 - Vila Uberabinha', '-23.599560185563355', '-46.670145833481214',  "user24"],
+    ['Mulher brigando com a cunhada',  'Briga Doméstica na rua', '3', 'R. Benedito Lapin, 87 - Itaim Bibi', '-23.587306966509406', '-46.67331971271716',  "user25"],
+    ['Um cara de bike, entregou um baseado pro rapaz',  'Tráfico de Drogas', '5', 'Rua Professor Roberto Hottinger, 26 - Jardim Paulistano', '-23.57178574838909', '-46.68453140846947',  "user26"],
+    ['Tem um cara fumando crack',  'Utilização de Drogas em via Pública', '2', 'Av. Queiroz Filho, 1.700, Vila Hamburguesa', '-23.542542101887886', '-46.73292191860528',  "user27"],
+    ['Torcedores do flamengo brigando com os do corinthians',  'Briga na rua', '5', 'R. Curupaiti, 367-151 - Vila Leopoldina,', '-23.524279278535854', '-46.72842437396233',  "user28"],
+    ['Dois caras numa moto pegaram meu boné',  'Furto', '2', 'R. Maria Zélia, 146 - Vila Pirituba', '-23.502819736146765', '-46.71236411650939',  "user29"],
+    ['Engavetamento',  'Acidente de Trânsito', '2', 'R. Luís de Andrade, 685 - Vila Pereira Barreto', '-23.491580512863784', '-46.71946577308889',  "user30"],
+    ['Roubaram o Banco do Brasil',  'Assalto com arma de fogo', '5', 'R. Fausto Lex, 481 - Vila Zat', '-23.47891587819215', '-46.71693591216905',  "user31"],
+    ['Vizinhos jogando pedra na casa dos outros',  'Briga Doméstica na rua', '1', 'R. Verbo Divino, 173 - Chácara Santo Antônio', '-23.637363040265274', '-46.69860971813775',  "user32"],
+    ['Carteiro pistola com o cachorro',  'Briga na rua', '2', 'R. Hollywood, 321 - Itaim Bibi', '-23.61018246737227', '-46.68513616676133',  "user33"],
+    ['Tem um cara vendendo droga ali na esquina',  'Tráfico de Drogas', '5', 'R. Padre José Viêira de Matos - Conjunto Habitacional COHAB 1', '-23.546897362400017', '-46.48098674512625',  "user34"],
+    ['Tem dois caras brigando por causa de um lanche',  'Briga na rua', '1', 'Rua Waldemar Mancini, 61 - Itaquera', '-23.547086833295634', '-46.46082029940678',  "user35"],
+    ['Meu vizinho ta fumando droga na frente da igreja',  'Utilização de Drogas em via Pública', '2', 'Travessa Maestro Melartin, 72 - Vila Carmosina', '-23.55442821194587', '-46.449639273961814',  "user36"],
+    ['Um Uno com uma escada bateu em uma ferrari',  'Acidente de Trânsito', '2', 'R. Aranha de Vasconcelos, 142 - Jardim Nossa Sra. do Carmo', '-23.569996539870715', '-46.474003133481894',  "user37"],
+    ['Ladrão levou meu cachorro',  'Assalto com arma de fogo', '5', 'R. Euclídes Antônio de Souza, 243-167 - Jardim das Rosas', '-23.586677867225532', '-46.51197097581042',  "user38"],
+    ['Pai batendo no filho',  'Briga Doméstica na rua', '2', 'Av. Antônio Manograsso, 91 - Chácara Belenzinho', '-23.578289188408057', '-46.53751094697498',  "user39"],
+    ['Roubaram a roda do meu carro',  'Furto', '3', 'R. Rio Real, 116-242 - Vila Formosa', '-23.566793969053755', '-46.55084627581081',  "user40"],
+    ['Briga generalizada por causa do preço da gasolina',  'Briga na rua', '4', 'Av. Paes de Barros - Parque da Mooca', '-23.5703092172207', '-46.58782356661978',  "user41"],
+    ['Briga entre torcida organizada de boliche',  'Briga na rua', '3', 'R. Marina Crespi, 174-334 - Mooca', '-23.556453424238573', '-46.604444031632845',  "user42"],
+    ['Motociclista furou o farol vermelho',  'Acidente de Trânsito', '4', 'R. Havana, 144 - Taboão, Diadema', '-23.67560115296766', '-46.611032800238036',  "user43"],
+    ['Usuario de drogas',  'Utilização de Drogas em via Pública', '3', 'R. Padre Inácio Siqueira, 413 - Vila Nogueira, Diadema', '-23.68702402194358', '-46.59847619570551',  "user44"],
+    ['Vizinhos bravos por causa de cachorros',  'Briga Doméstica na rua', '2', 'R. Natalino Fabrini, 2-138 - Dos Casa', '-23.72853972602529', '-46.571509060464265',  "user45"],
+    ['Dois marmanjos brigando por causa de uma mulher',  'Briga na rua', '2', 'Passagem Cajueiro, 24-86 - Inamar, Diadema', '-23.728510260488864', '-46.57154124697116',  "user46"],
+    ['Tem alguem fumando maconha por aqui',  'Utilização de Drogas em via Pública', '2', 'R. Ângela Maçon Bonício, 83 - Cooperativa, São Bernardo do Campo', '-23.720123846576158', '-46.594429150659685',  "user47"],
+    ['Furtaram o meu chinelo',  'Furto', '3', 'Rua Padre José Garzotti, 342 - Cidade Dutra', '-23.71037504608548', '-46.701466134688125',  "user48"],
+    ['Carro estragou e causou acidente',  'Acidente de Trânsito', '2', 'Rua Turquesa, 30 - Jardim Capao Redondo', '-23.67736865799807', '-46.78283788253114',  "user49"],
+    ['Dois caminhoes cheio de droga',  'Tráfico de Drogas', '5', 'Rua Alvorada, 202 - Jardim Sao Eduardo, Embu das Artes', '-23.670149601803523', '-46.80260121018091',  "user50"]
+  ];
+
+  var userLatLng;
+  updateCoordinate(function (currentLocation) {
+    initMapAll(currentLocation);
+    userLatLng=currentLocation;
+    console.log('Localizacao encontrada!');
+  });
+
+  function updateCoordinate(callback) {
+      navigator.geolocation.getCurrentPosition(
+        function (position) {
+          var returnValue = {
+            latitude: position.coords.latitude,
+            longitude: position.coords.longitude
+          }
+          callback(returnValue)
+        }
+      )
+  }
+
+  // var map;
+  // const iconBase ="../assets/imgs/";
+  // const icons = {
+  //   assalto: {
+  //     icon: iconBase + "pinAssalt.png",
+  //   },
+  //   sequestro: {
+  //     icon: iconBase + "pinSequestro.png",
+  //   },
+  //   furto: {
+  //     icon: iconBase + "pinFurto.png",
+  //   },
+  //   acidente: {
+  //     icon: iconBase + "pinCarCrash.png",
+  //   },
+  //   alert:{
+  //     icon: iconBase + "pinAlertSmall.png"
+  //   }
+  // };
+
+  let darkModeStyle=[];
+  function toggleDarkMode(mode){
+    if(darkModeStyle.length==0){
+      darkModeStyle=[
+        { elementType: "geometry", stylers: [{ color: "#242f3e" }] },
+        { elementType: "labels.text.stroke", stylers: [{ color: "#242f3e" }] },
+        { elementType: "labels.text.fill", stylers: [{ color: "#746855" }] },
+        {
+          featureType: "administrative.locality",
+          elementType: "labels.text.fill",
+          stylers: [{ color: "#d59563" }],
+        },
+        {
+          featureType: "poi",
+          elementType: "labels.text.fill",
+          stylers: [{ color: "#d59563" }],
+        },
+        {
+          featureType: "poi.park",
+          elementType: "geometry",
+          stylers: [{ color: "#263c3f" }],
+        },
+        {
+          featureType: "poi.park",
+          elementType: "labels.text.fill",
+          stylers: [{ color: "#6b9a76" }],
+        },
+        {
+          featureType: "road",
+          elementType: "geometry",
+          stylers: [{ color: "#38414e" }],
+        },
+        {
+          featureType: "road",
+          elementType: "geometry.stroke",
+          stylers: [{ color: "#212a37" }],
+        },
+        {
+          featureType: "road",
+          elementType: "labels.text.fill",
+          stylers: [{ color: "#9ca5b3" }],
+        },
+        {
+          featureType: "road.highway",
+          elementType: "geometry",
+          stylers: [{ color: "#746855" }],
+        },
+        {
+          featureType: "road.highway",
+          elementType: "geometry.stroke",
+          stylers: [{ color: "#1f2835" }],
+        },
+        {
+          featureType: "road.highway",
+          elementType: "labels.text.fill",
+          stylers: [{ color: "#f3d19c" }],
+        },
+        {
+          featureType: "transit",
+          elementType: "geometry",
+          stylers: [{ color: "#2f3948" }],
+        },
+        {
+          featureType: "transit.station",
+          elementType: "labels.text.fill",
+          stylers: [{ color: "#d59563" }],
+        },
+        {
+          featureType: "water",
+          elementType: "geometry",
+          stylers: [{ color: "#17263c" }],
+        },
+        {
+          featureType: "water",
+          elementType: "labels.text.fill",
+          stylers: [{ color: "#515c6d" }],
+        },
+        {
+          featureType: "water",
+          elementType: "labels.text.stroke",
+          stylers: [{ color: "#17263c" }],
+        },
+      ];
+      $('p').css('color','white');
+      $('label').css('color','white');
+      $('h1').css('color','white');
+      $('a').css('color','white');
+      $('.sidebar-content').css('background-color','#343434');
+      $('dialog').css('background-color','#343434');
+    }else{
+      darkModeStyle=[];
+      $('p').css('color','black');
+      $('label').css('color','black');
+      $('h1').css('color','black');
+      $('a').css('color','black');
+      $('.sidebar-content').css('background-color','white');
+      $('dialog').css('background-color','white');
+    }
+    initMapAll(userLatLng);
+  }
+
+  function initMapAll(userLatLng) {
+    var bounds = new google.maps.LatLngBounds();
+
+    var mapOptions = {
+      // center: myCoords,
+      zoom: 14,
+      disableDefaultUI: true,
+      styles:darkModeStyle,
+    };
+    const map = new google.maps.Map(document.getElementById('allMap'), mapOptions);
+
+    //USER LOCATION / NEW REPORT
+    try{
+      lat = userLatLng.latitude;
+      lng = userLatLng.longitude;
+    }catch{
+      lat = -23.555800;
+      lng = -46.639600;
+    }
+
+    var myCoords = new google.maps.LatLng(lat, lng);
+    bounds.extend(myCoords);
+
+    // console.log(map.getZoom());
+    var infowindow = new google.maps.InfoWindow();
+
+
+    var marker = new google.maps.Marker({
+      position: myCoords,
+      map: map
+    });
+    google.maps.event.addListener(marker, 'click', (function(marker) {
+      return function() {
+        infowindow.setContent("Você está aqui!");
+        infowindow.open(map, marker);
+      }
+    })(marker));
+
+    // ALL REPORTS PINS
+    $(locations).each(function(i,place){
+      // console.log(place);
+      myCoords = new google.maps.LatLng(parseFloat(place[4]),parseFloat(place[5]));
+      bounds.extend(myCoords);
+      marker = new google.maps.Marker({
+        position: myCoords,
+        icon: "/imgs/pinAlertSmall.png",
+        // icon: icons["alert"].icon,
+        map: map
+      });
+      google.maps.event.addListener(marker, 'click', (function(marker) {
+        return function() {
+          openReviews(place);
+          // infowindow.setContent("<a onclick='openReviews("+place+")'>"place[0]+"<br /> <b>("+capitalize(place[1])+")</b></a>");
+          // infowindow.open(map, marker);
+        }
+      })(marker));
+      map.fitBounds(bounds);
+    });
+
+
+
+  }
+  var position;
+  // getLatLngIP();
+  document.addEventListener("DOMContentLoaded", function(){
+      console.log('Carregando sua localizacao..');
+      setTimeout(function(){
+        initMapAll(userLatLng);
+      },1000)
+  });
+
+  // getLatLngIP(function (currentLocation) {
+  //   console.log(currentLocation);
+  // });
+
+
+  var userLatLng;
+  var userCity;
+  function getLatLngIP(){
+     jQuery.get("http://ipinfo.io", function(response) {
+        userLatLng={
+          "latitude": parseFloat((response.loc).split(',')[0]),
+          "longitude": parseFloat((response.loc).split(',')[1])
+        }
+    }, "jsonp");
+  }
+  // Get the modal report
+  var modalReport = document.getElementById("modalReport");
+  var modalSettings = document.getElementById("modalSettings");
+  var dialogLogInWarning = document.getElementById("dialogLogInWarning");
+  var modalCredits = document.getElementById("modalCredits");
+  var modalReviews = document.getElementById("modalReviews");
+
+  // Get the <span> element that closes the modal
+  var span = document.getElementsByClassName("close")[0];
+
+  var userLogged=true;
+  function openModalReport(tipoOcorrencia){
+    event.preventDefault();
+    $('.mask').click();
+    // modalReport.style.display = "block";
+    if(userLogged){
+      modalReport.showModal();
+      $('#newRecordTitle').html(tipoOcorrencia);
+    }else{
+      dialogLogInWarning.showModal();
+    }
+
+  }
+
+  function openReviews(details){
+    $("#description").html(details[0]);
+    $("#category").html(details[1]);
+    $("#danger_level").html(details[2]);
+    $("#address").html(details[3]);
+    $("#recordLat").html(details[4]);
+    $("#recordLong").html(details[5]);
+    $("#userName").html(details[6]);
+    modalReviews.showModal();
+    openModalReview(details);
+    // console.log();
+  }
+
+  function openModalSettings(){
+    modalSettings.showModal();
+    $('.switchContainer').show();
+  }
+
+  function openModalCredits(){
+    modalCredits.showModal();
+  }
+
+  $('[class*="close"]').on('click', function() {
+    modalReport.close();
+    modalSettings.close();
+    dialogLogInWarning.close();
+    modalCredits.close();
+    modalReviews.close();
+    $('.switchContainer').hide();
+  });
+
+  let targetWindowCloseModal = ["modalReport","modalSettings","dialogLogInWarning"];
+  window.onclick = function(event) {
+    console.log(event.target)
+    if (targetWindowCloseModal.includes(event.target.id)) {
+      $('.switchContainer').hide();
+      modalReport.close();
+      modalSettings.close();
+      dialogLogInWarning.close();
+      // modalCredits.close();
+    }
+
+  }
+
+
+
+
+
+  // newDialog("#modalReport", "#modalReport");
+</script>
