@@ -1,4 +1,4 @@
-<div id="top-nav" class="navbar fixed-top navbar-expand-lg navbar-dark">
+<div id="top-nav" class="navbar fixed-top navbar-expand-lg navbar-dark <%= 'navbar-colored' if params[:action] != 'home' %>">
   <%= link_to root_path, class: "navbar-brand" do %>
     <%= image_tag "safetybar.png" %>
     <% end %>
@@ -21,7 +21,7 @@
 <!--         <%# <li class="nav-item">
           <%= link_to "Denuncias", reports_path, class: "nav-link" %>
         <%# </li> %> -->
-      
+
         <li class="nav-item">
 
           <%= link_to "Ver Mapa", show_map_path, class: "nav-link" %>
