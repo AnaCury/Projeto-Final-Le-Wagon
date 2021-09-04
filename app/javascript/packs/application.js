@@ -7,6 +7,7 @@ require("@rails/ujs").start()
 require("turbolinks").start()
 require("@rails/activestorage").start()
 require("channels")
+require("plugins")
 // = require main
 
 
@@ -18,11 +19,6 @@ require("channels")
 // const imagePath = (name) => images(name, true)
 
 
-// ----------------------------------------------------
-// Note(lewagon): ABOVE IS RAILS DEFAULT CONFIGURATION
-// WRITE YOUR OWN JS STARTING FROM HERE 👇
-// ----------------------------------------------------
-
 // External imports
 import "bootstrap";
 import { initMapbox } from '../plugins/init_mapbox';
@@ -30,6 +26,7 @@ import { initReportsCable } from '../channels/reports_channel';
 import { initReviewsCable } from '../channels/reviews_channel';
 import '@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder';
 import { initAutocomplete } from '../plugins/init_autocomplete';
+import { loader } from '../plugins/loader'
 
 // Internal imports, e.g:
 // import { initSelect2 } from '../components/init_select2';
@@ -41,4 +38,5 @@ document.addEventListener('turbolinks:load', () => {
   initAutocomplete();
   initReportsCable();
   initReviewsCable();
+  initLoader();
 });
