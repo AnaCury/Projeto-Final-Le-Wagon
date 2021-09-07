@@ -41,23 +41,20 @@
             <label for=""><i>Level</i></label><br />
             <div class="form-check form-check-inline">
               <input class="form-check-input" type="radio" name="danger_level" id="inlineRadio1" value="1" required>
-              <label class="form-check-label" for="inlineRadio1">1. Levíssimo</label>
+              <label class="form-check-label" for="inlineRadio1">Perigosíssimo</label>
             </div>
             <div class="form-check form-check-inline">
               <input class="form-check-input" type="radio" name="danger_level" id="inlineRadio2" value="2" required>
-              <label class="form-check-label" for="inlineRadio2">2. Leve</label>
+              <label class="form-check-label" for="inlineRadio2">Perigo</label>
             </div>
             <div class="form-check form-check-inline">
               <input class="form-check-input" type="radio" name="danger_level" id="inlineRadio3" value="3" required>
-              <label class="form-check-label" for="inlineRadio3">3.  Moderado</label>
+              <label class="form-check-label" for="inlineRadio3">Moderado</label>
             </div>
-            <div class="form-check form-check-inline">
-              <input class="form-check-input" type="radio" name="danger_level" id="inlineRadio4" value="4" required>
-              <label class="form-check-label" for="inlineRadio4">4. Perigoso</label>
-            </div>
+
             <div class="form-check form-check-inline">
               <input class="form-check-input" type="radio" name="danger_level" id="inlineRadio5" value="5" required>
-              <label class="form-check-label" for="inlineRadio5">5. Perigosíssimo</label>
+              <label class="form-check-label" for="inlineRadio5">Leve</label>
             </div>
             <div class="form-group float-label-control">
               <label for=""><i>Endereço</i></label>
@@ -96,18 +93,16 @@
           <label>User:</label>
           <p id='userName'></p>
         </div>
-
       </div>
     </div>
   </div>
-
 
 
   <div class="modal fade" id="modalSettings" role="dialog" tabindex="-1" aria-labelledby="modalSettings" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="modalSettingsLabel">Settings</h5>
+          <h5 class="modal-title" id="modalSettingsLabel">Nível das Ocorrências</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
@@ -118,35 +113,27 @@
               <div class="checkbox checkbox-primary">
                 <input id="checkbox1" type="checkbox" name="checkboxPinLevel" checked="" value='1'>
                 <label for="checkbox1">
-                  <img src='/imgs/pinLevel1_sm.png' width=20%" /> Level 1
+                  <img src='/imgs/pinLevel1_sm.png' width=20%" /> Perígosíssimo
                 </label>
               </div>
               <div class="checkbox checkbox-primary">
                 <input id="checkbox2" type="checkbox" name="checkboxPinLevel" checked="" value='2'>
                 <label for="checkbox2">
-                  <img src='/imgs/pinLevel2_sm.png' width=20%" /> Level 2
+                  <img src='/imgs/pinLevel2_sm.png' width=20%" /> Perigoso
                 </label>
               </div>
               <div class="checkbox checkbox-primary">
                 <input id="checkbox3" type="checkbox" name="checkboxPinLevel" checked="" value='3'>
                 <label for="checkbox3">
-                  <img src='/imgs/pinLevel3_sm.png' width="20%" /> Level 3
-                </label>
-              </div>
-              <div class="checkbox checkbox-primary">
-                <input id="checkbox4" type="checkbox" name="checkboxPinLevel" checked="" value='4'>
-                <label for="checkbox4">
-                  <img src='/imgs/pinLevel4_sm.png' width=20%" /> Level 4
+                  <img src='/imgs/pinLevel3_sm.png' width="20%" />Moderado
                 </label>
               </div>
               <div class="checkbox checkbox-primary">
                 <input id="checkbox5" type="checkbox" name="checkboxPinLevel" checked="" value='5'>
                 <label for="checkbox5">
-                  <img src='/imgs/pinLevel5_sm.png' width=20%" /> Level 5
+                  <img src='/imgs/pinLevel5_sm.png' width=20%" />Leve
                 </label>
               </div>
-
-
             </fieldset>
           </div>
 
@@ -206,9 +193,7 @@
         </div>
       </div>
     </div>
-    <!-- <div id="floating-panel">
-      <button onclick="toggleHeatmap()">Toggle Heatmap</button>
-    </div> -->
+
     <div id="allMap"></div>
     <div class="content">
       <!-- MAPA -->
@@ -338,8 +323,6 @@
       new google.maps.LatLng(-23.555751,	-46.639586),
       new google.maps.LatLng(-15.777756,	-47.874208),
       new google.maps.LatLng(-15.814185,	-47.903696),
-
-
     ];
   }
 
@@ -349,7 +332,7 @@
       .replace(/\w/, firstLetter => firstLetter.toUpperCase());
   }
 
-  var locations = [
+  let locations = [
     ['Motoqueiro atropelado',  'Acidente de Trânsito', '3', 'R. Mal. Barbacena, 1229 - Vila Reg. Feijó', '-23.551436', '-46.689363', "Thiago'"],
     ['Dois homens se estranhando no carro',  'Briga no Trânsito', '1', 'R. Serra de Juréa, 725 - Tatuapé', '-23.55054149131275', '--46.57043718725978',  "Ana"],
     ['Briga generalizada',  'Briga na rua', '4', 'R. Brg. Machado, 62 - Brás', '-23.541559803081412', '-46.61357266048529',  "Tasso"],
@@ -402,7 +385,7 @@
     ['Dois caminhoes cheio de droga',  'Tráfico de Drogas', '5', 'Rua Alvorada, 202 - Jardim Sao Eduardo, Embu das Artes', '-23.670149601803523', '-46.80260121018091',  "Bruna"]
   ];
 
-  var heatmapData = [
+  let heatmapData = [
     new google.maps.LatLng(37.782, -122.447),
     new google.maps.LatLng(37.782, -122.445),
     new google.maps.LatLng(37.782, -122.443),
@@ -420,7 +403,7 @@
   ];
 
 
-  var map;
+  let map;
   const iconBase = "/imgs/";
   const icons = {
     1: {
