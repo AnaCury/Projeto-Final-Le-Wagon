@@ -533,9 +533,9 @@
 
 
   function initMapAll(userLatLng,focusUser=0,mapType='normal') {
-    var bounds = new google.maps.LatLngBounds();
+    let bounds = new google.maps.LatLngBounds();
 
-    var mapOptions = {
+    let mapOptions = {
       // center: myCoords,
       zoom: 10,
       disableDefaultUI: true,
@@ -549,16 +549,16 @@
     lat = userLatLng.latitude;
     lng = userLatLng.longitude;
 
-    var myCoords = new google.maps.LatLng(lat, lng);
+    let myCoords = new google.maps.LatLng(lat, lng);
     if(focusUser==1){
       bounds.extend(myCoords);
     }
     map.fitBounds(bounds);
     // console.log(map.getZoom());
-    var infowindow = new google.maps.InfoWindow();
+    let infowindow = new google.maps.InfoWindow();
 
 
-    var usrMarker = new google.maps.Marker({
+    let usrMarker = new google.maps.Marker({
       position: myCoords,
       map: map,
       draggable: true,
@@ -582,9 +582,9 @@
 
     // refresh usrMarker position and recenter map on usrMarker
     function refreshMarker() {
-      var lat = document.getElementById('place_latitude').val;
-      var lng = document.getElementById('place_longitude').val;
-      var myCoords = new google.maps.LatLng(lat, lng);
+      let lat = document.getElementById('place_latitude').val;
+      let lng = document.getElementById('place_longitude').val;
+      let myCoords = new google.maps.LatLng(lat, lng);
       usrMarker.setPosition(myCoords);
       map.setCenter(usrMarker.getPosition());
     }
@@ -655,16 +655,13 @@
         map.setZoom(16);
       },500);
     }
-
-
-
     // map.fitBounds(bounds);
 
   }
 
 
   function codeAddress(lat,lng) {
-    var latlng = new google.maps.LatLng(lat, lng);
+    let latlng = new google.maps.LatLng(lat, lng);
     geocoder = new google.maps.Geocoder();
     geocoder.geocode({'latLng': latlng }, function (results, status) {
         if (status == google.maps.GeocoderStatus.OK) {
@@ -676,9 +673,9 @@
     });
 }
 
-  var position;
-  var userLatLng;
-  var userCity;
+  let position;
+  let userLatLng;
+  let userCity;
   function getLatLngIP(){
      jQuery.get("https://freegeoip.app/json/", function(response) {
         userLatLng={
@@ -713,16 +710,16 @@
       },1000)
   });
 
-  var dialogLogInWarning = document.getElementById("dialogLogInWarning");
-  var modalSettings = new bootstrap.Modal($("#modalSettings"), {});
-  var modalReport = new bootstrap.Modal($("#modalReport"), {});
-  var modalCredits = new bootstrap.Modal($("#modalCredits"), {});
-  var modalReviews = new bootstrap.Modal($("#modalReviews"), {});
+  let dialogLogInWarning = document.getElementById("dialogLogInWarning");
+  let modalSettings = new bootstrap.Modal($("#modalSettings"), {});
+  let modalReport = new bootstrap.Modal($("#modalReport"), {});
+  let modalCredits = new bootstrap.Modal($("#modalCredits"), {});
+  let modalReviews = new bootstrap.Modal($("#modalReviews"), {});
 
   // Get the <span> element that closes the modal
-  var span = document.getElementsByClassName("close")[0];
+  let span = document.getElementsByClassName("close")[0];
 
-  var userLogged=true;
+  let userLogged=true;
 
   function openModalReport(tipoOcorrencia){
     event.preventDefault();
@@ -901,7 +898,7 @@
     checkCookie();
   });
 
-  var AUTH_TOKEN;
+  let AUTH_TOKEN;
   function sendForm(){
     AUTH_TOKEN = $('meta[name=csrf-token]').attr('content');
 
