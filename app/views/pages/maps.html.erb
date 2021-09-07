@@ -193,7 +193,9 @@
         </div>
       </div>
     </div>
-
+    <!-- <div id="floating-panel">
+      <button onclick="toggleHeatmap()">Toggle Heatmap</button>
+    </div> -->
     <div id="allMap"></div>
     <div class="content">
       <!-- MAPA -->
@@ -323,6 +325,8 @@
       new google.maps.LatLng(-23.555751,	-46.639586),
       new google.maps.LatLng(-15.777756,	-47.874208),
       new google.maps.LatLng(-15.814185,	-47.903696),
+
+
     ];
   }
 
@@ -332,7 +336,7 @@
       .replace(/\w/, firstLetter => firstLetter.toUpperCase());
   }
 
-  let locations = [
+  var locations = [
     ['Motoqueiro atropelado',  'Acidente de Trânsito', '3', 'R. Mal. Barbacena, 1229 - Vila Reg. Feijó', '-23.551436', '-46.689363', "Thiago'"],
     ['Dois homens se estranhando no carro',  'Briga no Trânsito', '1', 'R. Serra de Juréa, 725 - Tatuapé', '-23.55054149131275', '--46.57043718725978',  "Ana"],
     ['Briga generalizada',  'Briga na rua', '4', 'R. Brg. Machado, 62 - Brás', '-23.541559803081412', '-46.61357266048529',  "Tasso"],
@@ -385,7 +389,7 @@
     ['Dois caminhoes cheio de droga',  'Tráfico de Drogas', '5', 'Rua Alvorada, 202 - Jardim Sao Eduardo, Embu das Artes', '-23.670149601803523', '-46.80260121018091',  "Bruna"]
   ];
 
-  let heatmapData = [
+  var heatmapData = [
     new google.maps.LatLng(37.782, -122.447),
     new google.maps.LatLng(37.782, -122.445),
     new google.maps.LatLng(37.782, -122.443),
@@ -403,7 +407,7 @@
   ];
 
 
-  let map;
+  var map;
   const iconBase = "/imgs/";
   const icons = {
     1: {
@@ -533,9 +537,9 @@
 
 
   function initMapAll(userLatLng,focusUser=0,mapType='normal') {
-    let bounds = new google.maps.LatLngBounds();
+    var bounds = new google.maps.LatLngBounds();
 
-    let mapOptions = {
+    var mapOptions = {
       // center: myCoords,
       zoom: 10,
       disableDefaultUI: true,
@@ -549,16 +553,16 @@
     lat = userLatLng.latitude;
     lng = userLatLng.longitude;
 
-    let myCoords = new google.maps.LatLng(lat, lng);
+    var myCoords = new google.maps.LatLng(lat, lng);
     if(focusUser==1){
       bounds.extend(myCoords);
     }
     map.fitBounds(bounds);
     // console.log(map.getZoom());
-    let infowindow = new google.maps.InfoWindow();
+    var infowindow = new google.maps.InfoWindow();
 
 
-    let usrMarker = new google.maps.Marker({
+    var usrMarker = new google.maps.Marker({
       position: myCoords,
       map: map,
       draggable: true,
@@ -582,9 +586,9 @@
 
     // refresh usrMarker position and recenter map on usrMarker
     function refreshMarker() {
-      let lat = document.getElementById('place_latitude').val;
-      let lng = document.getElementById('place_longitude').val;
-      let myCoords = new google.maps.LatLng(lat, lng);
+      var lat = document.getElementById('place_latitude').val;
+      var lng = document.getElementById('place_longitude').val;
+      var myCoords = new google.maps.LatLng(lat, lng);
       usrMarker.setPosition(myCoords);
       map.setCenter(usrMarker.getPosition());
     }
@@ -655,13 +659,16 @@
         map.setZoom(16);
       },500);
     }
+
+
+
     // map.fitBounds(bounds);
 
   }
 
 
   function codeAddress(lat,lng) {
-    let latlng = new google.maps.LatLng(lat, lng);
+    var latlng = new google.maps.LatLng(lat, lng);
     geocoder = new google.maps.Geocoder();
     geocoder.geocode({'latLng': latlng }, function (results, status) {
         if (status == google.maps.GeocoderStatus.OK) {
@@ -673,9 +680,9 @@
     });
 }
 
-  let position;
-  let userLatLng;
-  let userCity;
+  var position;
+  var userLatLng;
+  var userCity;
   function getLatLngIP(){
      jQuery.get("https://freegeoip.app/json/", function(response) {
         userLatLng={
@@ -710,16 +717,16 @@
       },1000)
   });
 
-  let dialogLogInWarning = document.getElementById("dialogLogInWarning");
-  let modalSettings = new bootstrap.Modal($("#modalSettings"), {});
-  let modalReport = new bootstrap.Modal($("#modalReport"), {});
-  let modalCredits = new bootstrap.Modal($("#modalCredits"), {});
-  let modalReviews = new bootstrap.Modal($("#modalReviews"), {});
+  var dialogLogInWarning = document.getElementById("dialogLogInWarning");
+  var modalSettings = new bootstrap.Modal($("#modalSettings"), {});
+  var modalReport = new bootstrap.Modal($("#modalReport"), {});
+  var modalCredits = new bootstrap.Modal($("#modalCredits"), {});
+  var modalReviews = new bootstrap.Modal($("#modalReviews"), {});
 
   // Get the <span> element that closes the modal
-  let span = document.getElementsByClassName("close")[0];
+  var span = document.getElementsByClassName("close")[0];
 
-  let userLogged=true;
+  var userLogged=true;
 
   function openModalReport(tipoOcorrencia){
     event.preventDefault();
@@ -898,7 +905,7 @@
     checkCookie();
   });
 
-  let AUTH_TOKEN;
+  var AUTH_TOKEN;
   function sendForm(){
     AUTH_TOKEN = $('meta[name=csrf-token]').attr('content');
 
