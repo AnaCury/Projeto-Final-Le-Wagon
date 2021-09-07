@@ -20,55 +20,59 @@
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-          <form>
+
+          <%= form_with(model: @report, local: true) do |f| %>
             <div class="form-group float-label-control">
-              <label for=""><i>Descrição</i></label>
-              <input class='form-control' type="text" id='descriptionForm' name="description" value="" placeholder="Descrição" required>
+              <%= f.label :description, "Descrição" %>
+              <%= f.text_area :description, placeholder: "Ex: Assalto", class: "form-control", required: true %>
             </div>
             <div>
-              <label for="selectCategoria"><i>Categoria</i></label>
-              <select class='form-control' id='selectCategoria' name='category'>
-                <option value='Assalto com arma de fogo'>Assalto com arma de fogo</option>
-                <option value='Briga no Trânsito'>Briga no Trânsito</option>
-                <option value='Utilização de Drogas em via Pública'>Utilização de Drogas em via Pública</option>
-                <option value='Tráfico de Drogas'>Tráfico de Drogas</option>
-                <option value='Briga na rua'>Briga na rua</option>
-                <option value='Acidente de Trânsito'>Acidente de Trânsito</option>
-                <option value='Briga Doméstica na rua'>Briga Doméstica na rua</option>
-                <option value='Furto'>Furto</option>
-              </select>
-            </div>
-            <label for=""><i>Level</i></label><br />
-            <div class="form-check form-check-inline">
-              <input class="form-check-input" type="radio" name="danger_level" id="inlineRadio1" value="1" required>
-              <label class="form-check-label" for="inlineRadio1">1. Levíssimo</label>
-            </div>
-            <div class="form-check form-check-inline">
-              <input class="form-check-input" type="radio" name="danger_level" id="inlineRadio2" value="2" required>
-              <label class="form-check-label" for="inlineRadio2">2. Leve</label>
-            </div>
-            <div class="form-check form-check-inline">
-              <input class="form-check-input" type="radio" name="danger_level" id="inlineRadio3" value="3" required>
-              <label class="form-check-label" for="inlineRadio3">3.  Moderado</label>
-            </div>
-            <div class="form-check form-check-inline">
-              <input class="form-check-input" type="radio" name="danger_level" id="inlineRadio4" value="4" required>
-              <label class="form-check-label" for="inlineRadio4">4. Perigoso</label>
-            </div>
-            <div class="form-check form-check-inline">
-              <input class="form-check-input" type="radio" name="danger_level" id="inlineRadio5" value="5" required>
-              <label class="form-check-label" for="inlineRadio5">5. Perigosíssimo</label>
-            </div>
-            <div class="form-group float-label-control">
-              <label for=""><i>Endereço</i></label>
-              <textarea class='form-control autoresizing' data-autoresize name="address" id='place_address' onchange="this.parentNode.dataset.replicatedValue = this.value"></textarea>
+              <%= f.label :category, "Categoria:" %>
+              <%= f.select :category, options_for_select(['Assalto com arma de fogo',
+              'Briga no Trânsito',
+              'Utilização de Drogas em via Pública',
+              'Tráfico de Drogas',
+              'Briga na rua',
+              'Acidente de Trânsito',
+              'Briga Doméstica na rua',
+              'Furto']), {}, class: "form-control" %>
             </div>
 
+            <%= f.label :danger_level, "Danger Level:", class: "pt-3"%> <br />
+
+            <div class="form-check form-check-inline">
+              <%= f.radio_button :danger_level, "1", class:"form-check-input" %>
+              <%= f.label :danger_level, "Perigosíssimo", class:"form-check-label" %>
+            </div>
+
+            <div class="form-check form-check-inline">
+              <%= f.radio_button :danger_level, "2", class:"form-check-input" %>
+              <%= f.label :danger_level, "Perigoso", class:"form-check-label" %>
+            </div>
+
+            <div class="form-check form-check-inline">
+              <%= f.radio_button :danger_level, "3", class:"form-check-input" %>
+              <%= f.label :danger_level, "Moderado", class:"form-check-label" %>
+            </div>
+
+            <div class="form-check form-check-inline">
+              <%= f.radio_button :danger_level, "4", class:"form-check-input" %>
+              <%= f.label :danger_level, "Leve", class:"form-check-label" %>
+            </div>
+
+
+
+            <div class="form-group float-label-control">
+              <%= f.label :address, "Endereço:", class: "pt-3"%> <br />
+
+
+            <textarea class='form-control autoresizing' data-autoresize name="report[address]" id='report_address' onchange="this.parentNode.dataset.replicatedValue = this.value"></textarea>
+            </div>
             <input type='hidden' class='form-control' id='place_latitude' readonly="readonly" />
             <input type='hidden' class='form-control' id='place_longitude' readonly="readonly" />
 
-            <button type="button" onclick="sendForm()" class='btn btn-success' name="button"><i class='fa fa-plus-square'></i> Registrar</button>
-          </form>
+            <button type="submit" onclick="sendForm()" class='btn btn-success' name="submit"></i>Registrar</button>
+          <% end %>
         </div>
       </div>
     </div>
@@ -96,18 +100,16 @@
           <label>User:</label>
           <p id='userName'></p>
         </div>
-
       </div>
     </div>
   </div>
-
 
 
   <div class="modal fade" id="modalSettings" role="dialog" tabindex="-1" aria-labelledby="modalSettings" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="modalSettingsLabel">Settings</h5>
+          <h5 class="modal-title" id="modalSettingsLabel">Nível das Ocorr</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
@@ -118,35 +120,27 @@
               <div class="checkbox checkbox-primary">
                 <input id="checkbox1" type="checkbox" name="checkboxPinLevel" checked="" value='1'>
                 <label for="checkbox1">
-                  <img src='/imgs/pinLevel1_sm.png' width=20%" /> Level 1
+                  <img src='/imgs/pinLevel1_sm.png' width=20%" /> Perígosíssimo
                 </label>
               </div>
               <div class="checkbox checkbox-primary">
                 <input id="checkbox2" type="checkbox" name="checkboxPinLevel" checked="" value='2'>
                 <label for="checkbox2">
-                  <img src='/imgs/pinLevel2_sm.png' width=20%" /> Level 2
+                  <img src='/imgs/pinLevel2_sm.png' width=20%" /> Perigoso
                 </label>
               </div>
               <div class="checkbox checkbox-primary">
                 <input id="checkbox3" type="checkbox" name="checkboxPinLevel" checked="" value='3'>
                 <label for="checkbox3">
-                  <img src='/imgs/pinLevel3_sm.png' width="20%" /> Level 3
-                </label>
-              </div>
-              <div class="checkbox checkbox-primary">
-                <input id="checkbox4" type="checkbox" name="checkboxPinLevel" checked="" value='4'>
-                <label for="checkbox4">
-                  <img src='/imgs/pinLevel4_sm.png' width=20%" /> Level 4
+                  <img src='/imgs/pinLevel3_sm.png' width="20%" />Moderado
                 </label>
               </div>
               <div class="checkbox checkbox-primary">
                 <input id="checkbox5" type="checkbox" name="checkboxPinLevel" checked="" value='5'>
                 <label for="checkbox5">
-                  <img src='/imgs/pinLevel5_sm.png' width=20%" /> Level 5
+                  <img src='/imgs/pinLevel5_sm.png' width=20%" />Leve
                 </label>
               </div>
-
-
             </fieldset>
           </div>
 
@@ -268,7 +262,7 @@
   function changeOpacity() {
     heatmap.set('opacity', heatmap.get('opacity') ? null : 0.2);
   }
-  // Heatmap data: 500 Points
+
   function getPoints() {
     return [
       new google.maps.LatLng(-23.551436,	-46.689363),
@@ -686,7 +680,7 @@
     geocoder.geocode({'latLng': latlng }, function (results, status) {
         if (status == google.maps.GeocoderStatus.OK) {
           // console.log(results[0]);
-          $('#place_address').val(results[0].formatted_address);
+          $('#report_address').val(results[0].formatted_address);
         } else {
           console.log(status);
         }
