@@ -4,4 +4,7 @@ class PagesController < ApplicationController
   def home
     @user = User.new
   end
+  def maps
+    @report = Report.new
+  end
 end

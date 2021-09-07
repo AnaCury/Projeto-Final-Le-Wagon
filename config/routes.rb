@@ -5,7 +5,7 @@ Rails.application.routes.draw do
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 
 
-  get 'show_map', to: 'pages#maps', as: :show_map
+  get '/maps', to: 'pages#maps', as: :maps
   resources :reports do
     resources :reviews, only: [:new, :create]
     patch 'close', to: 'reports#close'
