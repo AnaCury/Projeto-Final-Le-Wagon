@@ -1,8 +1,8 @@
-$theme-signup: #03A9F4;
-$theme-signup-darken: #0288D1;
+$theme-signup: grey;
+$theme-signup-darken: grey;
 $theme-signup-background: #2C3034;
-$theme-login: #673AB7;
-$theme-login-darken: #512DA8;
+$theme-login: #2C3034;
+$theme-login-darken: #2C3034;
 $theme-login-background: #f9f9f9;
 $theme-dark: #212121;
 $theme-light: #e3e3e3;
@@ -12,7 +12,7 @@ sans-serif;
 $success: #5cb85c;
 $error: #d9534f;
 
-.loader {
+/* .loader {
   z-index: 10000 !important;
   width: 30%;
   height: 240px;
@@ -24,8 +24,8 @@ $error: #d9534f;
   margin-top: 16%;
   margin-left: 33%;
 }
-
-.loaderContainer {
+ */
+/* .loaderContainer {
   z-index: 10000 !important;
   width: 100%;
   height: 800px;
@@ -43,7 +43,7 @@ $error: #d9534f;
   animation-delay: 2s;
   animation-fill-mode: forwards;
 }
-
+ */
 body {
   margin: 0;
   height: 100%;
@@ -58,7 +58,7 @@ body {
   right: 0;
   width: 50%;
   height: 100%;
-  background: url("background-paris.png");
+  // background: url("/imgs/background-comlogo.png");
 
 }
 
@@ -67,7 +67,7 @@ body {
   left: 0;
   width: 100%;
   height: 100%;
-  background: url("/imgs/background-comlogo.png");
+  background: url("/imgs/rua2.jpg");
 }
 
 #back {
