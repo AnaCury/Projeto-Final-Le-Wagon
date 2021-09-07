@@ -2,8 +2,6 @@
 
   <% if report.photo.attached? %>
     <%= cl_image_tag report.photo.key, class: 'card-product-img', height: 100, width: 350, crop: :fill %>
-  <% else %>
-    <%= image_tag("noimage.jpg", class: 'card-product-img', height: 100, width: 150, crop: :fill) %>
   <% end %>
 
   <div class="card-product-infos">
