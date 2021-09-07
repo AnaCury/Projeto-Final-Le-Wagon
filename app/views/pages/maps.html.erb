@@ -1,1454 +1,347 @@
-<style>
-  /* body {
-    background: linear-gradient(180deg,#3ba4ff,#66a5ff);
-    font: 300 18px/18px Roboto
-  } */
-  .gm-style-iw-d>div{
-    color:black;
-  }
 
-  * { padding: 0; margin: 0; }
-  html, body {
-      min-height: 100% !important;
-      height: 100%;
-  }
+<%= stylesheet_link_tag params[:controller] %>
+
+<% content_for :head do %>
+  <!-- header content specific to this payment page -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/intro.js/minified/intro.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <link rel="stylesheet" href="https://unpkg.com/intro.js/minified/introjs.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+  <link  rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" />
+<% end %>
 
-  html, body, #allMap {
-      width: 100%;
-      height: 100%;
-      margin: 0;
-      padding: 0;
-  }
-
-  #allMap{
-    position:relative;
-  }
-
-  *,
-  :after,
-  :before {
-    box-sizing: border-box
-  }
-
-  .clearfix:after,
-  .clearfix:before {
-    content: '';
-    display: table
-  }
-
-  .clearfix:after {
-    clear: both;
-    display: block
-  }
-
-  .mobile-wrap {
-    margin: auto;
-    width: 100%;
-    height: 100%;
-    overflow: hidden;
-    position: relative;
-    /* background: url(https://raw.githubusercontent.com/khadkamhn/secret-project/master/img/background.jpg) center no-repeat; */
-    box-shadow: 0 12px 15px 0 rgba(0, 0, 0, .24), 0 17px 50px 0 rgba(0, 0, 0, .19)
-  }
-
-  .mobile-wrap:before {
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    content: '';
-    position: absolute;
-    /* background: rgba(90, 93, 165, .8); */
-    background: #030008;
-    /* background: linear-gradient(to bottom, rgba(90, 93, 165, 1), rgba(0, 0, 0, .7)) */
-    background: linear-gradient(to bottom, #030008, rgba(0, 0, 0, .7))
-  }
-
-  .mobile {
-    z-index: 99;
-    color: #fff;
-    height: 100%;
-    padding: 15px;
-    position: relative;
-    width:102%;
-    margin-left: -1%;
-  }
-
-  .mobile .header {
-    clear: both;
-    overflow: hidden;
-    padding-top: 5px;
-  	position:relative;
-  }
-
-  .mobile .header>span {
-    font-size: 24px;
-    min-width: 24px;
-    margin-left: 2.5%;
-    padding-bottom: 2%;
-    padding-right: 3%;
-  }
-  .header>span:hover{
-    cursor: pointer;
-  }
-
-  .mobile .header>.title {
-    font-size: 16px;
-    line-height: 24px;
-    margin-left: 15px
-  }
-
-  .mobile .header .pull-left {
-    float: left
-  }
-
-  .mobile .header .pull-right {
-    float: right
-  }
-  .mobile .header .ion-ios-search{
-  	z-index:999;
-  	position:relative;
-  }
-
-  .mobile .header .ion-ios-arrow-back {
-    min-width: 25px
-  }
-
-  .mobile .header .ion-ios-navicon>i {
-    height: 1px;
-    width: 20px;
-    margin-top: 5px;
-    background: #fff;
-    position: relative;
-    display: inline-block
-  }
-
-  .mobile .header .ion-ios-navicon>i:after,
-  .mobile .header .ion-ios-navicon>i:before {
-    content: '';
-    width: inherit;
-    height: inherit;
-    position: absolute;
-    background: inherit
-  }
-
-  .mobile .header .ion-ios-navicon>i:before {
-    bottom: 12px
-  }
-
-  .mobile .header .ion-ios-navicon>i:after {
-    bottom: 6px
-  }
-  .mobile .header .search{
-  	right:0;
-  	bottom:0;
-  	position:absolute;
-  }
-  .mobile .header .search input{
-  	width:0;
-  	color:#fff;
-  	height:24px;
-  	border:none;
-  	font-size:16px;
-  	max-width:150px;
-  	font-weight:300;
-  	padding-right:30px;
-  	font-family:inherit;
-  	background:transparent;
-  	transition:all .3s ease-in-out 0s;
-  	border-bottom:1px solid transparent;
-  	-webkit-appearance:textfield;
-  }
-  .mobile .header .search input:focus{
-  	outline:none;
-  }
-  .mobile .header .search input::-webkit-search-decoration,
-  .mobile .header .search input::-webkit-search-cancel-button {
-  	-webkit-appearance:none;
-  }
-  .mobile .header .search .search-visible{
-  	width:100%;
-  	border-bottom-color:#aaa;
-  }
-  .nav {
-    right: 35px;
-    z-index: 20;
-    width: 45px;
-    bottom: 15px;
-    height: 45px;
-    display: block;
-    position: absolute;
-    line-height: 45px;
-    border-radius: 50%;
-    box-shadow: 0 0 5px 0 rgba(0, 0, 0, .75)
-  }
-
-  .mask {
-    z-index: 21;
-    color: #fff;
-    width: inherit;
-    height: inherit;
-    cursor: pointer;
-    font-size: 28px;
-    text-align: center;
-    border-radius: 50%;
-    position: absolute;
-    background: #f23363;
-    transition: all .1s ease-in-out 0s
-  }
-
-  .nav.active .mask {
-    background: #cf0e3f;
-    transform: rotate(-135deg)
-  }
-
-  .nav:after {
-    top: 0;
-    left: 0;
-    content: '';
-    width: inherit;
-    height: inherit;
-    border-radius: 50%;
-    position: absolute;
-    background: #f23363;
-    transition: all .1s ease-in-out 0s
-  }
-
-  .nav.active:after {
-    top: -125px;
-    left: -125px;
-    width: 350px;
-    height: 350px
-  }
-
-  .nav-item-map {
-    top: 0;
-    left: 0;
-    z-index: 19;
-    // width: 45px;
-    // height: 45px;
-    width: 1px;
-    height: 1px;
-    color: #fff;
-    font-size: 24px;
-    transform: none;
-    line-height: 45px;
-    border-radius: 50%;
-    position: absolute;
-    text-align: center;
-    transition: all .3s cubic-bezier(.68, 1.55, .265, 1);
-  }
-
-  .nav.active .nav-count-1 {
-    transform: translate(10px, -100px);
-    width: 45px;
-    height: 45px;
-  }
-
-  .nav.active .nav-count-2 {
-    transform: translate(-35px, -80px);
-    width: 45px;
-    height: 45px;
-  }
-
-  .nav.active .nav-count-3 {
-    transform: translate(-80px, -45px);
-    width: 45px;
-    height: 45px;
-  }
-
-  .nav.active .nav-count-4 {
-    transform: translate(-100px, 0);
-    width: 45px;
-    height: 45px;
-  }
-
-  .pull-left {
-    float: left
-  }
-
-  .pull-right {
-    float: right
-  }
-
-  .html,
-  .invisible {
-    display: none
-  }
-
-  .html.visible,
-  .visible {
-    display: block
-  }
-
-  .sidebar .sidebar-content,
-  .sidebar .sidebar-overlay {
-    top: 0;
-    left: 0;
-    bottom: 0;
-    position: absolute;
-    transition: all .3s ease-in-out 0s
-  }
-
-  .sidebar .sidebar-overlay {
-    right: 0;
-    opacity: 0;
-    width: 100%;
-    z-index: 999;
-    transform: scale(0);
-    background: rgba(0, 0, 0, .4)
-  }
-
-  .sidebar .sidebar-content {
-    width: 20%;
-    color: #333;
-    padding: 15px;
-    z-index: 9999;
-    background: #fff;
-    transform: translateX(-100%);
-    padding-left:3%;
-  }
-
-  .sidebar.active .sidebar-content {
-    transform: translateX(0)
-  }
-
-  .sidebar.active .sidebar-overlay {
-    opacity: 1;
-    transform: scale(1)
-  }
-
-  .sidebar .sidebar-content .top-head .name {
-    font-size: 28px;
-    font-weight: 400;
-    margin-bottom: 5px
-  }
-
-  .sidebar .sidebar-content .top-head .email {
-    font-size: 13px;
-    margin-bottom: 50px
-  }
-
-  .sidebar .sidebar-content .nav-left>a {
-    color: #333;
-    display: block;
-    font-size: 16px;
-    padding: 10px 0;
-    line-height: 24px;
-    vertical-align: top;
-    text-decoration: none
-  }
-
-  .sidebar .sidebar-content .nav-left>a>span {
-    color: #aaa;
-    font-size: 24px;
-    min-width: 40px;
-    display: inline-block
-  }
-
-  .html.chats,
-  .html.search,
-  .html.compose,
-  .html.credits,
-  .html.settings,
-  .html.welcome {
-    margin-top: 50px
-  }
-
-  .on-off {
-    display: none
-  }
-
-  .on-off+label {
-    width: 30px;
-    height: 10px;
-    position: relative;
-    border-radius: 5px;
-    background: #dedee0;
-    display: inline-block;
-    transition: all .3s ease-in-out 0s
-  }
-
-  .on-off+label:after {
-    left: 0;
-    top: -2px;
-    width: 15px;
-    content: '';
-    height: 15px;
-    position: absolute;
-    border-radius: 50%;
-    background: #bebdc2;
-    transition: all .3s ease-in-out 0s
-  }
-
-  .on-off:checked+label {
-    background: #fd99b3
-  }
-
-  .on-off:checked+label:after {
-    left: 15px;
-    background: #fb3666
-  }
-
-  .btn {
-    color: #eee;
-    width: 100%;
-    border: none;
-    font-size: 16px;
-    padding: 12px 24px;
-    background: #cf0e3f;
-    border-radius: 30px
-  }
-  .search .title{
-  	font-size:24px;
-  }
-  .search .title p{
-  	margin:0;
-  	font-size:16px;
-  	line-height:18px;
-  }
-  .welcome .datetime .date,
-  .welcome .datetime .day {
-    margin-bottom: 15px
-  }
-
-  .welcome .datetime .day {
-    font-size: 28px;
-    -webkit-animation-duration: .2s;
-    animation-duration: .2s
-  }
-
-  .welcome .datetime .date {
-    -webkit-animation-duration: .35s;
-    animation-duration: .35s
-  }
-
-  .forecast {
-    margin-top: 30px
-  }
-
-  .forecast .temperature {
-    text-align: right
-  }
-
-  .forecast .datetime .day,
-  .forecast .temperature .unit {
-    font-size: 28px;
-    min-height: 33px
-  }
-
-  .forecast .datetime .date,
-  .forecast .temperature .location {
-    color: #ccc;
-    font-size: 12px
-  }
-
-  .forecast .temperature .unit>i {
-    top: -2px;
-    font-style: normal;
-    position: relative
-  }
-
-  .forecast .animated {
-    -webkit-animation-duration: .2s;
-    animation-duration: .2s
-  }
-
-  .alarm-list {
-    margin-top: 50px
-  }
-
-  .alarm-list .note {
-    padding: 10px 0
-  }
-
-  .alarm-list .note:nth-child(1) {
-    -webkit-animation-duration: .2s;
-    animation-duration: .2s
-  }
-
-  .alarm-list .note:nth-child(2) {
-    -webkit-animation-duration: .3s;
-    animation-duration: .3s
-  }
-
-  .alarm-list .note:nth-child(3) {
-    -webkit-animation-duration: .4s;
-    animation-duration: .4s
-  }
-
-  .alarm-list .note .time {
-    min-width: 35px;
-    margin-right: 30px
-  }
-
-  .alarm-list .note .time>.shift,
-  .alarm-list .note .to-do>.subject {
-    color: #ccc;
-    font-size: 11px
-  }
-
-  .alarm-list .note .time {
-    text-align: center
-  }
-
-  .alarm-list .note .to-do>.title {
-    font-size: 14px
-  }
-
-  .alarm-list .note:not(:last-child) {
-    position: relative
-  }
-
-  .alarm-list .note:not(:last-child):before {
-    bottom: 0;
-    width: 82%;
-    content: '';
-    right: -15px;
-    position: absolute;
-    border-bottom: 1px solid rgba(170, 170, 170, .5)
-  }
-
-  .user-list .user {
-    width: 30px;
-    height: 30px;
-    margin: 4px;
-    overflow: hidden;
-    border-radius: 50%;
-    display: inline-block;
-    border: 1px solid #bbb
-  }
-
-  .user-list .user>img {
-    width: 100%
-  }
-
-  .compose .forms .group {
-    margin-bottom: 15px
-  }
-
-  .compose .forms .group>label {
-    padding: 6px 0;
-    min-width: 40px;
-    display: inline-block
-  }
-
-  .compose .forms .group>label>span {
-    min-width: 20px;
-    display: inline-block
-  }
-
-  .compose .forms .group input,
-  .compose .forms .group textarea {
-    color: #fff;
-    border: none;
-    resize: none;
-    min-width: 185px;
-    background: 0 0;
-    padding: 5px 10px 1px;
-    border-bottom: 1px solid rgba(170, 170, 170, .6)
-  }
-
-  .compose .forms .visible {
-    width: 100%;
-    display: block!important
-  }
-
-  .compose .forms .action {
-    margin-top: 50px
-  }
-
-  .compose .forms .group:nth-child(1) {
-    -webkit-animation-duration: .1s;
-    animation-duration: .1s
-  }
-
-  .compose .forms .group:nth-child(2) {
-    -webkit-animation-duration: .2s;
-    animation-duration: .2s
-  }
-
-  .compose .forms .group:nth-child(3) {
-    -webkit-animation-duration: .3s;
-    animation-duration: .3s
-  }
-
-  .compose .forms .group:nth-child(4) {
-    -webkit-animation-duration: .4s;
-    animation-duration: .4s
-  }
-
-  .chats .tabs-list {
-    margin-bottom: 15px
-  }
-
-  .chats .tabs-list .tab {
-    float: left;
-    color: #aaa;
-    font-size: 12px;
-    font-weight: 400;
-    margin-right: 15px;
-    padding-bottom: 2px;
-    text-decoration: none;
-    text-transform: uppercase;
-    border-bottom: 2px solid transparent
-  }
-
-  .chats .tabs-list .tab.active,
-  .chats .tabs-list .tab:hover {
-    color: #fff;
-    border-bottom: 2px solid
-  }
-
-  .chats .active-users .user {
-    padding: 5px 0;
-    cursor: default
-  }
-
-  .chats .active-users .photo {
-    width: 40px;
-    height: 40px;
-    overflow: hidden;
-    border-radius: 50%;
-    border: 2px solid #fff;
-    box-shadow: 0 3px 2px rgba(0, 0, 0, .4)
-  }
-
-  .chats .active-users .photo img {
-    width: 100%
-  }
-
-  .chats .active-users .desc {
-    margin-left: 15px
-  }
-
-  .chats .active-users .desc p {
-    margin: 0;
-    font-size: 14px
-  }
-
-  .chats .active-users .desc .name {
-    font-weight: 400
-  }
-
-  .chats .active-users .desc .position {
-    color: #aaa;
-    font-size: 12px
-  }
-
-  .chats .active-users .user .idle {
-    height: 40px;
-    position: relative
-  }
-
-  .chats .active-users .user .idle>span {
-    top: 50%;
-    right: 0;
-    width: 15px;
-    height: 15px;
-    margin-top: -7.5px;
-    position: absolute;
-    border-radius: 50%;
-    display: inline-block;
-    border: 1px solid #fff
-  }
-
-  .chats .active-users .user .idle>.online {
-    background: #2ecc71
-  }
-
-  .chats .active-users .user .idle>.offline {
-    background: #95a5a6
-  }
-
-  .chats .active-users .user .idle>.away {
-    background: #f2ca27
-  }
-
-  .chats .active-users .user:nth-child(1) {
-    -webkit-animation-duration: .18s;
-    animation-duration: .18s
-  }
-
-  .chats .active-users .user:nth-child(2) {
-    -webkit-animation-duration: .25s;
-    animation-duration: .25s
-  }
-
-  .chats .active-users .user:nth-child(3) {
-    -webkit-animation-duration: .35s;
-    animation-duration: .35s
-  }
-
-  .chats .active-users .user:nth-child(4) {
-    -webkit-animation-duration: .4s;
-    animation-duration: .4s
-  }
-
-  .chats .active-users .user:nth-child(5) {
-    -webkit-animation-duration: .5s;
-    animation-duration: .5s
-  }
-
-  .chats .active-users .user:nth-child(6) {
-    -webkit-animation-duration: .6s;
-    animation-duration: .6s
-  }
-
-  .chats .active-users .user .idle>span:before {
-    right: 20px;
-    bottom: -2px;
-    display: none;
-    padding: 0 5px;
-    font-size: 12px;
-    position: absolute;
-    border-radius: 2px;
-    content: attr(class);
-    background: rgba(0, 0, 0, .4);
-    text-transform: capitalize
-  }
-
-  .chats .active-users .user:hover .idle>span:before {
-    display: block;
-    -webkit-animation: fadeInRight .4s;
-    animation: fadeInRight .4s
-  }
-
-  .profile {
-    margin-top: 40px
-  }
-
-  .profile .photo {
-    margin: auto;
-    width: 150px;
-    height: 150px;
-    overflow: hidden;
-    position: relative;
-    border-radius: 50%;
-    border: 6px solid #ccc
-  }
-
-  .profile .photo img {
-    width: 100%;
-    border-radius: 50%;
-    transition: all .2s ease-in-out 0s
-  }
-
-  .profile .photo .social {
-    top: 50%;
-    left: 50%;
-    width: 30px;
-    z-index: 99;
-    height: 30px;
-    margin-top: -15px;
-    margin-left: -15px;
-    position: absolute;
-    transform: scale(0);
-    transition: all .4s ease-in-out 0s
-  }
-
-  .profile .photo .social .soc-item {
-    top: 0;
-    left: 0;
-    z-index: 19;
-    width: 35px;
-    height: 35px;
-    color: #eee;
-    font-size: 24px;
-    transform: none;
-    line-height: 35px;
-    border-radius: 50%;
-    position: absolute;
-    text-align: center;
-    transition: all .3s cubic-bezier(.68, 1.55, .265, 1)
-  }
-
-  .profile .photo .social .soc-item:hover {
-    color: #fff
-  }
-
-  .profile .photo:after {
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    z-index: 0;
-    content: '';
-    position: absolute;
-    border-radius: 50%;
-    transform: scale(0);
-    background: rgba(0, 0, 0, .2);
-    transition: all .3s ease-in-out 0s
-  }
-
-  .profile .photo:hover img {
-    transform: scale(.5) rotate(10deg)
-  }
-
-  .profile .photo:hover .social,
-  .profile .photo:hover:after {
-    transform: scale(1)
-  }
-
-  .profile .photo:hover .social .soc-count-1 {
-    transform: translate(0, -50px)
-  }
-
-  .profile .photo:hover .social .soc-count-2 {
-    transform: translate(-35px, -35px)
-  }
-
-  .profile .photo:hover .social .soc-count-3 {
-    transform: translate(-50px, 0)
-  }
-
-  .profile .photo:hover .social .soc-count-4 {
-    transform: translate(-35px, 35px)
-  }
-
-  .profile .photo:hover .social .soc-count-5 {
-    transform: translate(0, 50px)
-  }
-
-  .profile .photo:hover .social .soc-count-6 {
-    transform: translate(35px, 35px)
-  }
-
-  .profile .photo:hover .social .soc-count-7 {
-    transform: translate(50px, 0)
-  }
-
-  .profile .photo:hover .social .soc-count-8 {
-    transform: translate(35px, -35px)
-  }
-
-  .profile .details .heading {
-    padding: 5px;
-    margin: 10px 0;
-    text-align: center;
-    border-radius: 15px;
-    background: rgba(0, 0, 0, .4)
-  }
-
-  .profile .details .heading>.name {
-    font-size: 18px;
-    font-weight: 400;
-    padding-right: 5px
-  }
-
-  .profile .details .heading>.position {
-    font-size: 12px;
-    padding-left: 5px;
-    vertical-align: 1px;
-    border-left: 1px solid
-  }
-
-  .profile .details .text {
-    margin: 0;
-    color: #ccc;
-    line-height: 24px;
-    text-align: center;
-    -webkit-animation-duration: .4s;
-    animation-duration: .4s
-  }
-
-  .setting-list {
-    margin-left: -15px;
-    margin-right: -15px
-  }
-
-  .setting-list .gear {
-    padding: 10px 15px;
-    font-size: 14px;
-    font-weight: 400
-  }
-
-  .setting-list .gear:not(:last-child) {
-    border-bottom: 1px solid rgba(170, 170, 170, .4)
-  }
-
-  .setting-list .gear>.action {
-    color: #aaa
-  }
-
-  .setting-list .gear:nth-child(1) {
-    -webkit-animation-duration: .1s;
-    animation-duration: .1s
-  }
-
-  .setting-list .gear:nth-child(2) {
-    -webkit-animation-duration: .2s;
-    animation-duration: .2s
-  }
-
-  .setting-list .gear:nth-child(3) {
-    -webkit-animation-duration: .3s;
-    animation-duration: .3s
-  }
-
-  .setting-list .gear:nth-child(4) {
-    -webkit-animation-duration: .4s;
-    animation-duration: .4s
-  }
-
-  .setting-list .gear:nth-child(5) {
-    -webkit-animation-duration: .5s;
-    animation-duration: .5s
-  }
-
-  .setting-list .gear:nth-child(6) {
-    -webkit-animation-duration: .6s;
-    animation-duration: .6s
-  }
-
-  .credits .title {
-    line-height: 24px;
-    text-align: center
-  }
-
-  .credits .credit-ol {
-    margin: 20px 0;
-    counter-reset: credits
-  }
-
-  .credits .credit-li {
-    line-height: 30px;
-    position: relative;
-    padding-left: 20px
-  }
-
-  .credits .credit-li:before {
-    top: 0;
-    left: 0;
-    position: absolute;
-    content: counter(credits);
-    counter-increment: credits
-  }
-
-  .credits .credit-li:nth-child(1) {
-    -webkit-animation-duration: .3s;
-    animation-duration: .3s
-  }
-
-  .credits .credit-li:nth-child(2) {
-    -webkit-animation-duration: .4s;
-    animation-duration: .4s
-  }
-
-  .credits .credit-li:nth-child(3) {
-    -webkit-animation-duration: .5s;
-    animation-duration: .5s
-  }
-
-  .credits .credit-li:nth-child(4) {
-    -webkit-animation-duration: .6s;
-    animation-duration: .6s
-  }
-
-  .credits .credit-li:nth-child(5) {
-    -webkit-animation-duration: .7s;
-    animation-duration: .7s
-  }
-
-  .credits .credit-li:nth-child(6) {
-    -webkit-animation-duration: .8s;
-    animation-duration: .8s
-  }
-
-  .credits .credit-li a {
-    color: inherit;
-    text-decoration: none;
-    padding: 1px 5px;
-    border-radius: 13px;
-    transition: all .6s ease-in-out 0s
-  }
-
-  .credits .credit-li:hover a {
-    box-shadow: 150px 0 0 0 rgba(0, 0, 0, .4) inset
-  }
-
-  .credits .credit-li span {
-    font-size: 13px
-  }
-
-  .credits .text {
-    margin-top: 10px;
-    line-height: 22px;
-    text-align: center
-  }
-
-
-  @media only screen and (max-width: 700px) {
-    .mobile {
-      width:106%;
-      margin-left: -3%;
-    }
-    .sidebar .sidebar-content {
-      padding-left:8%;
-      width:50%;
-    }
-  }
-
-
-  #mainPageSettings:hover{
-    cursor:pointer;
-  }
-
-  dialog{
-    z-index:1000 !important;
-  }
-
-
-  /* SWITCH */
-
-  .switchContainer{
-      display: flex;
-      justify-content: center;
-      align-items: center;
-  }
-
-  .switch{
-      position: relative;
-      width: 80px;
-      height: 38px;
-  }
-
-  .switch input{
-      opacity: 0;
-      height: 0;
-      width: 0;
-  }
-
-  .slider{
-      top: 0;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      transition: 0.4s;
-      background-color:white;
-      border-radius: 34px;
-      position: absolute;
-      cursor: pointer;
-      box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
-  }
-
-  .slider::before{
-      content: '';
-      position: absolute;
-      background-color: #343434;
-      width: 34px;
-      height: 34px;
-      border-radius: 50%;
-      left: 8px;
-      bottom: 2px;
-      transition: 0.4s;
-      box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
-  }
-
-  .switch input:checked + .slider::before{
-      transform: translateX(30px);
-        background-color: white;
-  }
-
-  .switch input:checked + .slider{
-      background-color: #343434;
-  }
-
-</style>
 <div class="mobile-wrap">
-  <!-- <div id="modalReport" class="modal" style='z-index:1000 !important'>
+  <div class="modal fade" id="modalReport" tabindex="-1" aria-labelledby="modalReportLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="modalReportLabel">Ocorrência</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form>
+            <div class="form-group float-label-control">
+              <label for=""><i>Descrição</i></label>
+              <input class='form-control' type="text" id='descriptionForm' name="description" value="" placeholder="Descrição" required>
+            </div>
+            <div>
+              <label for="selectCategoria"><i>Categoria</i></label>
+              <select class='form-control' id='selectCategoria' name='category'>
+                <option value='Assalto com arma de fogo'>Assalto com arma de fogo</option>
+                <option value='Briga no Trânsito'>Briga no Trânsito</option>
+                <option value='Utilização de Drogas em via Pública'>Utilização de Drogas em via Pública</option>
+                <option value='Tráfico de Drogas'>Tráfico de Drogas</option>
+                <option value='Briga na rua'>Briga na rua</option>
+                <option value='Acidente de Trânsito'>Acidente de Trânsito</option>
+                <option value='Briga Doméstica na rua'>Briga Doméstica na rua</option>
+                <option value='Furto'>Furto</option>
+              </select>
+            </div>
+            <label for=""><i>Level</i></label><br />
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" name="danger_level" id="inlineRadio1" value="1" required>
+              <label class="form-check-label" for="inlineRadio1">1. Levíssimo</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" name="danger_level" id="inlineRadio2" value="2" required>
+              <label class="form-check-label" for="inlineRadio2">2. Leve</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" name="danger_level" id="inlineRadio3" value="3" required>
+              <label class="form-check-label" for="inlineRadio3">3.  Moderado</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" name="danger_level" id="inlineRadio4" value="4" required>
+              <label class="form-check-label" for="inlineRadio4">4. Perigoso</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" name="danger_level" id="inlineRadio5" value="5" required>
+              <label class="form-check-label" for="inlineRadio5">5. Perigosíssimo</label>
+            </div>
+            <div class="form-group float-label-control">
+              <label for=""><i>Endereço</i></label>
+              <textarea class='form-control autoresizing' data-autoresize name="address" id='place_address' onchange="this.parentNode.dataset.replicatedValue = this.value"></textarea>
+            </div>
 
+            <input type='hidden' class='form-control' id='place_latitude' readonly="readonly" />
+            <input type='hidden' class='form-control' id='place_longitude' readonly="readonly" />
 
-    <div class="modal-content">
-      <span class="close">&times;</span>
-      <h1>Registrar Ocorrência - <span id="newRecordTitle"></span></h1><br />
-
-      <p>Deseja Adicionar alguma descrição ou comentário da ocorrência?</p>
-
-      <textarea name="name" rows="8" cols="80"></textarea><br />
-
-      <button type="button" name="button">Registrar</button>
+            <button type="button" onclick="sendForm()" class='btn btn-success' name="button"><i class='fa fa-plus-square'></i> Registrar</button>
+          </form>
+        </div>
+      </div>
     </div>
+  </div>
+  <div class="modal fade" id="modalReviews" tabindex="-1" aria-labelledby="modalReviewsLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="modalReviewsLabel">Detalhes</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <label>Descrição:</label>
+          <p id='description'></p>
+          <label>Categoria:</label>
+          <p id='category'></p>
+          <label>Nível:</label>
+          <p id='danger_level'></p>
+          <label>Endereço:</label>
+          <p id='address'></p>
+          <label>Latitude:</label>
+          <p id='recordLat'></p>
+          <label>Longitude:</label>
+          <p id='recordLong'></p>
+          <label>User:</label>
+          <p id='userName'></p>
+        </div>
 
-  </div> -->
-  <dialog id="dialogLogInWarning" class="snackbar">
-    <div class="absolute right-0 top-0">
-        <button type="button" class="btn -icon close">
-            <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="#000000"><path d="M0 0h24v24H0z" fill="none"/><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
-        </button>
+      </div>
     </div>
-    <h1>Você precisa estar logado para registrar ocorrências!</h1>
-  </dialog>
-  <dialog id="modalReviews" class="lg-w-50">
-      <div class="absolute right-0 top-0">
-          <button type="button" class="btn -icon close">
-              <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="#000000"><path d="M0 0h24v24H0z" fill="none"/><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
-          </button>
-      </div>
-      <div class="dialog-inner">
-          <h1>Ocorrência - <span id="recordName"></span></h1>
-          Descrição: <p id='description'></p>
-          Categoria: <p id='category'></p>
-          Nível: <p id='danger_level'></p>
-          Endereço: <p id='address'></p>
-          Latitude: <p id='recordLat'></p>
-          Longitude: <p id='recordLong'></p>
-          User: <p id='userName'></p>
-      </div>
-  </dialog>
-  <dialog id="modalReport" class="lg-w-50">
-      <div class="absolute right-0 top-0">
-          <button type="button" class="btn -icon close">
-              <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="#000000"><path d="M0 0h24v24H0z" fill="none"/><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
-          </button>
-      </div>
-      <div class="dialog-inner">
-          <h1>Registrar Ocorrência - <span id="newRecordTitle"></span></h1>
-          <p>
-            Reporte o que você viu!
-            Coloque uma descrição, endereço, categoria, o nivel de perigo e endereço.
-          </p>
-          <%= link_to "Denunciar", new_report_path %>
-      </div>
-  </dialog>
-  <dialog id="modalCredits" class="lg-w-50">
-      <div class="absolute right-0 top-0">
-          <button type="button" class="btn -icon close">
-              <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="#000000"><path d="M0 0h24v24H0z" fill="none"/><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
-          </button>
-      </div>
-      <div class="dialog-inner">
-          <h1>Creditos</h1>
-          <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit.
-              Quibusdam, in incidunt, id quos facere hic corrupti, quia
-              perferendis atque consectetur ipsum eaque quo quod explicabo.
-              Aspernatur repudiandae voluptas dolore impedit? Lorem ipsum
-              dolor sit amet consectetur adipisicing elit. Quibusdam, in
-              incidunt, id quos facere hic corrupti, quia perferendis atque
-              consectetur ipsum eaque quo quod explicabo. Aspernatur
-              repudiandae voluptas dolore impedit?
-          </p>
-          <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit.
-              Quibusdam, in incidunt, id quos facere hic corrupti, quia
-              perferendis atque consectetur ipsum eaque quo quod explicabo.
-              Aspernatur repudiandae voluptas dolore impedit? Lorem ipsum
-              dolor sit amet consectetur adipisicing elit. Quibusdam, in
-              incidunt, id quos facere hic corrupti, quia perferendis atque
-              consectetur ipsum eaque quo quod explicabo. Aspernatur
-              repudiandae voluptas dolore impedit?
-          </p>
-      </div>
-  </dialog>
-  <dialog id="modalSettings" class="lg-w-50">
-      <div class="absolute right-0 top-0">
-          <button type="button" class="btn -icon close">
-              <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="#000000"><path d="M0 0h24v24H0z" fill="none"/><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
-          </button>
-      </div>
-      <div class="dialog-inner">
-          <h1>Settings</h1>
-          <div class='switchContainer'>
-            <label>Toggle Dark Mode &ensp;</label>
-            <label class="switch">
-                <input onclick="toggleDarkMode()" type="checkbox" id="checkBox">
-                <span class=" slider"></span>
-            </label>
-          </div><br />
-
-      </div>
-  </dialog>
-  <!-- <div id="modalSettings" class="modal" style='z-index:1000 !important'>
+  </div>
 
 
-    <div class="modal-content">
-      <span class="close">&times;</span>
-      <h1>Configurações</h1><br />
 
-      <p>Deseja Adicionar alguma descrição ou comentário da ocorrência?</p>
+  <div class="modal fade" id="modalSettings" role="dialog" tabindex="-1" aria-labelledby="modalSettings" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="modalSettingsLabel">Settings</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div class="col-md-4">
+            <label for="">Filtros:</label>
+            <fieldset class='pinFilters levelCheckboxes'>
+              <br />
+              <div class="checkbox checkbox-primary">
+                <input id="checkbox1" type="checkbox" name="checkboxPinLevel" checked="" value='1'>
+                <label for="checkbox1">
+                  <img src='/imgs/pinLevel1_sm.png' width=20%" /> Level 1
+                </label>
+              </div>
+              <div class="checkbox checkbox-primary">
+                <input id="checkbox2" type="checkbox" name="checkboxPinLevel" checked="" value='2'>
+                <label for="checkbox2">
+                  <img src='/imgs/pinLevel2_sm.png' width=20%" /> Level 2
+                </label>
+              </div>
+              <div class="checkbox checkbox-primary">
+                <input id="checkbox3" type="checkbox" name="checkboxPinLevel" checked="" value='3'>
+                <label for="checkbox3">
+                  <img src='/imgs/pinLevel3_sm.png' width="20%" /> Level 3
+                </label>
+              </div>
+              <div class="checkbox checkbox-primary">
+                <input id="checkbox4" type="checkbox" name="checkboxPinLevel" checked="" value='4'>
+                <label for="checkbox4">
+                  <img src='/imgs/pinLevel4_sm.png' width=20%" /> Level 4
+                </label>
+              </div>
+              <div class="checkbox checkbox-primary">
+                <input id="checkbox5" type="checkbox" name="checkboxPinLevel" checked="" value='5'>
+                <label for="checkbox5">
+                  <img src='/imgs/pinLevel5_sm.png' width=20%" /> Level 5
+                </label>
+              </div>
 
-      <textarea name="name" rows="8" cols="80"></textarea><br />
 
-      <button type="button" name="button">Registrar</button>
+            </fieldset>
+          </div>
+
+        </div>
+
+      </div>
     </div>
+  </div>
+  <div class="modal fade" id="modalCredits" tabindex="-1" aria-labelledby="modalCreditsLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="modalCreditsLabel"><i class='fa fa-info'></i> Sobre</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          ...
+        </div>
 
-  </div> -->
+      </div>
+    </div>
+  </div>
+
   <div class="mobile clearfix">
     <div class="header">
       <span class="ion-ios-navicon pull-left"><i></i></span>
-      <!-- <span class="title">Home</span> -->
-      <span class="ion-ios-gear-outline pull-right" id='mainPageSettings' onclick='openModalSettings()'></span>
-      <div class="search">
-      <form method="post">
-        <input type="search" placeholder="Search Here">
-      </form>
+      <div class='pull-right'>
+        <input type="checkbox" class="checkboxDarkMode" id="checkbox" onclick="toggleDarkMode()">
+        <label for="checkbox" class="labelDarkToggle">
+          <i class="fas fa-moon"></i>
+          <i class='fas fa-sun'></i>
+          <div class='ballDarkToggle'></div>
+        </label>
       </div>
+
+
     </div>
-    <div class="sidebar">
+    <div class="sidebar" id="sidebar">
       <div class="sidebar-overlay"></div>
       <div class="sidebar-content">
         <div class="top-head">
-          <div class=""><h1 style="margin-bottom: -2%;">SAFETY</h1><p style='text-align:center'>for all.</p></div>
-          <!-- <div class="email">for all.</div> -->
+          <div class="">
+          <img src="imgs/logo-preta.png" style="width: 100%">
+          </div>
         </div>
-        <div class="nav-left">
-          <a href="#home"><span class="ion-ios-home-outline"></span> Home</a>
-          <a href="#alarm"><span class="ion-ios-list-outline"></span> My Reports</a>
-          <a href="#profile"><span class="ion-ios-person-outline"></span> Profile | Login</a>
-          <a href="#settings" onclick='openModalSettings()'><span class="ion-ios-gear-outline"></span> Settings</a>
-          <a href="#credits" onclick='openModalCredits()' id='modalCredits'><span class="ion-ios-information-outline"></span> Credits</a>
+        <div class="navs-left">
+          <a type="button" data-toggle="modal" data-target="#modalSettings" onclick="openModalSettings()" class="pt-4"><span class="ion-ios-gear-outline"></span>Ocorrências</a>
+          <a type="button" data-toggle="modal" data-target="#modalCredits" onclick="openModalCredits()"><span class="ion-ios-information-outline"></span> About Us</a>
+          <a type="button" onclick="initTutorial()" class="pb-5"><span class="fas fa-user-graduate"></span> Tutorial do seu APP</a>
+          <!-- <button type="button" onclick="logOutUser()"><span class="ion-ios-person-outline"></span> Logout</button> -->
+          <div class="d-flex justify-content-center">
+          <%= button_to "Logout", destroy_user_session_path,method: :delete,class:"btn btn-outline-dark p-2" %>
+          </div>
+        </div>
+
+        <div>
         </div>
       </div>
     </div>
+    <!-- <div id="floating-panel">
+      <button onclick="toggleHeatmap()">Toggle Heatmap</button>
+    </div> -->
     <div id="allMap"></div>
     <div class="content">
-
-      <!-- <div class="html search">
-        <div class="title bounceInDown animated">Search Result</div>
-        <p class="flipInX animated">Sorry,<br>no matches found for <b class="key"></b></p>
-      </div>
-      <div class="html welcome visible">
-        <div class="datetime">
-          <div class="day lightSpeedIn animated">Thursday</div>
-          <div class="date lightSpeedIn animated">05 January, 2017</div>
-          <div class="time lightSpeedIn animated">02:00 AM</div>
-        </div>
-      </div>
-      <div class="html alarm">
-        <div class="forecast clearfix">
-          <div class="datetime pull-left bounceInLeft animated">
-            <div class="day">Thursday</div>
-            <div class="date">05 January, 2017</div>
-          </div>
-          <div class="temperature pull-right bounceInRight animated">
-            <div class="unit"><span class="ion-ios-sunny-outline"></span> 34<i>&deg;</i></div>
-            <div class="location">Fort Lauderdale, FL</div>
-          </div>
-        </div>
-        <div class="alarm-list">
-          <div class="note clearfix slideInRight animated">
-            <div class="time pull-left">
-              <div class="hour">9</div>
-              <div class="shift">AM</div>
-            </div>
-            <div class="to-do pull-left">
-              <div class="title">Finish HTML Coding</div>
-              <div class="subject">App UI</div>
-            </div>
-          </div>
-          <div class="note clearfix slideInRight animated">
-            <div class="time pull-left">
-              <div class="hour">1</div>
-              <div class="shift">PM</div>
-            </div>
-            <div class="to-do pull-left">
-              <div class="title">Lunch Break</div>
-              <div class="subject"></div>
-            </div>
-          </div>
-          <div class="note clearfix slideInRight animated" data-revert="slideOutRight">
-            <div class="time pull-left">
-              <div class="hour">3</div>
-              <div class="shift">PM</div>
-            </div>
-            <div class="to-do pull-left">
-              <div class="title">Developer Stand Up</div>
-              <div class="subject">Hangouts</div>
-              <div class="user-list clearfix">
-                <div class="user pull-left"><img src="https://raw.githubusercontent.com/khadkamhn/secret-project/master/img/usr-i.png"></div>
-                <div class="user pull-left"><img src="https://raw.githubusercontent.com/khadkamhn/secret-project/master/img/usr-ii.png"></div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="html compose">
-        <div class="forms">
-          <div class="group clearfix slideInRight animated">
-            <label class="pull-left" for="compose-time"><span class="ion-ios-time-outline"></span> Time</label>
-            <input class="pull-right" id="compose-time" type="time">
-          </div>
-          <div class="group clearfix slideInLeft animated">
-            <label class="pull-left" for="compose-date"><span class="ion-ios-calendar-outline"></span> Date</label>
-            <input class="pull-right" id="compose-date" type="date">
-          </div>
-          <div class="group clearfix slideInRight animated">
-            <label class="pull-left" for="compose-title"><span class="ion-ios-paper-outline"></span> Title</label>
-            <input class="pull-right" id="compose-title" type="text">
-          </div>
-          <div class="group clearfix slideInLeft animated">
-            <label class="visible" for="compose-detail"><span class="ion-ios-list-outline"></span> Task</label>
-            <textarea class="visible" id="compose-detail" rows="3"></textarea>
-          </div>
-          <div class="action flipInY animated">
-            <button class="btn">Compose</button>
-          </div>
-        </div>
-      </div>
-      <div class="html chats">
-        <div class="tabs-list clearfix">
-          <a href="#" class="tab active">Users</a>
-          <a href="#" class="tab">Messages</a>
-          <a href="#" class="tab">Groups</a>
-        </div>
-        <div class="active-users">
-          <div class="user clearfix rotateInDownLeft animated">
-            <div class="photo pull-left">
-              <img src="https://s3.amazonaws.com/uifaces/faces/twitter/adhamdannaway/128.jpg">
-            </div>
-            <div class="desc pull-left">
-              <p class="name">Connor Hartigan</p>
-              <p class="position">Web &amp; UI Designer</p>
-            </div>
-            <div class="idle pull-right"><span class="away"></span></div>
-          </div>
-          <div class="user clearfix rotateInDownRight animated">
-            <div class="photo pull-left">
-              <img src="https://s3.amazonaws.com/uifaces/faces/twitter/markmushiva/128.jpg">
-            </div>
-            <div class="desc pull-left">
-              <p class="name">Jacob Lennon</p>
-              <p class="position">Front-End Developer</p>
-            </div>
-            <div class="idle pull-right"><span class="offline"></span></div>
-          </div>
-          <div class="user clearfix rotateInDownLeft animated">
-            <div class="photo pull-left">
-              <img src="https://s3.amazonaws.com/uifaces/faces/twitter/scottohara/128.jpg">
-            </div>
-            <div class="desc pull-left">
-              <p class="name">Didier Mailly</p>
-              <p class="position">Co-Founder</p>
-            </div>
-            <div class="idle pull-right"><span class="away"></span></div>
-          </div>
-          <div class="user clearfix rotateInDownRight animated">
-            <div class="photo pull-left">
-              <img src="https://s3.amazonaws.com/uifaces/faces/twitter/shalt0ni/128.jpg">
-            </div>
-            <div class="desc pull-left">
-              <p class="name">Miguel Cunha Ferreira</p>
-              <p class="position">Sales Manager</p>
-            </div>
-            <div class="idle pull-right"><span class="online"></span></div>
-          </div>
-          <div class="user clearfix rotateInDownLeft animated">
-            <div class="photo pull-left">
-              <img src="https://s3.amazonaws.com/uifaces/faces/twitter/sircookieface/128.jpg">
-            </div>
-            <div class="desc pull-left">
-              <p class="name">Eric Yuriev</p>
-              <p class="position">App Developer</p>
-            </div>
-            <div class="idle pull-right"><span class="online"></span></div>
-          </div>
-          <div class="user clearfix rotateInDownRight animated">
-            <div class="photo pull-left">
-              <img src="https://s3.amazonaws.com/uifaces/faces/twitter/ryanmclaughlin/128.jpg">
-            </div>
-            <div class="desc pull-left">
-              <p class="name">Theodore Clark</p>
-              <p class="position">Project Manager</p>
-            </div>
-            <div class="idle pull-right"><span class="online"></span></div>
-          </div>
-        </div>
-      </div>
-      <div class="html settings">
-        <div class="setting-list">
-          <div class="gear clearfix slideInRight animated">
-            <div class="title pull-left">General</div>
-            <div class="action pull-right"><span class="ion-ios-arrow-right"></span></div>
-          </div>
-          <div class="gear clearfix slideInLeft animated">
-            <div class="title pull-left"><label for="gear-notice">Notification</label></div>
-            <div class="action pull-right"><input id="gear-notice" class="on-off" type="checkbox"><label for="gear-notice"></label></div>
-          </div>
-          <div class="gear clearfix slideInRight animated">
-            <div class="title pull-left"><label for="gear-sound">Sound</label></div>
-            <div class="action pull-right"><input id="gear-sound" class="on-off" type="checkbox" checked><label for="gear-sound"></label></div>
-          </div>
-          <div class="gear clearfix slideInLeft animated">
-            <div class="title pull-left">Theme</div>
-            <div class="action pull-right">Standard <span class="ion-ios-arrow-right"></span></div>
-          </div>
-          <div class="gear clearfix slideInRight animated">
-            <div class="title pull-left">Support</div>
-            <div class="action pull-right"><span class="ion-ios-arrow-right"></span></div>
-          </div>
-          <div class="gear clearfix slideInLeft animated">
-            <div class="title pull-left">Privacy</div>
-            <div class="action pull-right"><span class="ion-ios-arrow-right"></span></div>
-          </div>
-        </div>
-      </div>
-      <div class="html profile">
-        <div class="photo flipInX animated">
-          <img src="https://raw.githubusercontent.com/khadkamhn/secret-project/master/img/mohan.png">
-          <div class="social">
-            <a href="https://facebook.com/khadkamhn" class="soc-item soc-count-1"><span class="ion-social-facebook"></span></a>
-            <a href="https://twitter.com/khadkamhn" class="soc-item soc-count-2"><span class="ion-social-twitter"></span></a>
-            <a href="https://github.com/khadkamhn" class="soc-item soc-count-3"><span class="ion-social-github"></span></a>
-            <a href="https://pinterest.com/khadkamhn" class="soc-item soc-count-4"><span class="ion-social-pinterest"></span></a>
-            <a href="https://np.linkedin.com/in/khadkamhn" class="soc-item soc-count-5"><span class="ion-social-linkedin"></span></a>
-            <a href="https://codepen.io/khadkamhn" class="soc-item soc-count-6"><span class="ion-social-codepen"></span></a>
-            <a href="skype:khadkamhn?userinfo" class="soc-item soc-count-7"><span class="ion-social-skype"></span></a>
-            <a href="http://dribbble.com/khadkamhn" class="soc-item soc-count-8"><span class="ion-social-dribbble"></span></a>
-          </div>
-        </div>
-        <div class="details">
-          <p class="heading flipInY animated">
-            <span class="name">Mohan Khadka</span><span class="position">Web/Graphic Desiger</span>
-          </p>
-          <p class="text fadeInUp animated">Hi, It's me Mohan from Nepal. I'm a web and graphics designer. Designing is my passion and I am still learning and developing my skills on graphics designing and coding. I have been working on various designing projects.</p>
-        </div>
-      </div>
-      <div class="html credits">
-        <div class="title flipInY animated">I have been using the following assets to build this design</div>
-        <div class="credit-ol">
-          <div class="credit-li lightSpeedIn animated"><a href="https://www.google.com/fonts/specimen/Roboto" target="_blank">roboto</a> <span>for typography</span></div>
-          <div class="credit-li lightSpeedIn animated"><a href="https://jquery.com" target="_blank">jquery</a> <span>for design/ui</span></div>
-          <div class="credit-li lightSpeedIn animated"><a href="http://ionicons.com/" target="_blank">ionicons</a> <span>for icons</span></div>
-          <div class="credit-li lightSpeedIn animated"><a href="http://uifaces.com/authorized" target="_blank">ui faces</a> <span>for avatar</span></div>
-          <div class="credit-li lightSpeedIn animated"><a href="https://daneden.github.io/animate.css/" target="_blank">animate.css</a> <span>for animation</span></div>
-          <div class="credit-li lightSpeedIn animated"><a href="https://dribbble.com/shots/1928064-Secret-Project" target="_blank">concept of design</a> <span>for layout</span></div>
-          <div class="credit-li lightSpeedIn animated"><a href="https://unsplash.com/photos/6asyCyR0K1Q/download" target="_blank">unsplash.com</a> <span>for background</span></div>
-        </div>
-        <div class="text zoomInUp animated">I'm glad for using these resources and expecting same as time ahead</div>
-      </div> -->
+      <!-- MAPA -->
+    </div>
+    <div class="nav2">
+      <a href="#" class="mask" id='locateMe' style="color: #fff;"><img src='/imgs/Ic_my_location_48px_white.png' width='50%' /></a>
     </div>
     <div class="nav">
-      <a href="#profile" class="nav-item-map nav-count-1"><%= image_tag("carcrash.png", width: 85, id:"logoImage",title:"Acidente",onclick:'openModalReport("Acidente")') %></a>
-      <a href="#compose" class="nav-item-map nav-count-2"><%= image_tag("assault.jpg", width: 80, id:"logoImage",title:"Assalto",onclick:'openModalReport("Assalto")') %></a>
-      <a href="#chats" class="nav-item-map nav-count-3"><%= image_tag("kidnap.jpg", width: 80, id:"logoImage",title:"Sequestro",onclick:'openModalReport("Sequestro")') %></a>
-      <a href="#alarm" class="nav-item-map nav-count-4"><%= image_tag("theif.jpg", width: 80, id:"logoImage",title:"Furto",onclick:'openModalReport("Furto")') %></a>
-      <!-- <a href="#profile" class="nav-item nav-count-1"><img src='../assets/imgs/carcrash.png' style='width:85%' title="Acidente" onclick='openModalReport("Acidente")'/></a>
-      <a href="#compose" class="nav-item nav-count-2"><img src='../assets/imgs/assault.jpg' style='width:80%' title="Assalto" onclick='openModalReport("Assalto")'/></a>
-      <a href="#chats" class="nav-item nav-count-3"><img src='../assets/imgs/kidnap.jpg' style='width:80%' title="Sequestro" onclick='openModalReport("Sequestro")'/></a>
-      <a href="#alarm" class="nav-item nav-count-4"><img src='../assets/imgs/theif.jpg' style='width:80%' title="Furto" onclick='openModalReport("Furto")'/></a> -->
-      <!-- <a href="#profile" class="nav-item nav-count-1"><i class="ion-ios-person-outline"></i><span class="invisible">Profile</span></a>
-      <a href="#compose" class="nav-item nav-count-2"><i class="ion-ios-compose-outline"></i><span class="invisible">Compose</span></a>
-      <a href="#chats" class="nav-item nav-count-3"><i class="ion-ios-chatboxes-outline"></i><span class="invisible">Chats</span></a>
-      <a href="#alarm" class="nav-item nav-count-4"><i class="ion-ios-alarm-outline"></i><span class="invisible">Alarm</span></a> -->
-      <a href="#toggle" class="mask" style="color: #fff;"><i class="ion-ios-plus-empty"></i></a>
+      <a href="#toggle" class="mask" style="color: #fff;" onclick="openModalReport('default')"><i class="ion-ios-plus-empty"></i></a>
     </div>
   </div>
 </div>
 
+  <script>
+  // JavaScript está nesta página decorrente da ordem de carregamento da página
 
-<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script> -->
-<!-- <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyACxDkarbg-ij9QPqzU_p93pnLLOWlYnRo&libraries=visualization"></script> -->
-<!-- <script async
-  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyACxDkarbg-ij9QPqzU_p93pnLLOWlYnRo&libraries=visualization">
-</script> -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/dialog-polyfill/0.5.6/dialog-polyfill.min.js" integrity="sha512-qUIG93zKzcLBVD5RGRbx2PBmbVRu+tJIl+EPLTus0z8I1AMru9sQYdlf6cBacSzYmZVncB9rcc8rYBnazqgrxA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  var heatmap,map;
 
-<!-- <script src='../assets/js/main.js'></script> -->
-<!-- <script src='../assets/js/inputs.js'></script> -->
+  var mapType='normal';
+  function toggleHeatmap() {
+    event.preventDefault();
+    // heatmap.setMap(heatmap.getMap() ? null : map);
+    if(mapType=='normal'){
+      mapType='heat';
+      initMapAll(userLatLng,0,'heat');
+    }else{
+      mapType='normal';
+      initMapAll(userLatLng,0,'normal');
+    }
 
-<script>
+  }
+
+  function changeGradient() {
+    var gradient = [
+      'rgba(0, 255, 255, 0)',
+      'rgba(0, 255, 255, 1)',
+      'rgba(0, 191, 255, 1)',
+      'rgba(0, 127, 255, 1)',
+      'rgba(0, 63, 255, 1)',
+      'rgba(0, 0, 255, 1)',
+      'rgba(0, 0, 223, 1)',
+      'rgba(0, 0, 191, 1)',
+      'rgba(0, 0, 159, 1)',
+      'rgba(0, 0, 127, 1)',
+      'rgba(63, 0, 91, 1)',
+      'rgba(127, 0, 63, 1)',
+      'rgba(191, 0, 31, 1)',
+      'rgba(255, 0, 0, 1)'
+    ]
+    heatmap.set('gradient', heatmap.get('gradient') ? null : gradient);
+  }
+
+  function changeRadius() {
+    heatmap.set('radius', heatmap.get('radius') ? null : 20);
+  }
+
+  function changeOpacity() {
+    heatmap.set('opacity', heatmap.get('opacity') ? null : 0.2);
+  }
+  // Heatmap data: 500 Points
+  function getPoints() {
+    return [
+      new google.maps.LatLng(-23.551436,	-46.689363),
+      new google.maps.LatLng(-23.5487015,	-46.5709204),
+      new google.maps.LatLng(-23.541559803081412,	-46.61357266048529),
+      new google.maps.LatLng(-23.530936104693843,	-46.63169754699272),
+      new google.maps.LatLng(-23.5274872,	-46.6682728),
+      new google.maps.LatLng(-23.5121458,	-46.6959571),
+      new google.maps.LatLng(-23.534091,	-46.4847274),
+      new google.maps.LatLng(-23.517943938564,	-46.49639114312057),
+      new google.maps.LatLng(-23.501722511848257,	-46.5147478406616),
+      new google.maps.LatLng(-23.51275388613911,	-46.509749589357476),
+      new google.maps.LatLng(-23.5325098,	-46.6866949),
+      new google.maps.LatLng(-23.5238552,	-46.6966112),
+      new google.maps.LatLng(-23.5235455,	-46.707312),
+      new google.maps.LatLng(-23.522230847427846,	-46.72268825692604),
+      new google.maps.LatLng(-23.5430203481882,	-46.75108097586215),
+      new google.maps.LatLng(-23.54330839835314,	-46.76891567586218),
+      new google.maps.LatLng(-23.572029546385433,	-46.71771224702639),
+      new google.maps.LatLng(-23.5709163,	-46.7808146),
+      new google.maps.LatLng(-23.5692268,	-46.7783462),
+      new google.maps.LatLng(-23.5714135,	-46.6561708),
+      new google.maps.LatLng(-23.5703339,	-46.6644218),
+      new google.maps.LatLng(-23.5851633,	-46.6799436),
+      new google.maps.LatLng(-23.5856155,	-46.6880461),
+      new google.maps.LatLng(-23.599560185563355,	-46.670145833481214),
+      new google.maps.LatLng(-23.5874635,	-46.67364),
+      new google.maps.LatLng(-23.57178574838909,	-46.68453140846947),
+      new google.maps.LatLng(-23.5406805,	-46.7286837),
+      new google.maps.LatLng(-23.5243716,	-46.7274694),
+      new google.maps.LatLng(-23.502819736146765,	-46.71236411650939),
+      new google.maps.LatLng(-23.491580512863784,	-46.71946577308889),
+      new google.maps.LatLng(-23.4785063,	-46.7170899),
+      new google.maps.LatLng(-23.637363040265274,	-46.69860971813775),
+      new google.maps.LatLng(-23.6110736,	-46.6856352),
+      new google.maps.LatLng(-23.546897362400017,	-46.48098674512625),
+      new google.maps.LatLng(-23.5494194,	-46.4572144),
+      new google.maps.LatLng(-23.55442821194587,	-46.449639273961814),
+      new google.maps.LatLng(-23.569996539870715,	-46.474003133481894),
+      new google.maps.LatLng(-23.586677867225532,	-46.51197097581042),
+      new google.maps.LatLng(-23.578289188408057,	-46.53751094697498),
+      new google.maps.LatLng(-23.566793969053755,	-46.55084627581081),
+      new google.maps.LatLng(-23.5667669,	-46.5922078),
+      new google.maps.LatLng(-23.556453424238573,	-46.604444031632845),
+      new google.maps.LatLng(-23.6756087,	-46.6110302),
+      new google.maps.LatLng(-23.687432,	-46.5971636),
+      new google.maps.LatLng(-23.73018,	-46.571757),
+      new google.maps.LatLng(-23.728510260488864,	-46.57154124697116),
+      new google.maps.LatLng(-23.720123846576158,	-46.594429150659685),
+      new google.maps.LatLng(-23.7103286,	-46.6995343),
+      new google.maps.LatLng(-23.67736865799807,	-46.78283788253114),
+      new google.maps.LatLng(-23.6719745,	-46.8034154),
+      new google.maps.LatLng(-23.5558,	-46.6396),
+      new google.maps.LatLng(-23.5558,	-46.6396),
+      new google.maps.LatLng(-23.5558,	-46.6396),
+      new google.maps.LatLng(-23.5558,	-46.6396),
+      new google.maps.LatLng(-23.5558,	-46.6396),
+      new google.maps.LatLng(-23.5558,	-46.6396),
+      new google.maps.LatLng(-23.5558,	-46.6396),
+      new google.maps.LatLng(-23.5558,	-46.6396),
+      new google.maps.LatLng(-23.5558,	-46.6396),
+      new google.maps.LatLng(-23.5558,	-46.6396),
+      new google.maps.LatLng(-23.5558,	-46.6396),
+      new google.maps.LatLng(-23.5558,	-46.6396),
+      new google.maps.LatLng(-23.5558,	-46.6396),
+      new google.maps.LatLng(-23.530227,	-46.64784),
+      new google.maps.LatLng(-23.555751,	-46.639586),
+      new google.maps.LatLng(-15.777756,	-47.874208),
+      new google.maps.LatLng(-15.814185,	-47.903696),
+
+
+    ];
+  }
 
   function capitalize(word) {
     return word
@@ -1509,48 +402,49 @@
     ['Dois caminhoes cheio de droga',  'Tráfico de Drogas', '5', 'Rua Alvorada, 202 - Jardim Sao Eduardo, Embu das Artes', '-23.670149601803523', '-46.80260121018091',  "Bruna"]
   ];
 
-  var userLatLng;
-  updateCoordinate(function (currentLocation) {
-    initMapAll(currentLocation);
-    userLatLng=currentLocation;
-    console.log('Localizacao encontrada!');
-  });
+  var heatmapData = [
+    new google.maps.LatLng(37.782, -122.447),
+    new google.maps.LatLng(37.782, -122.445),
+    new google.maps.LatLng(37.782, -122.443),
+    new google.maps.LatLng(37.782, -122.441),
+    new google.maps.LatLng(37.782, -122.439),
+    new google.maps.LatLng(37.782, -122.437),
+    new google.maps.LatLng(37.782, -122.435),
+    new google.maps.LatLng(37.785, -122.447),
+    new google.maps.LatLng(37.785, -122.445),
+    new google.maps.LatLng(37.785, -122.443),
+    new google.maps.LatLng(37.785, -122.441),
+    new google.maps.LatLng(37.785, -122.439),
+    new google.maps.LatLng(37.785, -122.437),
+    new google.maps.LatLng(37.785, -122.435)
+  ];
 
-  function updateCoordinate(callback) {
-      navigator.geolocation.getCurrentPosition(
-        function (position) {
-          var returnValue = {
-            latitude: position.coords.latitude,
-            longitude: position.coords.longitude
-          }
-          callback(returnValue)
-        }
-      )
-  }
 
-  // var map;
-  // const iconBase ="../assets/imgs/";
-  // const icons = {
-  //   assalto: {
-  //     icon: iconBase + "pinAssalt.png",
-  //   },
-  //   sequestro: {
-  //     icon: iconBase + "pinSequestro.png",
-  //   },
-  //   furto: {
-  //     icon: iconBase + "pinFurto.png",
-  //   },
-  //   acidente: {
-  //     icon: iconBase + "pinCarCrash.png",
-  //   },
-  //   alert:{
-  //     icon: iconBase + "pinAlertSmall.png"
-  //   }
-  // };
+  var map;
+  const iconBase = "/imgs/";
+  const icons = {
+    1: {
+      icon: iconBase + "pinLevel1_sm.png",
+    },
+    2: {
+      icon: iconBase + "pinLevel2_sm.png",
+    },
+    3: {
+      icon: iconBase + "pinLevel3_sm.png",
+    },
+    4: {
+      icon: iconBase + "pinLevel4_sm.png",
+    },
+    5:{
+      icon: iconBase + "pinLevel5_sm.png"
+    }
+  };
 
   let darkModeStyle=[];
   function toggleDarkMode(mode){
     if(darkModeStyle.length==0){
+      // Custom style at:
+      // https://mapstyle.withgoogle.com/
       darkModeStyle=[
         { elementType: "geometry", stylers: [{ color: "#242f3e" }] },
         { elementType: "labels.text.stroke", stylers: [{ color: "#242f3e" }] },
@@ -1631,130 +525,229 @@
           stylers: [{ color: "#17263c" }],
         },
       ];
+      darkModeStyle2=[{"featureType":"all","elementType":"labels.text.fill","stylers":[{"saturation":36},{"color":"#000000"},{"lightness":40}]},{"featureType":"all","elementType":"labels.text.stroke","stylers":[{"visibility":"on"},{"color":"#000000"},{"lightness":16}]},{"featureType":"all","elementType":"labels.icon","stylers":[{"visibility":"off"}]},{"featureType":"administrative","elementType":"geometry.fill","stylers":[{"color":"#000000"},{"lightness":20}]},{"featureType":"administrative","elementType":"geometry.stroke","stylers":[{"color":"#000000"},{"lightness":17},{"weight":1.2}]},{"featureType":"administrative","elementType":"labels","stylers":[{"visibility":"off"}]},{"featureType":"administrative.country","elementType":"all","stylers":[{"visibility":"simplified"}]},{"featureType":"administrative.country","elementType":"geometry","stylers":[{"visibility":"simplified"}]},{"featureType":"administrative.country","elementType":"labels.text","stylers":[{"visibility":"simplified"}]},{"featureType":"administrative.province","elementType":"all","stylers":[{"visibility":"off"}]},{"featureType":"administrative.locality","elementType":"all","stylers":[{"visibility":"simplified"},{"saturation":"-100"},{"lightness":"30"}]},{"featureType":"administrative.neighborhood","elementType":"all","stylers":[{"visibility":"off"}]},{"featureType":"administrative.land_parcel","elementType":"all","stylers":[{"visibility":"off"}]},{"featureType":"landscape","elementType":"all","stylers":[{"visibility":"simplified"},{"gamma":"0.00"},{"lightness":"74"}]},{"featureType":"landscape","elementType":"geometry","stylers":[{"color":"#000000"},{"lightness":20}]},{"featureType":"landscape.man_made","elementType":"all","stylers":[{"lightness":"3"}]},{"featureType":"poi","elementType":"all","stylers":[{"visibility":"off"}]},{"featureType":"poi","elementType":"geometry","stylers":[{"color":"#000000"},{"lightness":21}]},{"featureType":"road","elementType":"geometry","stylers":[{"visibility":"simplified"}]},{"featureType":"road.highway","elementType":"geometry.fill","stylers":[{"color":"#000000"},{"lightness":17}]},{"featureType":"road.highway","elementType":"geometry.stroke","stylers":[{"color":"#000000"},{"lightness":29},{"weight":0.2}]},{"featureType":"road.arterial","elementType":"geometry","stylers":[{"color":"#000000"},{"lightness":18}]},{"featureType":"road.local","elementType":"geometry","stylers":[{"color":"#000000"},{"lightness":16}]},{"featureType":"transit","elementType":"geometry","stylers":[{"color":"#000000"},{"lightness":19}]},{"featureType":"water","elementType":"geometry","stylers":[{"color":"#000000"},{"lightness":17}]}];
       $('p').css('color','white');
       $('label').css('color','white');
       $('h1').css('color','white');
+      $('h5').css('color','white');
       $('a').css('color','white');
       $('.sidebar-content').css('background-color','#343434');
-      $('dialog').css('background-color','#343434');
+      $('.modal-content').css('background-color','#343434');
     }else{
       darkModeStyle=[];
       $('p').css('color','black');
       $('label').css('color','black');
       $('h1').css('color','black');
+      $('h5').css('color','black');
       $('a').css('color','black');
       $('.sidebar-content').css('background-color','white');
-      $('dialog').css('background-color','white');
+      $('.modal-content').css('background-color','white');
+      $('.ion-ios-plus-empty').css('color','white');
     }
     initMapAll(userLatLng);
   }
 
-  function initMapAll(userLatLng) {
+
+
+  function initMapAll(userLatLng,focusUser=0,mapType='normal') {
     var bounds = new google.maps.LatLngBounds();
 
     var mapOptions = {
       // center: myCoords,
-      zoom: 14,
+      zoom: 10,
       disableDefaultUI: true,
       styles:darkModeStyle,
     };
-    const map = new google.maps.Map(document.getElementById('allMap'), mapOptions);
+    map = new google.maps.Map(document.getElementById('allMap'), mapOptions);
+
+    getLocation();
 
     //USER LOCATION / NEW REPORT
-    try{
-      lat = userLatLng.latitude;
-      lng = userLatLng.longitude;
-    }catch{
-      lat = -23.555800;
-      lng = -46.639600;
-    }
+    lat = userLatLng.latitude;
+    lng = userLatLng.longitude;
 
     var myCoords = new google.maps.LatLng(lat, lng);
-    bounds.extend(myCoords);
-
+    if(focusUser==1){
+      bounds.extend(myCoords);
+    }
+    map.fitBounds(bounds);
     // console.log(map.getZoom());
     var infowindow = new google.maps.InfoWindow();
 
 
-    var marker = new google.maps.Marker({
+    var usrMarker = new google.maps.Marker({
       position: myCoords,
-      map: map
+      map: map,
+      draggable: true,
+      animation: google.maps.Animation.DROP,
     });
-    google.maps.event.addListener(marker, 'click', (function(marker) {
+
+
+    google.maps.event.addListener(usrMarker, 'click', (function(usrMarker) {
       return function() {
-        infowindow.setContent("Você está aqui!");
-        infowindow.open(map, marker);
+        // infowindow.setContent("Você está aqui!");
+        infowindow.setContent("<button class='btn btn-success' onclick='openModalReport()'>Registrar Ocorrência</button>");
+        infowindow.open(map, usrMarker);
       }
-    })(marker));
+    })(usrMarker));
+
+    google.maps.event.addListener(map, 'click', (function() {
+      return function() {
+        infowindow.close();
+      }
+    })(usrMarker));
+
+    // refresh usrMarker position and recenter map on usrMarker
+    function refreshMarker() {
+      var lat = document.getElementById('place_latitude').val;
+      var lng = document.getElementById('place_longitude').val;
+      var myCoords = new google.maps.LatLng(lat, lng);
+      usrMarker.setPosition(myCoords);
+      map.setCenter(usrMarker.getPosition());
+    }
+
+    document.getElementById('place_latitude').onchange = refreshMarker;
+    document.getElementById('place_longitude').onchange = refreshMarker;
+    // document.getElementById('place_address').onchange = geocodePosition;
+    usrMarker.addListener('drag', function() {
+      latlng = usrMarker.getPosition();
+      newlat = (Math.round(latlng.lat() * 1000000)) / 1000000;
+      newlng = (Math.round(latlng.lng() * 1000000)) / 1000000;
+      // console.log("NEW:",newlat,newlng);
+      $('#place_latitude').val(newlat);
+      $('#place_longitude').val(newlng);
+      infowindow.setContent("<button class='btn btn-success' onclick='openModalReport()'>Registrar Ocorrência</button>");
+      infowindow.open(map, usrMarker);
+    });
+    // When drag ends, center (pan) the map on the usrMarker position
+    usrMarker.addListener('dragend', function() {
+      map.panTo(usrMarker.getPosition());
+      codeAddress(newlat,newlng);
+    });
+
+
+    latlng = usrMarker.getPosition();
+    newlat = (Math.round(latlng.lat() * 1000000)) / 1000000;
+    newlng = (Math.round(latlng.lng() * 1000000)) / 1000000;
+    $('#place_latitude').val(newlat);
+    $('#place_longitude').val(newlng);
+    codeAddress(newlat,newlng);
+
+    let pinsToShow = getSelectedPins();
 
     // ALL REPORTS PINS
-    $(locations).each(function(i,place){
-      // console.log(place);
-      myCoords = new google.maps.LatLng(parseFloat(place[4]),parseFloat(place[5]));
-      bounds.extend(myCoords);
-      marker = new google.maps.Marker({
-        position: myCoords,
-        icon: "/imgs/pinAlertSmall.png",
-        // icon: icons["alert"].icon,
+    if(mapType=="normal"){
+      $(locations).each(function(i,place){
+        // console.log(place);
+        // console.log(pinsToShow.includes(place[2]));
+        if(pinsToShow.includes(place[2])){
+          myCoords = new google.maps.LatLng(parseFloat(place[4]),parseFloat(place[5]));
+          if(focusUser==0){
+            bounds.extend(myCoords);
+          }
+          marker = new google.maps.Marker({
+            position: myCoords,
+            // icon: "/imgs/pinAlertSmall.png",
+            icon: icons[place[2]].icon,
+            map: map,
+            animation: google.maps.Animation.DROP,
+
+          });
+          google.maps.event.addListener(marker, 'click', (function(marker) {
+            return function() {
+              openReviews(place);
+            }
+          })(marker));
+        }
+      });
+    }else{
+      heatmap = new google.maps.visualization.HeatmapLayer({
+        data: getPoints(),
         map: map
       });
-      google.maps.event.addListener(marker, 'click', (function(marker) {
-        return function() {
-          openReviews(place);
-          // infowindow.setContent("<a onclick='openReviews("+place+")'>"place[0]+"<br /> <b>("+capitalize(place[1])+")</b></a>");
-          // infowindow.open(map, marker);
-        }
-      })(marker));
-      map.fitBounds(bounds);
-    });
+    }
+
+    if(focusUser==1){
+      setTimeout(function(){
+        map.setZoom(16);
+      },500);
+    }
 
 
+
+    // map.fitBounds(bounds);
 
   }
+
+
+  function codeAddress(lat,lng) {
+    var latlng = new google.maps.LatLng(lat, lng);
+    geocoder = new google.maps.Geocoder();
+    geocoder.geocode({'latLng': latlng }, function (results, status) {
+        if (status == google.maps.GeocoderStatus.OK) {
+          // console.log(results[0]);
+          $('#place_address').val(results[0].formatted_address);
+        } else {
+          console.log(status);
+        }
+    });
+}
+
   var position;
-  // getLatLngIP();
-  document.addEventListener("DOMContentLoaded", function(){
-      console.log('Carregando sua localizacao..');
-      setTimeout(function(){
-        initMapAll(userLatLng);
-      },1000)
-  });
-
-  // getLatLngIP(function (currentLocation) {
-  //   console.log(currentLocation);
-  // });
-
-
   var userLatLng;
   var userCity;
   function getLatLngIP(){
-     jQuery.get("http://ipinfo.io", function(response) {
+     jQuery.get("https://freegeoip.app/json/", function(response) {
         userLatLng={
-          "latitude": parseFloat((response.loc).split(',')[0]),
-          "longitude": parseFloat((response.loc).split(',')[1])
+          "latitude": parseFloat(response.latitude),
+          "longitude": parseFloat(response.longitude)
         }
     }, "jsonp");
   }
-  // Get the modal report
-  var modalReport = document.getElementById("modalReport");
-  var modalSettings = document.getElementById("modalSettings");
+
+  function getLocation() {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(showPosition);
+    } else {
+      getLatLngIP()
+      // x.innerHTML = "Geolocation is not supported by this browser.";
+    }
+  }
+
+  function showPosition(position) {
+    userLatLng={
+      "latitude":position.coords.latitude,
+      "longitude":position.coords.longitude
+    };
+  }
+
+
+  document.addEventListener("DOMContentLoaded", function(){
+      console.log('Carregando sua localizacao..');
+      getLatLngIP();
+      setTimeout(function(){
+        initMapAll(userLatLng,1);
+      },1000)
+  });
+
   var dialogLogInWarning = document.getElementById("dialogLogInWarning");
-  var modalCredits = document.getElementById("modalCredits");
-  var modalReviews = document.getElementById("modalReviews");
+  var modalSettings = new bootstrap.Modal($("#modalSettings"), {});
+  var modalReport = new bootstrap.Modal($("#modalReport"), {});
+  var modalCredits = new bootstrap.Modal($("#modalCredits"), {});
+  var modalReviews = new bootstrap.Modal($("#modalReviews"), {});
 
   // Get the <span> element that closes the modal
   var span = document.getElementsByClassName("close")[0];
 
   var userLogged=true;
+
   function openModalReport(tipoOcorrencia){
     event.preventDefault();
-    $('.mask').click();
-    // modalReport.style.display = "block";
     if(userLogged){
-      modalReport.showModal();
+      modalReport.show();
       $('#newRecordTitle').html(tipoOcorrencia);
     }else{
-      dialogLogInWarning.showModal();
+      dialogLogInWarning.show();
     }
 
   }
@@ -1767,45 +760,192 @@
     $("#recordLat").html(details[4]);
     $("#recordLong").html(details[5]);
     $("#userName").html(details[6]);
-    modalReviews.showModal();
-    openModalReview(details);
-    // console.log();
+    modalReviews.show();
+    // openModalReview(details);
   }
 
+
+  $(document).ready(function(){});
+
   function openModalSettings(){
-    modalSettings.showModal();
-    $('.switchContainer').show();
+    // modalSettings.show();
+    $(".sidebar").toggleClass("active");
   }
 
   function openModalCredits(){
-    modalCredits.showModal();
+    modalCredits.show();
+    $(".sidebar").toggleClass("active");
   }
 
-  $('[class*="close"]').on('click', function() {
-    modalReport.close();
-    modalSettings.close();
-    dialogLogInWarning.close();
-    modalCredits.close();
-    modalReviews.close();
-    $('.switchContainer').hide();
+
+  $('input[name=checkboxPinLevel]').on('change',function(){
+    initMapAll(userLatLng);
   });
 
-  let targetWindowCloseModal = ["modalReport","modalSettings","dialogLogInWarning"];
-  window.onclick = function(event) {
-    console.log(event.target)
-    if (targetWindowCloseModal.includes(event.target.id)) {
-      $('.switchContainer').hide();
-      modalReport.close();
-      modalSettings.close();
-      dialogLogInWarning.close();
-      // modalCredits.close();
-    }
-
+  let selectedPins=[];
+  function getSelectedPins(){
+    selectedPins=[];
+    $('input[name=checkboxPinLevel]:checked').each(function(i){
+      selectedPins.push($(this).val());
+    });
+    return selectedPins;
   }
 
 
+  $('#locateMe').on('click',function(){
+    event.preventDefault();
+    initMapAll(userLatLng,1);
+  });
 
 
+  $(".navs-left a").hover(function(){
+    if(darkModeStyle.length==0){
+      $(this).css("background-color", "#e4e7e6");
+    }else{
+      $(this).css("background-color", "#1a1b1b");
+    }
+    $(this).css("cursor", "pointer");
+    }, function(){
+    $(this).css("background-color", "transparent");
+  });
 
-  // newDialog("#modalReport", "#modalReport");
-</script>
+
+  $(".ion-ios-navicon").on(" click", function(e) {
+        e.preventDefault() , $(".sidebar").toggleClass("active"), $(".navs").removeClass("active"), $(".sidebar .sidebar-overlay").removeClass("fadeOut animated").addClass("fadeIn animated")
+  }), $(".sidebar .sidebar-overlay").on(" click", function(e) {
+        e.preventDefault() , $(".ion-ios-navicon").click(), $(this).removeClass("fadeIn").addClass("fadeOut")
+  })
+  $(".navs-left a").on("touchstart click", function(e) {
+        e.preventDefault();
+        // var t = $(this).attr("href").replace("#", "");
+        // $(".sidebar").toggleClass("active")
+  })
+
+
+  $('.btn-close').on("click",function(){
+    $('.modal').hide();
+    $('.modal-backdrop').hide();
+
+  });
+
+  $(document).ready(function() {
+    $('.alert-dismissible button').click();
+  });
+
+
+  let intro = introJs();
+  function initTutorial(){
+    $('.sidebar').removeClass('active');
+
+    intro.setOptions({
+      steps: [
+        {
+          intro: "Bem vindo ao Safety For ALL!"
+        },
+        {
+          element: document.querySelector('#map'),
+          intro: "Neste mapa você poderá ver todos as ocorrências reportadas pela nossa crescente comunidade e realizar seus proprios registros!"
+        },
+        {
+          element: document.querySelector('.nav2'),
+          intro: "Clique aqui para obter sua localização atual..."
+        },
+        {
+          element: document.querySelector('.nav'),
+          intro: "... E aqui para registrar uma nova ocorrencia"
+        },
+        {
+          element: document.querySelector('.ion-ios-navicon'),
+          intro: "Neste menu você tem algumas opções para customizar sua experiência"
+        },
+        {
+          element: document.querySelector('.labelDarkToggle'),
+          intro: "E aqui você pode alternar entre os temas claro e escuro"
+        },
+        {
+          element: document.querySelector('body'),
+          intro: "Safety, for all!  Enjoy. <br /> <img src='/imgs/safety.png' />"
+        }
+      ]
+    }).start();
+  }
+
+  intro.onchange(function(element) {
+    console.log(element.id)
+    if(element.id === 'sidebar') {
+      $('.sidebar').addClass('active');
+    } else {
+      $('.sidebar').removeClass('active');
+    }
+  });
+
+
+  function setCookie(cname,cvalue,exdays) {
+    const d = new Date();
+    d.setTime(d.getTime() + (exdays*24*60*60*1000));
+    let expires = "expires=" + d.toGMTString();
+    document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+  }
+
+  function getCookie(cname) {
+    let name = cname + "=";
+    let decodedCookie = decodeURIComponent(document.cookie);
+    let ca = decodedCookie.split(';');
+    for(let i = 0; i < ca.length; i++) {
+      let c = ca[i];
+      while (c.charAt(0) == ' ') {
+        c = c.substring(1);
+      }
+      if (c.indexOf(name) == 0) {
+        return c.substring(name.length, c.length);
+      }
+    }
+    return "";
+  }
+
+  function checkCookie() {
+    let user = getCookie("tutorialDisplayed");
+    if (user != "") {
+      console.log("tutorial already shown");
+    } else {
+      initTutorial();
+      setCookie("tutorialDisplayed",1,30);
+    }
+  }
+
+
+  $(document).ready(function() {
+    checkCookie();
+  });
+
+  var AUTH_TOKEN;
+  function sendForm(){
+    AUTH_TOKEN = $('meta[name=csrf-token]').attr('content');
+
+
+    data={
+      "authenticity_token":AUTH_TOKEN,
+      "description":$('#descriptionForm').val(),
+      "danger_level":$('[name=danger_level]').val(),
+      "address":$("#place_address").val(),
+      "category":$("#selectCategoria").val(),
+      "latitude":$("#place_latitude").val(),
+      "longitude":$("#place_longitude").val(),
+    }
+    $.ajax({
+      type: 'post',
+      dataType:'json',
+      data: data,
+      url:'/reports'
+    }).done(function( data ) {
+      Swal.fire(
+        'Sucesso!',
+        'A sua ocorrência foi registrada!',
+        'success'
+      );
+      $('.btn-close').click();
+    });
+  }
+
+
+</script> -->

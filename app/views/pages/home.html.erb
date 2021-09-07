@@ -1,10 +1,111 @@
-<!-- Início do PreLoader -->
 
-	<section id="preloader" class="bg"></section>
-	<div class="loading-text">0%</div>
+<% content_for :head do %>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj" crossorigin="anonymous"></script>
+  <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+  <link  rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" />
+<% end %>
 
-<!-- Início da Home -->
+<div class='loaderContainer'>
+	<div class='loader'></div>
+</div>
+
+
+<div id="back">
+  <canvas id="canvas" class="canvas-back"></canvas>
+  <div class="backRight">
+  </div>
+  <div class="backLeft">
+  </div>
+</div>
+
+<div id="slideBox">
+  <div class="topLayer">
+    <div class="left">
+      <div class="content">
+        <h2>Sign Up</h2>
+        <form id="form-signup" method="post" onsubmit="return false;">
+          <div class="form-element form-stack">
+            <label for="email" class="form-label">Email</label>
+            <input id="email" type="email" name="email">
+          </div>
+          <div class="form-element form-stack">
+            <label for="username-signup" class="form-label">Usuário</label>
+            <input id="username-signup" type="text" name="username">
+          </div>
+          <div class="form-element form-stack">
+            <label for="password-signup" class="form-label">Senha</label>
+            <input id="password-signup" type="password" name="password">
+          </div>
+          <div class="form-element form-checkbox">
+            <input type="checkbox" id="scales" name="confirm-terms" checked>
+            <label for="confirm-terms">I agree to the <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a></label>
+          </div>
+          <div class="form-element form-submit">
+            <button id="signUp" class="signup" type="submit" name="signup">Registrar</button>
+            <button id="goLeft" class="signup off">Já tem uma conta?</button>
+          </div>
+        </form>
+      </div>
+    </div>
+    <div class="right">
+      <div class="content">
+        <h2>Login</h2>
+        <form id="form-login" method="post" onsubmit="return false;">
+          <div class="form-element form-stack">
+            <label for="username-login" class="form-label">Email</label>
+            <input id="username-login" type="text" name="username">
+          </div>
+          <div class="form-element form-stack">
+            <label for="password-login" class="form-label">Senha</label>
+            <input id="password-login" type="password" name="password">
+          </div>
+          <div class="form-element form-submit">
+            <button id="logIn" class="login" type="submit" name="login">Entrar</button>
+            <button id="goRight" class="login off" name="signup">Não tem uma conta? Registre-se agora</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
 
 
 
-<!-- Fim da Home -->
+<script>
+
+	/* ====================== *
+	 *  Toggle Between        *
+	 *  Sign Up / Login       *
+	 * ====================== */
+
+	$(document).ready(function(){
+	  $('#goRight').on('click', function(){
+	    $('#slideBox').animate({
+	      'marginLeft' : '0'
+	    });
+	    $('.topLayer').animate({
+	      'marginLeft' : '100%'
+	    });
+	  });
+	  $('#goLeft').on('click', function(){
+	    if (window.innerWidth > 769){
+	      $('#slideBox').animate({
+	        'marginLeft' : '50%'
+	      });
+	    }
+	    else {
+	      $('#slideBox').animate({
+	        'marginLeft' : '20%'
+	      });
+	    }
+	    $('.topLayer').animate({
+	      'marginLeft': '0'
+	    });
+	  });
+	});
+
+	setTimeout(function(){
+		$('.loaderContainer').remove();
+	},3000);
+</script>

@@ -37,9 +37,11 @@ class ReportsController < ApplicationController
   def create
     @report = Report.new(report_params)
     @report.user = current_user
+
     if @report.save
       ActionCable.server.broadcast('reports', { action: 'create', json: @report, partial: render_to_string(partial: 'report', locals: { report: @report })})
-      redirect_to show_map_path
+      # redirect_to show_map_path
+      render json: @report
     else
       render :new
     end
@@ -60,7 +62,8 @@ class ReportsController < ApplicationController
 
   private
   def report_params
-    params.require(:report).permit(:description, :category, :danger_level, :address, :photo)
+    params.permit(:description, :category, :danger_level, :address, :latitude, :longitude)
+    # params.require(:report).permit(:description, :category, :danger_level, :address)
   end
 
 end
