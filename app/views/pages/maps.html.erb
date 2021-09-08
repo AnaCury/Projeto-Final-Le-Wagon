@@ -9,9 +9,12 @@
   <link rel="stylesheet" href="https://unpkg.com/intro.js/minified/introjs.min.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
   <link  rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" />
+  <script src="https://unpkg.com/@google/markerclustererplus@4.0.1/dist/markerclustererplus.min.js"></script>
 <% end %>
 
+
 <div class="mobile-wrap">
+
   <div class="modal fade" id="modalReport" tabindex="-1" aria-labelledby="modalReportLabel" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
@@ -20,59 +23,56 @@
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-
-          <%= form_with(model: @report, local: true) do |f| %>
+          <form>
             <div class="form-group float-label-control">
-              <%= f.label :description, "Descrição" %>
-              <%= f.text_area :description, placeholder: "Ex: Assalto", class: "form-control", required: true %>
+              <label for=""><i>Descrição</i></label>
+              <input class='form-control' type="text" id='descriptionForm' name="description" value="" placeholder="Descrição" required>
             </div>
             <div>
-              <%= f.label :category, "Categoria:" %>
-              <%= f.select :category, options_for_select(['Assalto com arma de fogo',
-              'Briga no Trânsito',
-              'Utilização de Drogas em via Pública',
-              'Tráfico de Drogas',
-              'Briga na rua',
-              'Acidente de Trânsito',
-              'Briga Doméstica na rua',
-              'Furto']), {}, class: "form-control" %>
+              <label for="selectCategoria"><i>Categoria</i></label>
+              <select class='form-control' id='selectCategoria' name='category'>
+                <option value='Assalto com arma de fogo'>Assalto com arma de fogo</option>
+                <option value='Briga no Trânsito'>Briga no Trânsito</option>
+                <option value='Utilização de Drogas em via Pública'>Utilização de Drogas em via Pública</option>
+                <option value='Tráfico de Drogas'>Tráfico de Drogas</option>
+                <option value='Briga na rua'>Briga na rua</option>
+                <option value='Acidente de Trânsito'>Acidente de Trânsito</option>
+                <option value='Briga Doméstica na rua'>Briga Doméstica na rua</option>
+                <option value='Furto'>Furto</option>
+              </select>
             </div>
-
-            <%= f.label :danger_level, "Danger Level:", class: "pt-3"%> <br />
-
+            <label for=""><i>Level</i></label><br />
             <div class="form-check form-check-inline">
-              <%= f.radio_button :danger_level, "1", class:"form-check-input" %>
-              <%= f.label :danger_level, "Perigosíssimo", class:"form-check-label" %>
+              <input class="form-check-input" type="radio" name="danger_level_input" id="inlineRadio1" value="1" required>
+              <label class="form-check-label" for="inlineRadio1">1</label>
             </div>
-
             <div class="form-check form-check-inline">
-              <%= f.radio_button :danger_level, "2", class:"form-check-input" %>
-              <%= f.label :danger_level, "Perigoso", class:"form-check-label" %>
+              <input class="form-check-input" type="radio" name="danger_level_input" id="inlineRadio2" value="2" required>
+              <label class="form-check-label" for="inlineRadio2">2</label>
             </div>
-
             <div class="form-check form-check-inline">
-              <%= f.radio_button :danger_level, "3", class:"form-check-input" %>
-              <%= f.label :danger_level, "Moderado", class:"form-check-label" %>
+              <input class="form-check-input" type="radio" name="danger_level_input" id="inlineRadio3" value="3" required>
+              <label class="form-check-label" for="inlineRadio3">3</label>
             </div>
-
             <div class="form-check form-check-inline">
-              <%= f.radio_button :danger_level, "4", class:"form-check-input" %>
-              <%= f.label :danger_level, "Leve", class:"form-check-label" %>
+              <input class="form-check-input" type="radio" name="danger_level_input" id="inlineRadio4" value="4" required>
+              <label class="form-check-label" for="inlineRadio4">4</label>
             </div>
-
-
-
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" name="danger_level_input" id="inlineRadio5" value="5" required>
+              <label class="form-check-label" for="inlineRadio5">5</label>
+            </div>
             <div class="form-group float-label-control">
-              <%= f.label :address, "Endereço:", class: "pt-3"%> <br />
-
-
-            <textarea class='form-control autoresizing' data-autoresize name="report[address]" id='report_address' onchange="this.parentNode.dataset.replicatedValue = this.value"></textarea>
+              <label for=""><i>Endereço</i></label>
+              <textarea class='form-control autoresizing' data-autoresize name="address" id='place_address' onchange="this.parentNode.dataset.replicatedValue = this.value"></textarea>
             </div>
+
             <input type='hidden' class='form-control' id='place_latitude' readonly="readonly" />
             <input type='hidden' class='form-control' id='place_longitude' readonly="readonly" />
 
-            <button type="submit" onclick="sendForm()" class='btn btn-success' name="submit"></i>Registrar</button>
-          <% end %>
+            <button type="button" onclick="sendForm()" class='btn btn-success' name="button"><i class='fa fa-plus-square'></i> Registrar</button>
+          </form>
+
         </div>
       </div>
     </div>
@@ -100,16 +100,18 @@
           <label>User:</label>
           <p id='userName'></p>
         </div>
+
       </div>
     </div>
   </div>
+
 
 
   <div class="modal fade" id="modalSettings" role="dialog" tabindex="-1" aria-labelledby="modalSettings" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="modalSettingsLabel">Nível das Ocorr</h5>
+          <h5 class="modal-title" id="modalSettingsLabel">Settings</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
@@ -120,27 +122,35 @@
               <div class="checkbox checkbox-primary">
                 <input id="checkbox1" type="checkbox" name="checkboxPinLevel" checked="" value='1'>
                 <label for="checkbox1">
-                  <img src='/imgs/pinLevel1_sm.png' width=20%" /> Perígosíssimo
+                  <img src='/imgs/pinLevel1_sm.png' width=20%" /> Level 1
                 </label>
               </div>
               <div class="checkbox checkbox-primary">
                 <input id="checkbox2" type="checkbox" name="checkboxPinLevel" checked="" value='2'>
                 <label for="checkbox2">
-                  <img src='/imgs/pinLevel2_sm.png' width=20%" /> Perigoso
+                  <img src='/imgs/pinLevel2_sm.png' width=20%" /> Level 2
                 </label>
               </div>
               <div class="checkbox checkbox-primary">
                 <input id="checkbox3" type="checkbox" name="checkboxPinLevel" checked="" value='3'>
                 <label for="checkbox3">
-                  <img src='/imgs/pinLevel3_sm.png' width="20%" />Moderado
+                  <img src='/imgs/pinLevel3_sm.png' width="20%" /> Level 3
+                </label>
+              </div>
+              <div class="checkbox checkbox-primary">
+                <input id="checkbox4" type="checkbox" name="checkboxPinLevel" checked="" value='4'>
+                <label for="checkbox4">
+                  <img src='/imgs/pinLevel4_sm.png' width=20%" /> Level 4
                 </label>
               </div>
               <div class="checkbox checkbox-primary">
                 <input id="checkbox5" type="checkbox" name="checkboxPinLevel" checked="" value='5'>
                 <label for="checkbox5">
-                  <img src='/imgs/pinLevel5_sm.png' width=20%" />Leve
+                  <img src='/imgs/pinLevel5_sm.png' width=20%" /> Level 5
                 </label>
               </div>
+
+
             </fieldset>
           </div>
 
@@ -183,29 +193,30 @@
       <div class="sidebar-content">
         <div class="top-head">
           <div class="">
-          <img src="imgs/logo-preta.png" style="width: 100%">
+            <h1 style="margin-bottom: -2%;">SAFETY</h1>
+            <p style='text-align:center'>for all.</p>
           </div>
         </div>
         <div class="navs-left">
-          <a type="button" data-toggle="modal" data-target="#modalSettings" onclick="openModalSettings()" class="pt-4"><span class="ion-ios-gear-outline"></span>Ocorrências</a>
-          <a type="button" data-toggle="modal" data-target="#modalCredits" onclick="openModalCredits()"><span class="ion-ios-information-outline"></span> About Us</a>
-          <a type="button" onclick="initTutorial()" class="pb-5"><span class="fas fa-user-graduate"></span> Tutorial do seu APP</a>
-          <!-- <button type="button" onclick="logOutUser()"><span class="ion-ios-person-outline"></span> Logout</button> -->
-          <div class="d-flex justify-content-center">
-          <%= button_to "Logout", destroy_user_session_path,method: :delete,class:"btn btn-outline-dark p-2" %>
-          </div>
+
+          <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalSettings" onclick="openModalSettings()"><span class="ion-ios-gear-outline"></span> Settings</button><br />
+          <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalCredits" onclick="openModalCredits()"><span class="ion-ios-information-outline"></span> About</button><br />
+          <button type="button" class="btn btn-primary" onclick="initTutorial()"><span class="fas fa-user-graduate"></span> Tutorial</button><br />
+          <!-- <button type="button" class="btn btn-primary" onclick="logOutUser()"><span class="ion-ios-person-outline"></span> Logout</button> -->
+          <%= button_to "Logout", destroy_user_session_path,method: :delete,class:"btn btn-primary" %>
+
         </div>
 
         <div>
         </div>
       </div>
     </div>
-    <!-- <div id="floating-panel">
-      <button onclick="toggleHeatmap()">Toggle Heatmap</button>
-    </div> -->
     <div id="allMap"></div>
     <div class="content">
       <!-- MAPA -->
+    </div>
+    <div class="nav3">
+      <a href="#" class="mask" id='toggleHeatmapButton' onclick='toggleHeatmap()' style="color: #fff;"><i class="fas fa-fire-alt"></i></a>
     </div>
     <div class="nav2">
       <a href="#" class="mask" id='locateMe' style="color: #fff;"><img src='/imgs/Ic_my_location_48px_white.png' width='50%' /></a>
@@ -217,9 +228,6 @@
 </div>
 
 
-<script>
-
-// JavaScript está nesta página decorrente da ordem de carregamento da página
 
   var heatmap,map;
 
@@ -832,7 +840,9 @@
       );
       $('.btn-close').click();
       initMapAll(userLatLng,3,"normal")
+
     });
+    return heatmapData
   }
 
   // var locations;
