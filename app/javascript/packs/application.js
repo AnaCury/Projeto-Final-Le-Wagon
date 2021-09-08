@@ -7,7 +7,7 @@ require("@rails/ujs").start()
 require("turbolinks").start()
 require("@rails/activestorage").start()
 require("channels")
-require("plugins")
+// require("plugins")
 // = require main
 
 
@@ -26,7 +26,7 @@ import { initReportsCable } from '../channels/reports_channel';
 import { initReviewsCable } from '../channels/reviews_channel';
 import '@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder';
 import { initAutocomplete } from '../plugins/init_autocomplete';
-import { loader } from '../plugins/loader'
+// import { loader } from '../plugins/loader'
 
 // Internal imports, e.g:
 // import { initSelect2 } from '../components/init_select2';

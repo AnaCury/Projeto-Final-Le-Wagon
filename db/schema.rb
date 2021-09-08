@@ -43,8 +43,8 @@ ActiveRecord::Schema.define(version: 2021_08_31_190515) do
     t.float "latitude"
     t.float "longitude"
     t.bigint "user_id", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", precision: 6
+    t.datetime "updated_at", precision: 6
     t.string "address", null: false
     t.boolean "status", default: true
     t.index ["user_id"], name: "index_reports_on_user_id"
