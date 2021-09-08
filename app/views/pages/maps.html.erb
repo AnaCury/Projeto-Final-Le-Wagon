@@ -227,7 +227,7 @@
   </div>
 </div>
 
-<script>
+
 
   var heatmap,map;
 
@@ -244,7 +244,6 @@
       initMapAll(userLatLng,0,'normal');
       $('#toggleHeatmapButton').html('<i class="fas fa-fire-alt"></i>');
     }
-
   }
 
   function changeGradient() {
@@ -281,7 +280,6 @@
       .toLowerCase()
       .replace(/\w/, firstLetter => firstLetter.toUpperCase());
   }
-
 
   var map;
   const iconBase = "/imgs/";
@@ -842,7 +840,9 @@
       );
       $('.btn-close').click();
       initMapAll(userLatLng,3,"normal")
+
     });
+    return heatmapData
   }
 
   // var locations;
@@ -867,6 +867,5 @@
     });
     return heatmapData
   }
-
 
 </script>
