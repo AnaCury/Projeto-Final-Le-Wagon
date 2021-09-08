@@ -6,6 +6,8 @@ Rails.application.routes.draw do
 
 
   get '/maps', to: 'pages#maps', as: :maps
+  get 'getMapData', to: 'pages#getMapData'
+
   resources :reports do
     resources :reviews, only: [:new, :create]
     patch 'close', to: 'reports#close'
