@@ -216,8 +216,10 @@
   </div>
 </div>
 
-  <script>
-  // JavaScript está nesta página decorrente da ordem de carregamento da página
+
+<script>
+
+// JavaScript está nesta página decorrente da ordem de carregamento da página
 
   var heatmap,map;
 
@@ -228,11 +230,12 @@
     if(mapType=='normal'){
       mapType='heat';
       initMapAll(userLatLng,0,'heat');
+      $('#toggleHeatmapButton').html('<i class="fas fa-map-marker-alt"></i>');
     }else{
       mapType='normal';
       initMapAll(userLatLng,0,'normal');
+      $('#toggleHeatmapButton').html('<i class="fas fa-fire-alt"></i>');
     }
-
   }
 
   function changeGradient() {
@@ -263,156 +266,12 @@
     heatmap.set('opacity', heatmap.get('opacity') ? null : 0.2);
   }
 
-  function getPoints() {
-    return [
-      new google.maps.LatLng(-23.551436,	-46.689363),
-      new google.maps.LatLng(-23.5487015,	-46.5709204),
-      new google.maps.LatLng(-23.541559803081412,	-46.61357266048529),
-      new google.maps.LatLng(-23.530936104693843,	-46.63169754699272),
-      new google.maps.LatLng(-23.5274872,	-46.6682728),
-      new google.maps.LatLng(-23.5121458,	-46.6959571),
-      new google.maps.LatLng(-23.534091,	-46.4847274),
-      new google.maps.LatLng(-23.517943938564,	-46.49639114312057),
-      new google.maps.LatLng(-23.501722511848257,	-46.5147478406616),
-      new google.maps.LatLng(-23.51275388613911,	-46.509749589357476),
-      new google.maps.LatLng(-23.5325098,	-46.6866949),
-      new google.maps.LatLng(-23.5238552,	-46.6966112),
-      new google.maps.LatLng(-23.5235455,	-46.707312),
-      new google.maps.LatLng(-23.522230847427846,	-46.72268825692604),
-      new google.maps.LatLng(-23.5430203481882,	-46.75108097586215),
-      new google.maps.LatLng(-23.54330839835314,	-46.76891567586218),
-      new google.maps.LatLng(-23.572029546385433,	-46.71771224702639),
-      new google.maps.LatLng(-23.5709163,	-46.7808146),
-      new google.maps.LatLng(-23.5692268,	-46.7783462),
-      new google.maps.LatLng(-23.5714135,	-46.6561708),
-      new google.maps.LatLng(-23.5703339,	-46.6644218),
-      new google.maps.LatLng(-23.5851633,	-46.6799436),
-      new google.maps.LatLng(-23.5856155,	-46.6880461),
-      new google.maps.LatLng(-23.599560185563355,	-46.670145833481214),
-      new google.maps.LatLng(-23.5874635,	-46.67364),
-      new google.maps.LatLng(-23.57178574838909,	-46.68453140846947),
-      new google.maps.LatLng(-23.5406805,	-46.7286837),
-      new google.maps.LatLng(-23.5243716,	-46.7274694),
-      new google.maps.LatLng(-23.502819736146765,	-46.71236411650939),
-      new google.maps.LatLng(-23.491580512863784,	-46.71946577308889),
-      new google.maps.LatLng(-23.4785063,	-46.7170899),
-      new google.maps.LatLng(-23.637363040265274,	-46.69860971813775),
-      new google.maps.LatLng(-23.6110736,	-46.6856352),
-      new google.maps.LatLng(-23.546897362400017,	-46.48098674512625),
-      new google.maps.LatLng(-23.5494194,	-46.4572144),
-      new google.maps.LatLng(-23.55442821194587,	-46.449639273961814),
-      new google.maps.LatLng(-23.569996539870715,	-46.474003133481894),
-      new google.maps.LatLng(-23.586677867225532,	-46.51197097581042),
-      new google.maps.LatLng(-23.578289188408057,	-46.53751094697498),
-      new google.maps.LatLng(-23.566793969053755,	-46.55084627581081),
-      new google.maps.LatLng(-23.5667669,	-46.5922078),
-      new google.maps.LatLng(-23.556453424238573,	-46.604444031632845),
-      new google.maps.LatLng(-23.6756087,	-46.6110302),
-      new google.maps.LatLng(-23.687432,	-46.5971636),
-      new google.maps.LatLng(-23.73018,	-46.571757),
-      new google.maps.LatLng(-23.728510260488864,	-46.57154124697116),
-      new google.maps.LatLng(-23.720123846576158,	-46.594429150659685),
-      new google.maps.LatLng(-23.7103286,	-46.6995343),
-      new google.maps.LatLng(-23.67736865799807,	-46.78283788253114),
-      new google.maps.LatLng(-23.6719745,	-46.8034154),
-      new google.maps.LatLng(-23.5558,	-46.6396),
-      new google.maps.LatLng(-23.5558,	-46.6396),
-      new google.maps.LatLng(-23.5558,	-46.6396),
-      new google.maps.LatLng(-23.5558,	-46.6396),
-      new google.maps.LatLng(-23.5558,	-46.6396),
-      new google.maps.LatLng(-23.5558,	-46.6396),
-      new google.maps.LatLng(-23.5558,	-46.6396),
-      new google.maps.LatLng(-23.5558,	-46.6396),
-      new google.maps.LatLng(-23.5558,	-46.6396),
-      new google.maps.LatLng(-23.5558,	-46.6396),
-      new google.maps.LatLng(-23.5558,	-46.6396),
-      new google.maps.LatLng(-23.5558,	-46.6396),
-      new google.maps.LatLng(-23.5558,	-46.6396),
-      new google.maps.LatLng(-23.530227,	-46.64784),
-      new google.maps.LatLng(-23.555751,	-46.639586),
-      new google.maps.LatLng(-15.777756,	-47.874208),
-      new google.maps.LatLng(-15.814185,	-47.903696),
-
-
-    ];
-  }
 
   function capitalize(word) {
     return word
       .toLowerCase()
       .replace(/\w/, firstLetter => firstLetter.toUpperCase());
   }
-
-  var locations = [
-    ['Motoqueiro atropelado',  'Acidente de Trânsito', '3', 'R. Mal. Barbacena, 1229 - Vila Reg. Feijó', '-23.551436', '-46.689363', "Thiago'"],
-    ['Dois homens se estranhando no carro',  'Briga no Trânsito', '1', 'R. Serra de Juréa, 725 - Tatuapé', '-23.55054149131275', '--46.57043718725978',  "Ana"],
-    ['Briga generalizada',  'Briga na rua', '4', 'R. Brg. Machado, 62 - Brás', '-23.541559803081412', '-46.61357266048529',  "Tasso"],
-    ['Marido pegou a mulher traindo',  'Briga Doméstica na rua', '2', 'Rua Dr. Jorge Miranda, 34', '-23.530936104693843', '-46.63169754699272',  "Allysson"],
-    ['Dois estranhos trocando drogas',  'Tráfico de Drogas', '5', 'R. Tagipuru, 1060 - Barra Funda,', '-23.52596489429082', '-46.669802833500036',  "Ana"],
-    ['Um grupo de adolescentes fumando maconha',  'Utilização de Drogas em via Pública', '2', 'Rua Virgilio Wey, 150 - Água Branca', '-23.51120274505672', '-46.69636025834542',  "Eduardo"],
-    ['Minha bicicleta sumiu',  'Furto', '1', 'R. Nerópolis, 133 - Jardim Nordeste', '-23.53316820054743', '-46.48425499697211',  "Bruno"],
-    ['Dois individuos mascarados roubaram meu carro',  'Assalto com arma de fogo', '5', 'R. Prof. Pinheiro Domingues, 513 - Vila Frugoli,', '-23.517943938564', '-46.49639114312057',  "Ed"],
-    ['Colisão entre duas bicicletas',  'Acidente de Trânsito', '2', 'Av. Rubens Fraga de Toledo Arruda, 142 - Eng. Goulart', '-23.501722511848257', '-46.5147478406616',  "Emilio"],
-    ['O cara saiu do carro com um taco de beisebol',  'Briga no Trânsito', '2', 'R. Jovelina, 121 - Vila Domitila ', '-23.51275388613911', '-46.509749589357476',  "Felipe"],
-    ['Molecada ta saindo no pau',  'Briga na rua', '1', 'Rua Coronel Melo de Oliveira, 226 - Pompeia ', '-23.53348519986129', '-46.68419865867574',  "Giovanna"],
-    ['Mulher pegou o marido com o vizinho',  'Briga Doméstica na rua', '1', 'R. Espártaco, 780 - Vila Romana,', '-23.529234579002114', '-46.69697171220739',  "Giovanni"],
-    ['Vi dois caras com um pacote estranho',  'Tráfico de Drogas', '5', 'R. Albion - Lapa', '-23.523493751858226', '-46.710821958675844',  "Guilherme"],
-    ['Tem uma mulher debaixo da ponte usando drogas',  'Utilização de Drogas em via Pública', '2', 'Tv. Misterioso Coração, 2 - Bela Aliança', '-23.522230847427846', '-46.72268825692604',  "Henrique"],
-    ['Apontaram uma pistola e levaram minha mochila',  'Assalto com arma de fogo', '5', 'R. Santa Leonor, 44 - Jaguaré', '-23.5430203481882', '-46.75108097586215',  "Igor"],
-    ['O fusca furou o farol vermelho',  'Acidente de Trânsito', '2', 'R. André Thomas, 2-148 - Vila Campesina', '-23.54330839835314', '-46.76891567586218',  "Igor"],
-    ['Dois caras sairam na porrada',  'Briga na rua', '1', 'R. André Thomas, 2-148 - Vila Campesina', '-23.572029546385433', '-46.71771224702639',  "Jose"],
-    ['Duas velhas brigando de bengala',  'Briga na rua', '1', 'Av. Vasco da Rocha Leão, 442 - City Bussocaba', '-23.57217584515051', '-46.7812259316857',  "Kuxixima"],
-    ['Duas irmãs brigando',  'Briga Doméstica na rua', '2', 'R. Paulo Antônio Camargo, 147 - Bussocaba', '-23.56515553430823', '-46.78864808935624',  "Pedro"],
-    ['Deixaram um pacote na praça',  'Tráfico de Drogas', '5', 'R. Batataes, 543 - Jardim Paulista', '-23.569407689868413', '-46.658348368477064',  "Lucas"],
-    ['Uma pessoa em situação de rua usando drogas',  'Utilização de Drogas em via Pública', '2', 'Alameda Casa Branca, 1060 - Cerqueira César', '-23.568810639665458', '-46.6630171979083',  "Mariana"],
-    ['Atiraram pra cima e levaram o caixa eletronico',  'Assalto com arma de fogo', '5', 'R. Viradouro, 139 - Itaim Bibi', '-23.585508797603037', '-46.68116050674694',  "Mathieyu"],
-    ['Um corsel fechou um corsa',  'Acidente de Trânsito', '2', 'R. Jacurici, 60 - Itaim Bibi', '-23.58466922420353', '-46.68595286242358',  "Milene"],
-    ['O padeiro ta batendo no boleiro',  'Briga na rua', '1', 'Rua Pintassilgo, 3 - Vila Uberabinha', '-23.599560185563355', '-46.670145833481214',  "Millene"],
-    ['Mulher brigando com a cunhada',  'Briga Doméstica na rua', '3', 'R. Benedito Lapin, 87 - Itaim Bibi', '-23.587306966509406', '-46.67331971271716',  "Nathan"],
-    ['Um cara de bike, entregou um baseado pro rapaz',  'Tráfico de Drogas', '5', 'Rua Professor Roberto Hottinger, 26 - Jardim Paulistano', '-23.57178574838909', '-46.68453140846947',  "Neto"],
-    ['Tem um cara fumando crack',  'Utilização de Drogas em via Pública', '2', 'Av. Queiroz Filho, 1.700, Vila Hamburguesa', '-23.542542101887886', '-46.73292191860528',  "Nicolas"],
-    ['Torcedores do flamengo brigando com os do corinthians',  'Briga na rua', '5', 'R. Curupaiti, 367-151 - Vila Leopoldina,', '-23.524279278535854', '-46.72842437396233',  "Paty"],
-    ['Dois caras numa moto pegaram meu boné',  'Furto', '2', 'R. Maria Zélia, 146 - Vila Pirituba', '-23.502819736146765', '-46.71236411650939',  "Rafael"],
-    ['Engavetamento',  'Acidente de Trânsito', '2', 'R. Luís de Andrade, 685 - Vila Pereira Barreto', '-23.491580512863784', '-46.71946577308889',  "Rafael"],
-    ['Roubaram o Banco do Brasil',  'Assalto com arma de fogo', '5', 'R. Fausto Lex, 481 - Vila Zat', '-23.47891587819215', '-46.71693591216905',  "Ricardo"],
-    ['Vizinhos jogando pedra na casa dos outros',  'Briga Doméstica na rua', '1', 'R. Verbo Divino, 173 - Chácara Santo Antônio', '-23.637363040265274', '-46.69860971813775',  "Roberto"],
-    ['Carteiro pistola com o cachorro',  'Briga na rua', '2', 'R. Hollywood, 321 - Itaim Bibi', '-23.61018246737227', '-46.68513616676133',  "Taiguara"],
-    ['Tem um cara vendendo droga ali na esquina',  'Tráfico de Drogas', '5', 'R. Padre José Viêira de Matos - Conjunto Habitacional COHAB 1', '-23.546897362400017', '-46.48098674512625',  "Thiago"],
-    ['Tem dois caras brigando por causa de um lanche',  'Briga na rua', '1', 'Rua Waldemar Mancini, 61 - Itaquera', '-23.547086833295634', '-46.46082029940678',  "Victor"],
-    ['Meu vizinho ta fumando droga na frente da igreja',  'Utilização de Drogas em via Pública', '2', 'Travessa Maestro Melartin, 72 - Vila Carmosina', '-23.55442821194587', '-46.449639273961814',  "Victor"],
-    ['Um Uno com uma escada bateu em uma ferrari',  'Acidente de Trânsito', '2', 'R. Aranha de Vasconcelos, 142 - Jardim Nossa Sra. do Carmo', '-23.569996539870715', '-46.474003133481894',  "Neymar"],
-    ['Ladrão levou meu cachorro',  'Assalto com arma de fogo', '5', 'R. Euclídes Antônio de Souza, 243-167 - Jardim das Rosas', '-23.586677867225532', '-46.51197097581042',  "Carlos"],
-    ['Pai batendo no filho',  'Briga Doméstica na rua', '2', 'Av. Antônio Manograsso, 91 - Chácara Belenzinho', '-23.578289188408057', '-46.53751094697498',  "Leonardo"],
-    ['Roubaram a roda do meu carro',  'Furto', '3', 'R. Rio Real, 116-242 - Vila Formosa', '-23.566793969053755', '-46.55084627581081',  "Fabio"],
-    ['Briga generalizada por causa do preço da gasolina',  'Briga na rua', '4', 'Av. Paes de Barros - Parque da Mooca', '-23.5703092172207', '-46.58782356661978',  "Thierry"],
-    ['Briga entre torcida organizada de boliche',  'Briga na rua', '3', 'R. Marina Crespi, 174-334 - Mooca', '-23.556453424238573', '-46.604444031632845',  "Fabio"],
-    ['Motociclista furou o farol vermelho',  'Acidente de Trânsito', '4', 'R. Havana, 144 - Taboão, Diadema', '-23.67560115296766', '-46.611032800238036',  "Silvio"],
-    ['Usuario de drogas',  'Utilização de Drogas em via Pública', '3', 'R. Padre Inácio Siqueira, 413 - Vila Nogueira, Diadema', '-23.68702402194358', '-46.59847619570551',  "Sergio"],
-    ['Vizinhos bravos por causa de cachorros',  'Briga Doméstica na rua', '2', 'R. Natalino Fabrini, 2-138 - Dos Casa', '-23.72853972602529', '-46.571509060464265',  "Earvin"],
-    ['Dois marmanjos brigando por causa de uma mulher',  'Briga na rua', '2', 'Passagem Cajueiro, 24-86 - Inamar, Diadema', '-23.728510260488864', '-46.57154124697116',  "Fernando"],
-    ['Tem alguem fumando maconha por aqui',  'Utilização de Drogas em via Pública', '2', 'R. Ângela Maçon Bonício, 83 - Cooperativa, São Bernardo do Campo', '-23.720123846576158', '-46.594429150659685',  "Caio"],
-    ['Furtaram o meu chinelo',  'Furto', '3', 'Rua Padre José Garzotti, 342 - Cidade Dutra', '-23.71037504608548', '-46.701466134688125',  "Marina"],
-    ['Carro estragou e causou acidente',  'Acidente de Trânsito', '2', 'Rua Turquesa, 30 - Jardim Capao Redondo', '-23.67736865799807', '-46.78283788253114',  "Bruna"],
-    ['Dois caminhoes cheio de droga',  'Tráfico de Drogas', '5', 'Rua Alvorada, 202 - Jardim Sao Eduardo, Embu das Artes', '-23.670149601803523', '-46.80260121018091',  "Bruna"]
-  ];
-
-  var heatmapData = [
-    new google.maps.LatLng(37.782, -122.447),
-    new google.maps.LatLng(37.782, -122.445),
-    new google.maps.LatLng(37.782, -122.443),
-    new google.maps.LatLng(37.782, -122.441),
-    new google.maps.LatLng(37.782, -122.439),
-    new google.maps.LatLng(37.782, -122.437),
-    new google.maps.LatLng(37.782, -122.435),
-    new google.maps.LatLng(37.785, -122.447),
-    new google.maps.LatLng(37.785, -122.445),
-    new google.maps.LatLng(37.785, -122.443),
-    new google.maps.LatLng(37.785, -122.441),
-    new google.maps.LatLng(37.785, -122.439),
-    new google.maps.LatLng(37.785, -122.437),
-    new google.maps.LatLng(37.785, -122.435)
-  ];
-
 
   var map;
   const iconBase = "/imgs/";
@@ -542,7 +401,7 @@
   }
 
 
-
+  let newHeatData;
   function initMapAll(userLatLng,focusUser=0,mapType='normal') {
     var bounds = new google.maps.LatLngBounds();
 
@@ -553,9 +412,8 @@
       styles:darkModeStyle,
     };
     map = new google.maps.Map(document.getElementById('allMap'), mapOptions);
-
+    heatmapData = getMapData();
     getLocation();
-
     //USER LOCATION / NEW REPORT
     lat = userLatLng.latitude;
     lng = userLatLng.longitude;
@@ -627,43 +485,77 @@
     $('#place_longitude').val(newlng);
     codeAddress(newlat,newlng);
 
-    let pinsToShow = getSelectedPins();
-
+    // let pinsToShow = getSelectedPins();
+    // getMapData();
+    console.log(pinsToShow);
     // ALL REPORTS PINS
     if(mapType=="normal"){
-      $(locations).each(function(i,place){
-        // console.log(place);
+      // console.log(locations);
+      // $(locations).each(function(i,place){
+        // console.log(place[2]);
         // console.log(pinsToShow.includes(place[2]));
-        if(pinsToShow.includes(place[2])){
-          myCoords = new google.maps.LatLng(parseFloat(place[4]),parseFloat(place[5]));
-          if(focusUser==0){
-            bounds.extend(myCoords);
-          }
-          marker = new google.maps.Marker({
-            position: myCoords,
-            // icon: "/imgs/pinAlertSmall.png",
-            icon: icons[place[2]].icon,
-            map: map,
-            animation: google.maps.Animation.DROP,
-
-          });
-          google.maps.event.addListener(marker, 'click', (function(marker) {
-            return function() {
-              openReviews(place);
-            }
-          })(marker));
-        }
-      });
+        // if(pinsToShow.includes(place[2]+"")){
+        //
+        //   myCoords = new google.maps.LatLng(parseFloat(place[4]),parseFloat(place[5]));
+        //   if(focusUser==0){
+        //     bounds.extend(myCoords);
+        //   }
+        //   marker = new google.maps.Marker({
+        //     position: myCoords,
+        //     // icon: "/imgs/pinAlertSmall.png",
+        //     icon: icons[place[2]+""].icon,
+        //     map: map,
+        //     animation: google.maps.Animation.DROP,
+        //
+        //   });
+        //   google.maps.event.addListener(marker, 'click', (function(marker) {
+        //     return function() {
+        //       openReviews(place);
+        //     }
+        //   })(marker));
+        // }
+      // });
+        let labels = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+        let markers = heatmapData.flatMap((location, i) => {
+          console.log(pinsToShow.includes(location[1].danger_level+""))
+            marker =  new google.maps.Marker({
+              position: location[0],
+              icon: icons[location[1].danger_level].icon,
+              // label: labels[i % labels.length],
+            });
+            google.maps.event.addListener(marker, 'click', function(marker) {
+                  openReviews(location[1]);
+              });
+              return marker;
+        });
+        new MarkerClusterer(map, markers, {
+          imagePath:
+            "https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m",
+            maxZoom:8
+        });
     }else{
+      newHeatData=[];
+      $(heatmapData).each(function(i){
+        newHeatData.push(new google.maps.LatLng(heatmapData[i][0],heatmapData[i][1]));
+      });
+
       heatmap = new google.maps.visualization.HeatmapLayer({
-        data: getPoints(),
+        data: newHeatData,
+        // data: getPoints(),
         map: map
       });
+      heatmap.set("radius", heatmap.get("radius") ? null : 30);
+
     }
 
     if(focusUser==1){
       setTimeout(function(){
         map.setZoom(16);
+      },500);
+    }else if(focusUser==0){
+      setTimeout(function(){
+        map.setCenter({"lat":-14.235000,"lng":-51.925300})
+        map.setZoom(4);
       },500);
     }
 
@@ -680,7 +572,7 @@
     geocoder.geocode({'latLng': latlng }, function (results, status) {
         if (status == google.maps.GeocoderStatus.OK) {
           // console.log(results[0]);
-          $('#report_address').val(results[0].formatted_address);
+          $('#place_address').val(results[0].formatted_address);
         } else {
           console.log(status);
         }
@@ -721,6 +613,7 @@
       getLatLngIP();
       setTimeout(function(){
         initMapAll(userLatLng,1);
+        // getMapData();
       },1000)
   });
 
@@ -747,13 +640,13 @@
   }
 
   function openReviews(details){
-    $("#description").html(details[0]);
-    $("#category").html(details[1]);
-    $("#danger_level").html(details[2]);
-    $("#address").html(details[3]);
-    $("#recordLat").html(details[4]);
-    $("#recordLong").html(details[5]);
-    $("#userName").html(details[6]);
+    $("#description").html(details.description);
+    $("#category").html(details.category);
+    $("#danger_level").html(details.danger_level);
+    $("#address").html(details.address);
+    $("#recordLat").html(details.latitude);
+    $("#recordLong").html(details.longitude);
+    $("#userName").html(details.first_name+" "+details.last_name);
     modalReviews.show();
     // openModalReview(details);
   }
@@ -773,7 +666,7 @@
 
 
   $('input[name=checkboxPinLevel]').on('change',function(){
-    initMapAll(userLatLng);
+    initMapAll(userLatLng,0);
   });
 
   let selectedPins=[];
@@ -920,7 +813,7 @@
     data={
       "authenticity_token":AUTH_TOKEN,
       "description":$('#descriptionForm').val(),
-      "danger_level":$('[name=danger_level]').val(),
+      "danger_level":$('[name=danger_level_input]:checked').val(),
       "address":$("#place_address").val(),
       "category":$("#selectCategoria").val(),
       "latitude":$("#place_latitude").val(),
@@ -938,8 +831,31 @@
         'success'
       );
       $('.btn-close').click();
+      initMapAll(userLatLng,3,"normal")
     });
   }
 
+  // var locations;
+  var heatmapData;
+  function getMapData(){
+    pinsToShow = getSelectedPins().join();
+    $.ajax({
+      type: 'get',
+      dataType:'json',
+      data: {pinsToShow},
+      url:'/getMapData'
+    }).done(function( data ) {
+      // locations=[];
+      heatmapData=[];
+      $(data).each(function(i){
+        // console.log(data[i]);
+        // locations.push([data[i].description,data[i].category,data[i].danger_level,data[i].address,data[i].latitude,data[i].longitude,data[i].user_id,data[i].first_name,data[i].last_name]);
+        heatmapData.push([{"lat":data[i].latitude,"lng":data[i].longitude},data[i]]);
+      });
+      // initMapAll(userLatLng,1,"normal")
+      // console.log(data);
+    });
+    return heatmapData
+  }
 
-</script> -->
+</script>
