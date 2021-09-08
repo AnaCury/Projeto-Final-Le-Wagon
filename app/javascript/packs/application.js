@@ -38,5 +38,4 @@ document.addEventListener('turbolinks:load', () => {
   initAutocomplete();
   initReportsCable();
   initReviewsCable();
-  initLoader();
 });
