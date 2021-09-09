@@ -227,7 +227,6 @@
   </div>
 </div>
 
-
 <script>
 
   var heatmap,map;
@@ -245,6 +244,7 @@
       initMapAll(userLatLng,0,'normal');
       $('#toggleHeatmapButton').html('<i class="fas fa-fire-alt"></i>');
     }
+
   }
 
   function changeGradient() {
@@ -281,6 +281,7 @@
       .toLowerCase()
       .replace(/\w/, firstLetter => firstLetter.toUpperCase());
   }
+
 
   var map;
   const iconBase = "/imgs/";
@@ -411,6 +412,7 @@
 
 
   let newHeatData;
+  let heatmapData;
   function initMapAll(userLatLng,focusUser=0,mapType='normal') {
     var bounds = new google.maps.LatLngBounds();
 
@@ -525,8 +527,8 @@
         // }
       // });
         let labels = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-        let markers = heatmapData.flatMap((location, i) => {
-          console.log(pinsToShow.includes(location[1].danger_level+""))
+        let markers = heatmapData.map((location, i) => {
+            // console.log(icons[location[1].danger_level].icon);
             marker =  new google.maps.Marker({
               position: location[0],
               icon: icons[location[1].danger_level].icon,
@@ -540,12 +542,12 @@
         new MarkerClusterer(map, markers, {
           imagePath:
             "https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m",
-            maxZoom:8
+            maxZoom:10
         });
     }else{
       newHeatData=[];
       $(heatmapData).each(function(i){
-        newHeatData.push(new google.maps.LatLng(heatmapData[i][0],heatmapData[i][1]));
+        newHeatData.push(new google.maps.LatLng(heatmapData[i][0].lat,heatmapData[i][0].lng));
       });
 
       heatmap = new google.maps.visualization.HeatmapLayer({
@@ -621,6 +623,7 @@
       console.log('Carregando sua localizacao..');
       getLatLngIP();
       setTimeout(function(){
+        // $('#toggleHeatmapButton').click();
         initMapAll(userLatLng,1);
         // getMapData();
       },1000)
@@ -841,15 +844,12 @@
       );
       $('.btn-close').click();
       initMapAll(userLatLng,3,"normal")
-
     });
-    return heatmapData
   }
 
-  // var locations;
-  var heatmapData;
   function getMapData(){
     pinsToShow = getSelectedPins().join();
+    console.log(pinsToShow);
     $.ajax({
       type: 'get',
       dataType:'json',
@@ -868,5 +868,13 @@
     });
     return heatmapData
   }
+
+
+
+
+  $(document).ready(function() {
+    initMapAll(userLatLng,1);
+  });
+
 
 </script>
