@@ -1,15 +1,16 @@
+
 <% content_for :head do %>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"
-  integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj" crossorigin="anonymous"></script>
-<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css"
-  integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" />
+  <!-- header content specific to this payment page -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj" crossorigin="anonymous"></script>
+  <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+  <link  rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" />
 <% end %>
 
 <div class='loaderContainer'>
-  <div class='loader'></div>
+	<div class='loader'></div>
 </div>
+
 
 <div id="back">
   <canvas id="canvas" class="canvas-back"></canvas>
@@ -24,99 +25,74 @@
     <div class="left">
       <div class="content">
         <h2>Registrar</h2>
-        <%= form_with(model: @user, url: user_registration_path(@user), local: true, html:{id: "form-signup"}) do |f| %>
+        <%= simple_form_for(resource, as: resource_name,id:"form-signup") do |f| %>
 
-          <div class="form-element form-stack">
-            <%= f.label :first_name, class: "form_label" %>
-            <%= f.text_field :first_name %>
+          <div class="form-inputs">
+            <%= f.input :first_name %>
+            <%= f.input :last_name %>
+            <%= f.input :email,
+                        required: true,
+                        autofocus: true,
+                        input_html: { autocomplete: "email" }%>
+            <%= f.input :cpf %>
+            <%= f.input :phone_number %>
+            <%= f.input :password,
+                        required: true,
+                        hint: ("#{@minimum_password_length} characters minimum" if @minimum_password_length),
+                        input_html: { autocomplete: "new-password" } %>
+            <%= f.input :password_confirmation,
+                        required: true,
+                        input_html: { autocomplete: "new-password" } %>
+
           </div>
 
-          <div class="form-element form-stack">
-          <%= f.label :last_name, class: "form_label" %>
-            <%= f.text_field :last_name, label: false %>
+          <div class="form-element form-submit">
+            <button id="signUp" class="signup" type="button" name="signup" onclick="registrarAjax()">Registrar</button>
+            <button id="goLeft" class="signup off" onclick='event.preventDefault()'>Entrar</button>
           </div>
-
-          <div class="form-element form-stack">
-          <%= f.label :email, class: "form_label" %>
-          <%= f.text_field :email,
-                  required: true,
-                  autofocus: true,
-                  label: false %>
-          </div>
-
-          <div class="form-element form-stack">
-            <%= f.label :cpf, class: "form_label" %>
-            <%= f.text_field :cpf,
-            label: false %>
-          </div>
-
-          <div class="form-element form-stack">
-            <%= f.label :phone_number, class: "form_label" %>
-            <%= f.text_field :phone_number,
-            label: false %>
-          </div>
-
-          <div class="form-element form-stack">
-            <%= f.label :password, class: "form_label" %>
-            <%= f.text_field :password,
-                  required: true,
-                  hint: ("#{@minimum_password_length} characters minimum" if @minimum_password_length),
-                  label: false %>
-          </div>
-
-          <div class="form-element">
-            <%= f.label :password_confirmation, class: "form_label" %>
-            <%= f.text_field :password_confirmation,
-                  required: true,
-                  label: false
-                  %>
-          </div>
-
-        <div class="form-element form-submit">
-          <%= f.submit "Registrar",  class: "signup", id: "signUp" %>
-
-          <button id="goLeft" class="signup off">Já tem uma conta? Faça seu login!</button>
-        </div>
         <% end %>
-
+        <!-- <form id="form-signup" method="post" onsubmit="return false;">
+          <div class="form-element form-stack">
+            <label for="email" class="form-label">Email</label>
+            <input id="email" type="email" name="email">
+          </div>
+          <div class="form-element form-stack">
+            <label for="username-signup" class="form-label">Usuário</label>
+            <input id="username-signup" type="text" name="username">
+          </div>
+          <div class="form-element form-stack">
+            <label for="password-signup" class="form-label">Senha</label>
+            <input id="password-signup" type="password" name="password">
+          </div>
+          <div class="form-element form-checkbox">
+            *
+            <label for="confirm-terms">I agree to the <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a></label>
+          </div>
+        </form> -->
       </div>
     </div>
     <div class="right">
       <div class="content">
+        <%= simple_form_for(resource, as: resource_name, url: session_path(resource_name),id:"form-login") do |f| %>
+          <div class="form-inputs">
+            <div class="form-element form-stack">
+              <label for="username-login" class="form-label">Email</label>
+              <input id="username-login" type="text" name="user[email]" required='required'>
+            </div>
+            <div class="form-element form-stack">
+              <label for="password-login" class="form-label">Senha</label>
+              <input id="password-login" type="password" name="user[password]" required="required">
+            </div>
+            <%= f.input :remember_me, as: :boolean if devise_mapping.rememberable?  %>
+            <div class="form-element form-submit">
+              <button id="logIn" class="login" type="button" name="login" onclick='entrarAjax("button")'>Entrar</button>
+              <button id="goRight" class="login off" name="signup" onclick='event.preventDefault()'>Registrar</button>
+            </div>
 
-        <h2>Login</h2>
-
-        <%= form_with(model: @user, url: user_session_path(@user), local: true, html:{id: "form-login"}) do |f| %>
-
-
-
-          <div class="form-element form-stack">
-          <%= f.label :email, class: "form_label" %>
-          <%= f.text_field :email,
-                  required: true,
-                  autofocus: true,
-                  label: false %>
           </div>
 
-
-
-          <div class="form-element form-stack">
-            <%= f.label :password, class: "form_label" %>
-            <%= f.text_field :password,
-                  required: true,
-                  hint: ("#{@minimum_password_length} characters minimum" if @minimum_password_length),
-                  label: false %>
-          </div>
-
-
-        <div class="form-element form-submit">
-          <%= f.submit "Login",  class: "login", id: "login" %>
-
-          <button id="goRight" class="login off" name="signup">Não tem uma conta? Registre-se agora!</button>
-        </div>
         <% end %>
-
-        <!--
+        <!-- <h2>Login</h2>
         <form id="form-login" method="post" onsubmit="return false;">
           <div class="form-element form-stack">
             <label for="username-login" class="form-label">Email</label>
@@ -128,48 +104,142 @@
           </div>
           <div class="form-element form-submit">
             <button id="logIn" class="login" type="submit" name="login">Entrar</button>
-            <button id="goRight" class="login off" name="signup">Não tem uma conta? Registre-se agora!</button>
+            <button id="goRight" class="login off" name="signup">Registrar</button>
           </div>
-        </form>
--->
+        </form> -->
       </div>
-
     </div>
   </div>
 </div>
 
+
+
+
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
-  /* ====================== *
-   *  Toggle Between        *
-   *  Sign Up / Login       *
-   * ====================== */
+  var AUTH_TOKEN,temp;
+  function entrarAjax(origem){
+    AUTH_TOKEN = $('meta[name=csrf-token]').attr('content');
+    if(origem=='button'){
+      event.preventDefault();
+    }
 
-  $(document).ready(function () {
-    $('#goRight').on('click', function () {
-      $('#slideBox').animate({
-        'marginLeft': '0'
-      });
-      $('.topLayer').animate({
-        'marginLeft': '100%'
-      });
-    });
-    $('#goLeft').on('click', function () {
-      if (window.innerWidth > 769) {
-        $('#slideBox').animate({
-          'marginLeft': '50%'
-        });
-      } else {
-        $('#slideBox').animate({
-          'marginLeft': '20%'
-        });
+    data={
+      "authenticity_token":AUTH_TOKEN,
+      "user[email]":$('#username-login').val(),
+      "user[password]":$('#password-login').val()
+    }
+    $.ajax({
+      type: 'post',
+      dataType:'json',
+      data: data,
+      url:'/users/sign_in',
+      success: function(){
+        window.location.href='/maps';
+      },
+      error: function(XMLHttpRequest, textStatus, errorThrown) {
+        if(XMLHttpRequest.status == 200){
+          window.location.href='/maps';
+        }else{
+          if(origem=='button'){
+            Swal.fire(
+              'Ops!',
+              'Usuário ou senha incorretos!',
+              'error'
+            );
+          }
+
+        }
       }
-      $('.topLayer').animate({
-        'marginLeft': '0'
-      });
     });
-  });
+  }
 
-  setTimeout(function () {
-    $('.loaderContainer').remove();
-  }, 3000);
+  function registrarAjax(){
+    event.preventDefault();
+
+    AUTH_TOKEN = $('meta[name=csrf-token]').attr('content');
+    data={
+      "authenticity_token":AUTH_TOKEN,
+      "user[first_name]":$('#user_first_name').val(),
+      "user[last_name]":$('#user_last_name').val(),
+      "user[email]":$('#user_email').val(),
+      "user[cpf]":$('#user_cpf').val(),
+      "user[phone_number]":$('#user_phone_number').val(),
+      "user[password]":$('#user_password').val(),
+      "user[password_confirmation]":$('#user_password_confirmation').val()
+    }
+    $.ajax({
+      type: 'post',
+      dataType:'json',
+      data: data,
+      url:'/newRegistration',
+      success: function(data){
+        console.log(data);
+        if(data.status==0){
+          let errorList = "Revise os dados: <br />";
+          $(data.users).each(function(i){
+            errorList += data.users[i]+"<br />";
+          });
+          Swal.fire(
+            'Ops!',
+            errorList,
+            'error'
+          );
+        }else{
+          window.location.href='/maps';
+        }
+
+      },
+      error: function(XMLHttpRequest, textStatus, errorThrown) {
+        if(XMLHttpRequest.status == 200){
+          console.log(textStatus);
+          // window.location.href='/show_map';
+        }else{
+          Swal.fire(
+            'Ops!',
+            'Verifique se todos os campos foram preenchidos!',
+            'error'
+          );
+        }
+      }
+    });
+  }
+
+  entrarAjax();
+	/* ====================== *
+	 *  Toggle Between        *
+	 *  Sign Up / Login       *
+	 * ====================== */
+	$(document).ready(function(){
+	  $('#goRight').on('click', function(){
+	    $('#slideBox').animate({
+	      'marginLeft' : '0'
+	    });
+	    $('.topLayer').animate({
+	      'marginLeft' : '100%'
+	    });
+	  });
+	  $('#goLeft').on('click', function(){
+	    if (window.innerWidth > 769){
+	      $('#slideBox').animate({
+	        'marginLeft' : '50%'
+	      });
+	    }
+	    else {
+	      $('#slideBox').animate({
+	        'marginLeft' : '20%'
+	      });
+	    }
+	    $('.topLayer').animate({
+	      'marginLeft': '0'
+	    });
+	  });
+	});
+
+
+	setTimeout(function(){
+		$('.loaderContainer').remove();
+    $('.alert-dismissible .close').click();
+	},3000);
+
 </script>
